@@ -8,13 +8,13 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>org.olafneumann group-randomizer</name>
+    <name>Group Randomizer</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <github.pages.directory>gh-pages</github.pages.directory>
-        <github.pages.cname>regex-generator.olafneumann.org</github.pages.cname>
+        <github.pages.cname>random-group.olafneumann.org</github.pages.cname>
 
         <kotlin.version>1.3.72</kotlin.version>
         <kotlin.code.style>official</kotlin.code.style>
