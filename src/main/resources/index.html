@@ -17,7 +17,7 @@
 </head>
 
 <body class="bg-dark">
-    <div class="container-fluid py-3" id="rg_mainContainer">
+    <div class="container-fluid py-3">
         <div id="ck_container_cookie" class="alert alert-danger fixed-top m-2" role="alert">
             <div class="d-flex justify-content-between">
                 <p class="m-0">This site uses cookies to improve your user experience.</p>
@@ -43,22 +43,8 @@
                 </div>
                 <div class="d-flex justify-content-between">
                     <div>
-                        <h6>Group content</h6>
-                        <div class="list-group">
-                            <div class="list-group-item list-group-item-action d-flex justify-content-between">
-                                <div class="mr-2">First Name</div>
-                                <span class="badge badge-success badge-pill">&#10003;</span>
-                            </div>
-                            <div class="list-group-item list-group-item-action d-flex justify-content-between">
-                                <div class="mr-2">Second Name</div>
-                                <span class="badge badge-danger badge-pill">&#10005;</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <h6>Existing groups</h6>
-
-                        <div class="list-group">
+                        <h6>Groups</h6>
+                        <div class="list-group" id="gr_existing_groups">
                             <button type="button"
                                 class="list-group-item list-group-item-action d-flex justify-content-between">
                                 Enterprise Intergration Platform
@@ -68,14 +54,42 @@
                                 class="list-group-item list-group-item-action d-flex justify-content-between">FIS
                                 Platform Services
                                 <span class="badge badge-primary badge-pill ml-2">7</span></button>
-                            <a href="#" class="list-group-item list-group-item-action bg-secondary text-light">
-                                Create new group
-                            </a>
+                            <form class="list-group-item list-group-item-action bg-secondary text-light">
+                                <div class="form-row">
+                                    <div class="mr-1">
+                                        <input id="gr_new_group_name" type="text" placeholder="Group name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                    </div>
+                                    <div class="col">
+                                        <button id="gr_create_new_group" type="button" class="btn btn-info">Create</button>
+                                    </div>
+                                  </div>                                
+                              </form>
+                        </div>
+                    </div>
+                    <div>
+                        <h6>Group members</h6>
+                        <div class="list-group" id="gr_existing_members">
+                            <button class="list-group-item list-group-item-action d-flex justify-content-between">
+                                First Name
+                                <span class="badge badge-success badge-pill ml-2">&#10003;</span>
+                            </button>
+                            <button class="list-group-item list-group-item-action d-flex justify-content-between">
+                                <div class="ml-2">Second Name</div>
+                                <span class="badge badge-danger badge-pill">&#10005;</span>
+                            </button>
+                            <form class="list-group-item list-group-item-action bg-secondary text-light">
+                                <div class="form-row">
+                                    <div class="mr-1">
+                                        <input id="gr_new_member_name" type="text" placeholder="Member name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                    </div>
+                                    <div class="col">
+                                        <button id="gr_add_group_member" type="button" class="btn btn-info">Add</button>
+                                    </div>
+                                  </div>                                
+                              </form>
                         </div>
                     </div>
                 </div>
-                <small class="form-text text-muted">Select the group members that shall be part of the generated random
-                    text.</small>
             </div>
         </div>
 
@@ -87,7 +101,68 @@
                 <div class="d-flex justify-content-between">
                     <h5>Choose text additions.</h5>
                 </div>
-                Content to be provided.
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h6>Beginning</h6>
+                        <div class="list-group">
+                            <button class="list-group-item list-group-item-action active">
+                                <em class="ml-2">none</em>
+                            </button>
+                            <button class="list-group-item list-group-item-action">
+                                <div class="ml-2">Die heutige Reihenfolge: </div>
+                            </button>
+                            <button class="list-group-item list-group-item-action d-flex justify-content-between">
+                                <div class="ml-2">Heute: </div>
+                            </button>
+                            <form class="list-group-item list-group-item-action">
+                                <div class="form-row">
+                                    <div class="mr-1">
+                                        <input type="text" placeholder="Custom beginning" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                    </div>
+                                  </div>                                
+                              </form>
+                        </div>
+                    </div>
+                    <div>
+                        <h6>Divider</h6>
+                        <div class="list-group">
+                            <button class="list-group-item list-group-item-action">
+                                <em class="ml-2">space</em>
+                            </button>
+                            <button class="list-group-item list-group-item-action">
+                                <div class="ml-2">,</div>
+                            </button>
+                            <button class="list-group-item list-group-item-action d-flex justify-content-between">
+                                <div class="ml-2">:</div>
+                            </button>
+                            <form class="list-group-item list-group-item-action">
+                                <div class="form-row">
+                                    <div class="mr-1">
+                                        <input type="text" placeholder="Custom divider" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                    </div>
+                                  </div>                                
+                              </form>
+                        </div>
+                    </div>
+                    <div>
+                        <h6>Ending</h6>
+                        <div class="list-group">
+                            <button class="list-group-item list-group-item-action active">
+                                <em class="ml-2">none</em>
+                            </button>
+                            <button class="list-group-item list-group-item-action">
+                                <div class="ml-2">.</div>
+                            </button>
+                            <form class="list-group-item list-group-item-action">
+                                <div class="form-row">
+                                    <div class="mr-1">
+                                        <input type="text" placeholder="Custom ending" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                    </div>
+                                  </div>                                
+                              </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -100,7 +175,7 @@
                 <div class="d-flex justify-content-between">
                     <h5>Have your group.</h5>
                 </div>
-                Content to be provided.
+                <div id="gr_result_text" class="p-3 rounded border bg-white text-dark">This should be your result.</div>
             </div>
         </div>
 

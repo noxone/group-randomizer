@@ -27,7 +27,7 @@
             <artifactId>kotlin-stdlib-js</artifactId>
             <version>${kotlin.version}</version>
         </dependency>
-        
+
         <dependency>
             <groupId>org.jetbrains.kotlinx</groupId>
             <artifactId>kotlinx-html-js</artifactId>
@@ -188,7 +188,7 @@
                     </execution>
                 </executions>
             </plugin>
-            
+
             <!-- unpack kotlin.js to target/classes/lib for example index.html -->
             <plugin>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -201,7 +201,7 @@
                         </goals>
                         <configuration>
                             <includeArtifactIds>kotlin-stdlib-js</includeArtifactIds>
-                            <outputDirectory>${build.outputDirectory}/lib</outputDirectory>
+                            <outputDirectory>${project.build.outputDirectory}/lib</outputDirectory>
                             <includes>**\/*.js</includes>
                             <excludes>**\/*.meta.js</excludes> <!-- we don't need meta.js files in runtime -->
                         </configuration>
@@ -223,7 +223,7 @@
                 </executions>
             </plugin>
 
-            
+
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
                 <executions>
@@ -252,7 +252,7 @@
                 </executions>
             </plugin>
 
-            
+
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
@@ -264,7 +264,6 @@
                         </goals>
                         <configuration>
                             <target>
-                                <echo message="Create CNAME"/>
                                 <echo file="${basedir}/${github.pages.directory}/CNAME">
                                     <![CDATA[${github.pages.cname}]]></echo>
                             </target>

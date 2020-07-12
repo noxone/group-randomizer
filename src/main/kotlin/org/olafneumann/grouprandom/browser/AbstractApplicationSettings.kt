@@ -12,12 +12,6 @@ internal abstract class AbstractApplicationSettings() {
         private const val KEY_CONSENT = "consent"
     }
 
-    init {
-        if (!hasUserConsent) {
-            loadIntermediateFromLocalStorage()
-            localStorage.clear()
-        }
-    }
 
     // a map to store settings temporarily while the user did not consent
     private val intermediate = mutableMapOf<String, String>()
@@ -43,8 +37,21 @@ internal abstract class AbstractApplicationSettings() {
             intermediate[key] = value
         }
     }
+    protected fun listKeys(): Sequence<String> =
+            if (hasUserConsent) {
+                localStorage.length.downTo(0).asSequence().mapNotNull { localStorage.key(it) }
+            } else {
+                intermediate.keys.asSequence()
+            }
+
     protected fun set(key: String, value: Int) = set(key, value.toString())
     protected fun set(key: String, value: Boolean) = set(key, value.toString())
+    protected fun set(key: String, value: Any) = set(key, value.toJSON())
+    protected fun <T> getAny(key: String) = get(key)?.toAny<T>()
+
+
+    private fun Any.toJSON() = JSON.stringify(this)
+    private fun <T> String.toAny() = JSON.parse<T>(this)
 
     // store the info whether the user allows storing cookies or not
     var hasUserConsent: Boolean
@@ -57,4 +64,11 @@ internal abstract class AbstractApplicationSettings() {
                 loadIntermediateFromLocalStorage()
             }
         }
+
+    init {
+        if (!hasUserConsent) {
+            loadIntermediateFromLocalStorage()
+            localStorage.clear()
+        }
+    }
 }
