@@ -1,6 +1,5 @@
 package org.olafneumann.grouprandom
 
-import org.olafneumann.grouprandom.browser.ApplicationSettings
 import org.olafneumann.grouprandom.ui.UiController
 import kotlin.browser.window
 

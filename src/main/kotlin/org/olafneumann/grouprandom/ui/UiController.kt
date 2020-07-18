@@ -2,7 +2,7 @@ package org.olafneumann.grouprandom.ui
 
 import org.olafneumann.grouprandom.Group
 import org.olafneumann.grouprandom.Member
-import org.olafneumann.grouprandom.browser.ApplicationSettings
+import org.olafneumann.grouprandom.ApplicationSettings
 import org.olafneumann.grouprandom.browser.CookieBanner
 
 class UiController : DisplayContract.Controller {
@@ -16,7 +16,7 @@ class UiController : DisplayContract.Controller {
     }
 
     private fun fillUi() {
-        view.showGroups(ApplicationSettings.groups)
+        view.showGroups(ApplicationSettings.getGroups())
     }
 
     override fun createGroup(name: String): Group? {

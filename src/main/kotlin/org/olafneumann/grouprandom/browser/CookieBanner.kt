@@ -1,5 +1,6 @@
 package org.olafneumann.grouprandom.browser
 
+import org.olafneumann.grouprandom.ApplicationSettings
 import org.olafneumann.regex.generator.js.jQuery
 import org.w3c.dom.HTMLButtonElement
 import org.w3c.dom.HTMLDivElement

@@ -65,7 +65,7 @@ class HtmlView(
         // TODO add listener for member counter
         +group.name
         span("badge badge-primary badge-pill ml-2") {
-            +group.members.members.size.toString()
+            +group.members.size.toString()
         }
     }
 
