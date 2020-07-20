@@ -790,23 +790,7 @@ if (typeof kotlin === 'undefined') {
       return Unit;
     };
   }
-  function HtmlView$createMemberItem$lambda$lambda$lambda$lambda(closure$member, this$HtmlView) {
-    return function (event) {
-      if (window.confirm("Do you really want to remove member '" + closure$member.name + "'?")) {
-        this$HtmlView.presenter_0.removeMember_j0ulny$(closure$member);
-      }event.stopPropagation();
-      return Unit;
-    };
-  }
   function HtmlView$createMemberItem$lambda$lambda$lambda(closure$member, this$HtmlView) {
-    return function ($receiver) {
-      set_title($receiver, "Remove member '" + closure$member.name + "'.");
-      $receiver.unaryPlus_pdl1vz$('\uD83D\uDDD1');
-      set_onClickFunction($receiver, HtmlView$createMemberItem$lambda$lambda$lambda$lambda(closure$member, this$HtmlView));
-      return Unit;
-    };
-  }
-  function HtmlView$createMemberItem$lambda$lambda$lambda_0(closure$member, this$HtmlView) {
     return function ($receiver) {
       $receiver.unaryPlus_pdl1vz$(this$HtmlView.getIconText_0(closure$member));
       return Unit;
@@ -814,21 +798,37 @@ if (typeof kotlin === 'undefined') {
   }
   function HtmlView$createMemberItem$lambda$lambda_0(closure$member, this$HtmlView) {
     return function ($receiver) {
-      var classes = 'gr-action-link ml-1';
+      var classes = 'badge badge-pill mr-1 ' + this$HtmlView.getBadgeClass_0(closure$member);
       var block = HtmlView$createMemberItem$lambda$lambda$lambda(closure$member, this$HtmlView);
-      visitTag(new A_init(attributesMapOf(['href', null, 'target', null, 'class', classes]), $receiver.consumer), visit$lambda(block));
-      var classes_0 = 'badge badge-pill ml-1 ' + this$HtmlView.getBadgeClass_0(closure$member);
-      var block_0 = HtmlView$createMemberItem$lambda$lambda$lambda_0(closure$member, this$HtmlView);
-      visitTag(new SPAN_init(attributesMapOf_0('class', classes_0), $receiver.consumer), visit$lambda_0(block_0));
+      visitTag(new SPAN_init(attributesMapOf_0('class', classes), $receiver.consumer), visit$lambda_0(block));
+      $receiver.unaryPlus_pdl1vz$(closure$member.name);
       return Unit;
     };
   }
-  function HtmlView$createMemberItem$lambda(closure$member, this$HtmlView) {
+  function HtmlView$createMemberItem$lambda$lambda$lambda_0(closure$member, this$HtmlView) {
+    return function (event) {
+      if (window.confirm("Do you really want to remove member '" + closure$member.name + "'?")) {
+        this$HtmlView.presenter_0.removeMember_j0ulny$(closure$member);
+      }event.stopPropagation();
+      return Unit;
+    };
+  }
+  function HtmlView$createMemberItem$lambda$lambda_1(closure$member, this$HtmlView) {
     return function ($receiver) {
-      $receiver.unaryPlus_pdl1vz$(closure$member.name);
+      set_title($receiver, "Remove member '" + closure$member.name + "'.");
+      $receiver.unaryPlus_pdl1vz$('\uD83D\uDDD1');
+      set_onClickFunction($receiver, HtmlView$createMemberItem$lambda$lambda$lambda_0(closure$member, this$HtmlView));
+      return Unit;
+    };
+  }
+  function HtmlView$createMemberItem$lambda(this$HtmlView, closure$member) {
+    return function ($receiver) {
       set_onClickFunction($receiver, HtmlView$createMemberItem$lambda$lambda(this$HtmlView, closure$member));
       var block = HtmlView$createMemberItem$lambda$lambda_0(closure$member, this$HtmlView);
-      visitTag(new DIV_init(attributesMapOf_0('class', 'ml-1'), $receiver.consumer), visit$lambda_1(block));
+      visitTag(new DIV_init(attributesMapOf_0('class', null), $receiver.consumer), visit$lambda_1(block));
+      var classes = 'gr-action-link ml-1';
+      var block_0 = HtmlView$createMemberItem$lambda$lambda_1(closure$member, this$HtmlView);
+      visitTag(new A_init(attributesMapOf(['href', null, 'target', null, 'class', classes]), $receiver.consumer), visit$lambda(block_0));
       return Unit;
     };
   }
@@ -837,7 +837,7 @@ if (typeof kotlin === 'undefined') {
     var type = ButtonType.button;
     var classes = 'list-group-item list-group-item-action d-flex justify-content-between gr-action-link-container';
     var tmp$;
-    return Kotlin.isType(tmp$ = visitTagAndFinalize(new BUTTON_init(attributesMapOf(['formenctype', null != null ? enumEncode(null) : null, 'formmethod', null != null ? enumEncode(null) : null, 'name', null, 'type', type != null ? enumEncode(type) : null, 'class', classes]), $receiver), $receiver, visitAndFinalize$lambda(HtmlView$createMemberItem$lambda(member, this))), HTMLButtonElement_0) ? tmp$ : throwCCE();
+    return Kotlin.isType(tmp$ = visitTagAndFinalize(new BUTTON_init(attributesMapOf(['formenctype', null != null ? enumEncode(null) : null, 'formmethod', null != null ? enumEncode(null) : null, 'name', null, 'type', type != null ? enumEncode(type) : null, 'class', classes]), $receiver), $receiver, visitAndFinalize$lambda(HtmlView$createMemberItem$lambda(this, member))), HTMLButtonElement_0) ? tmp$ : throwCCE();
   };
   HtmlView.prototype.getBadgeClass_0 = function ($receiver) {
     return $receiver.active ? 'badge-success' : 'badge-danger';
