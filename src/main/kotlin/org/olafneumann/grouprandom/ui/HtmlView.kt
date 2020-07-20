@@ -107,23 +107,23 @@ class HtmlView(
         type = ButtonType.button,
         classes = "list-group-item list-group-item-action d-flex justify-content-between gr-action-link-container"
     ) {
-        +member.name
         onClickFunction = {
             presenter.toggleMemberActivation(member)
         }
-        div("ml-1") {
-            a(classes = "gr-action-link ml-1") {
-                title = "Remove member '${member.name}'."
-                +"\uD83D\uDDD1"
-                onClickFunction = { event ->
-                    if (window.confirm("Do you really want to remove member '${member.name}'?")) {
-                        presenter.removeMember(member)
-                    }
-                    event.stopPropagation()
-                }
-            }
-            span("badge badge-pill ml-1 ${member.getBadgeClass()}") {
+        div {
+            span("badge badge-pill mr-1 ${member.getBadgeClass()}") {
                 +member.getIconText()
+            }
+            +member.name
+        }
+        a(classes = "gr-action-link ml-1") {
+            title = "Remove member '${member.name}'."
+            +"\uD83D\uDDD1"
+            onClickFunction = { event ->
+                if (window.confirm("Do you really want to remove member '${member.name}'?")) {
+                    presenter.removeMember(member)
+                }
+                event.stopPropagation()
             }
         }
     }
