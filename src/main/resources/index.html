@@ -1,25 +1,256 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset='utf-8'>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
     <!-- include kotlin runtime -->
     <script type="text/javascript" src="lib/kotlin.js"></script>
     <script type="text/javascript" src="lib/kotlinx-html-js.js"></script>
 
+    <link rel="stylesheet" href="group-randomizer.css">
+
     <title>Group Randomizer</title>
 </head>
 
-<body>
+<body class="bg-dark">
+    <div class="container-fluid py-3">
+        <div id="ck_container_cookie" class="alert alert-danger fixed-top m-2" role="alert">
+            <div class="d-flex justify-content-between">
+                <p class="m-0">This site uses cookies to improve your user experience.</p>
+                <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                    <button id="ck_btn_reject" type="button" class="btn btn-danger">Reject</button>
+                    <button id="ck_btn_accept" type="button" class="btn btn-success">Accept</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="jumbotron bg-info">
+            <h1 class="display-4"><span id="rg-title">Group Randomizer</span></h1>
+            <!--<p class="lead d-none d-sm-block">Creating <em>regular expressions</em> is easy again!</p>-->
+        </div>
+
+        <div class="row no-gutters bg-light mt-3 pr-4 rounded position-relative" id="rg_input_container">
+            <div class="col-sm-1 p-4 d-none d-sm-none d-md-block text-center">
+                <h3 class="display-3 text-secondary">1</h3>
+            </div>
+            <div class="col-12 col-md-11 py-4 pl-4">
+                <div class="d-flex justify-content-between">
+                    <h5>Select a group.</h5>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h6>Groups</h6>
+                        <div class="list-group" id="gr_existing_groups">
+                            <button type="button"
+                                class="list-group-item list-group-item-action d-flex justify-content-between gr-delete-link-container">
+                                Enterprise Intergration Platform
+                                <div class="ml-2">
+                                    <a class="gr-delete-link" onclick="javascript:alert('hallo')">abcd</a>
+                                    <span class="badge badge-primary badge-pill ml-2">8</span>
+                                </div>
+                            </button>
+                            <div type="button"
+                                class="list-group-item list-group-item-action d-flex justify-content-between">FIS
+                                Platform Services
+                                <div>
+                                    <a class="mr-1">X</a>
+                                    <span class="badge badge-primary badge-pill ml-2">7</span>
+                                </div>
+                            </div>
+                            <div class="list-group-item list-group-item-action bg-secondary text-light gr-allways-there">
+                                <div class="form-row">
+                                    <div class="mr-1">
+                                        <input id="gr_new_group_name" type="text" placeholder="Group name"
+                                            class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                    </div>
+                                    <div class="col">
+                                        <button id="gr_create_new_group" type="button"
+                                            class="btn btn-info">Create</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h6>Group members</h6>
+                        <div class="list-group" id="gr_existing_members">
+                            <button class="list-group-item list-group-item-action d-flex justify-content-between">
+                                First Name
+                                <span class="badge badge-success badge-pill ml-2">&#10003;</span>
+                            </button>
+                            <button class="list-group-item list-group-item-action d-flex justify-content-between">
+                                <div class="ml-2">Second Name</div>
+                                <span class="badge badge-danger badge-pill">&#10005;</span>
+                            </button>
+                            <div class="list-group-item list-group-item-action bg-secondary text-light gr-allways-there">
+                                <div class="form-row">
+                                    <div class="mr-1">
+                                        <input id="gr_new_member_name" type="text" placeholder="Member name"
+                                            class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                    </div>
+                                    <div class="col">
+                                        <button id="gr_add_group_member" type="button" class="btn btn-info">Add</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row no-gutters bg-light mt-3 pr-4 rounded position-relative" id="rg_input_container">
+            <div class="col-sm-1 p-4 d-none d-sm-none d-md-block text-center">
+                <h3 class="display-3 text-secondary">2</h3>
+            </div>
+            <div class="col-12 col-md-11 py-4 pl-4">
+                <div class="d-flex justify-content-between">
+                    <h5>Choose text additions.</h5>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h6>Beginning</h6>
+                        <div class="list-group">
+                            <button class="list-group-item list-group-item-action active">
+                                <em class="ml-2">none</em>
+                            </button>
+                            <button class="list-group-item list-group-item-action">
+                                <div class="ml-2">Die heutige Reihenfolge: </div>
+                            </button>
+                            <button class="list-group-item list-group-item-action d-flex justify-content-between">
+                                <div class="ml-2">Heute: </div>
+                            </button>
+                            <form class="list-group-item list-group-item-action">
+                                <div class="form-row">
+                                    <div class="mr-1">
+                                        <input type="text" placeholder="Custom beginning" class="form-control"
+                                            id="exampleInputEmail1" aria-describedby="emailHelp">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div>
+                        <h6>Divider</h6>
+                        <div class="list-group">
+                            <button class="list-group-item list-group-item-action">
+                                <em class="ml-2">space</em>
+                            </button>
+                            <button class="list-group-item list-group-item-action">
+                                <div class="ml-2">,</div>
+                            </button>
+                            <button class="list-group-item list-group-item-action d-flex justify-content-between">
+                                <div class="ml-2">:</div>
+                            </button>
+                            <form class="list-group-item list-group-item-action">
+                                <div class="form-row">
+                                    <div class="mr-1">
+                                        <input type="text" placeholder="Custom divider" class="form-control"
+                                            id="exampleInputEmail1" aria-describedby="emailHelp">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div>
+                        <h6>Ending</h6>
+                        <div class="list-group">
+                            <button class="list-group-item list-group-item-action active">
+                                <em class="ml-2">none</em>
+                            </button>
+                            <button class="list-group-item list-group-item-action">
+                                <div class="ml-2">.</div>
+                            </button>
+                            <form class="list-group-item list-group-item-action">
+                                <div class="form-row">
+                                    <div class="mr-1">
+                                        <input type="text" placeholder="Custom ending" class="form-control"
+                                            id="exampleInputEmail1" aria-describedby="emailHelp">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row no-gutters bg-light mt-3 pr-4 rounded position-relative" id="rg_input_container">
+            <div class="col-sm-1 p-4 d-none d-sm-none d-md-block text-center">
+                <h3 class="display-3 text-secondary">3</h3>
+            </div>
+            <div class="col-12 col-md-11 py-4 pl-4">
+                <div class="d-flex justify-content-between">
+                    <h5>Have your group.</h5>
+                </div>
+                <div id="gr_result_text" class="p-3 rounded border bg-white text-dark">This should be your result.</div>
+            </div>
+        </div>
 
 
 
 
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-            crossorigin="anonymous"></script>
-    <!-- sources of regex generator -->
+
+
+
+        <!-- Footer -->
+        <footer
+            class="page-footer font-small row no-gutters bg-dark text-muted border border-secondary mt-4 p-4 rounded">
+            <h5 class="text-uppercase" style="width: 100%">Group Randomizer</h5>
+            <div class="text-center text-md-left collapse show" id="footerContent">
+                <div class="row">
+                    <div class="col-md-6 mt-md-0 mt-3">
+                        <p>This page is intended to provide a very simple randomizer to find a sort order for your daily
+                            stand up meeting.
+                        </p>
+                        <p>Find the project sources at <a href="https://github.com/noxone/group-randomizer"
+                                target="_blank">Github</a>
+                        </p>
+                    </div>
+                    <hr class="clearfix w-100 d-md-none pb-3 border-secondary">
+                    <div class="col-md-3 mb-md-0 mb-3">
+                        <h5>Some content</h5>
+                        <ul class="list-unstyled">
+                            <li>Here</li>
+                            <li>And here</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 mb-md-0 mb-3">
+                        <h5>This project is built using</h5>
+                        <ul class="list-unstyled">
+                            <li><a href="https://kotlinlang.org/" target="_blank">Kotlin</a></li>
+                            <li><a href="https://getbootstrap.com" target="_blank">Bootstrap</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Copyright -->
+            <div class="text-center pt-3">
+                &copy; 2020 Copyright <a href="https://github.com/noxone/" target="_blank">Olaf Neumann</a>
+            </div>
+        </footer>
+
+    </div> <!-- container -->
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+
+    <!-- sources of group randomizer -->
     <script type="text/javascript" src="group-randomizer.js"></script>
 </body>
 

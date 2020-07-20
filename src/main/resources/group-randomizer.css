@@ -1,0 +1,17 @@
+
+a.gr-action-link {
+    /*color: green;*/
+}
+
+.gr-action-link-container a.gr-action-link {
+    display: none;
+    opacity: 0.5;
+}
+
+.gr-action-link-container:hover a.gr-action-link {
+    display: inline-block;
+}
+
+a.gr-action-link:hover {
+    opacity: 1;
+}
