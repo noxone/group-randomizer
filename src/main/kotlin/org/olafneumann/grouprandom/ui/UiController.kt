@@ -18,6 +18,7 @@ class UiController : DisplayContract.Controller {
     private fun fillUi() {
         view.showGroups(ApplicationSettings.getGroups())
         view.showMembers(group?.members ?: emptyList())
+        view.selectGroup(group)
     }
 
     override fun createGroup(name: String): Group? {
@@ -25,7 +26,7 @@ class UiController : DisplayContract.Controller {
             return null
         }
 
-        val validGroupName = name.trim().replace(Regex("\\s+"), " ")
+        val validGroupName = name.toValidName()
         val group = ApplicationSettings.getGroup(validGroupName) ?: Group(validGroupName)
         ApplicationSettings.setGroup(group)
 
@@ -53,18 +54,26 @@ class UiController : DisplayContract.Controller {
         }
 
     override fun addMemberToGroup(name: String) {
-        group?.members?.add(Member(name))
+        val validName = name.toValidName()
+        if (group?.members?.find { it.name == validName } == null) {
+            group?.members?.add(Member(validName))
+        }
         group?.let { ApplicationSettings.setGroup(it) }
         view.newMemberName = ""
         fillUi()
     }
 
     override fun removeMember(member: Member) {
-        TODO("Not yet implemented")
+        group?.members?.removeAll { it.name == member.name }
+        group?.let { ApplicationSettings.setGroup(it) }
+        fillUi()
     }
 
     override fun toggleMemberActivation(member: Member) {
         member.active = !member.active
-        // TODO fire event
+        group?.let { ApplicationSettings.setGroup(it) }
+        fillUi()
     }
+
+    private fun String.toValidName() = replace(Regex("\\s+"), " ").trim()
 }

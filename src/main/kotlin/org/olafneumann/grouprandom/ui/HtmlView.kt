@@ -11,6 +11,7 @@ import org.w3c.dom.*
 import org.w3c.dom.events.Event
 import org.w3c.dom.events.KeyboardEvent
 import kotlin.browser.document
+import kotlin.browser.window
 
 class HtmlView(
     private val presenter: DisplayContract.Controller
@@ -61,8 +62,9 @@ class HtmlView(
 
     private var memberElements = emptyMap<Member, HTMLButtonElement>()
     override fun showMembers(members: List<Member>) {
-        divListGroupMembers.removeChildren { it !is HTMLFormElement }
-        memberElements = members.reversed()
+        divListGroupMembers.removeChildren { !it.classList.contains("gr-allways-there") }
+        memberElements = members.sortedBy { it.name }
+            .reversed()
             .map { it to createMemberItem(it) }
             .toMap()
         memberElements.forEach { divListGroupMembers.prepend(it.value) }
@@ -89,7 +91,9 @@ class HtmlView(
                 title = "Delete group '${group.name}'."
                 +"\uD83D\uDDD1"
                 onClickFunction = { event ->
-                    presenter.removeGroup(group)
+                    if (window.confirm("Do you really want to delete group '${group.name}'?")) {
+                        presenter.removeGroup(group)
+                    }
                     event.stopPropagation()
                 }
             }
@@ -104,12 +108,17 @@ class HtmlView(
         classes = "list-group-item list-group-item-action d-flex justify-content-between gr-action-link-container"
     ) {
         +member.name
+        onClickFunction = {
+            presenter.toggleMemberActivation(member)
+        }
         div("ml-1") {
             a(classes = "gr-action-link ml-1") {
                 title = "Remove member '${member.name}'."
                 +"\uD83D\uDDD1"
                 onClickFunction = { event ->
-                    presenter.removeMember(member)
+                    if (window.confirm("Do you really want to remove member '${member.name}'?")) {
+                        presenter.removeMember(member)
+                    }
                     event.stopPropagation()
                 }
             }
@@ -120,7 +129,7 @@ class HtmlView(
     }
 
     private fun Member.getBadgeClass() = if (active) "badge-success" else "badge-danger"
-    private fun Member.getIconText() = if (active) "&#10003;" else "&#10005;"
+    private fun Member.getIconText() = if (active) "\u2713" else "\u2715"
 
 
     companion object {
