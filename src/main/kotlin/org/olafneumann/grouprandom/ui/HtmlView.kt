@@ -1,17 +1,19 @@
 package org.olafneumann.grouprandom.ui
 
-import kotlinx.html.ButtonType
+import kotlinx.html.*
 import kotlinx.html.dom.create
 import kotlinx.html.js.button
-import kotlinx.html.span
+import kotlinx.html.js.onClickFunction
 import org.olafneumann.grouprandom.Group
 import org.olafneumann.grouprandom.Member
 import org.olafneumann.grouprandom.browser.HtmlHelper
 import org.w3c.dom.*
+import org.w3c.dom.events.Event
+import org.w3c.dom.events.KeyboardEvent
 import kotlin.browser.document
 
 class HtmlView(
-        private val presenter: DisplayContract.Controller
+    private val presenter: DisplayContract.Controller
 ) : DisplayContract.View {
 
     // HTML elements we need to change
@@ -23,8 +25,13 @@ class HtmlView(
     private val btnAddGroupMember = HtmlHelper.getElementById<HTMLButtonElement>(ID_BUTTON_ADD_GROUP_MEMBER)
 
     init {
-        btnCreateNewGroup.addEventListener(EVENT_CLICK, { presenter.createGroup(newGroupName) })
-        btnAddGroupMember.addEventListener(EVENT_CLICK, { presenter.addMemberToGroup(newMemberName) })
+        val stopPropagation: (Event) -> Unit = { it.stopPropagation() }
+        val createGroupCallback: (Event) -> Unit = { presenter.createGroup(newGroupName) }
+        val addMemberToGroupCallback: (Event) -> Unit = { presenter.addMemberToGroup(newMemberName) }
+        btnCreateNewGroup.addEventListener(EVENT_CLICK, createGroupCallback)
+        inputNewGroupName.addEventListener(EVENT_KEYUP, stopPropagation)
+        btnAddGroupMember.addEventListener(EVENT_CLICK, addMemberToGroupCallback)
+        inputNewGroupMember.addEventListener(EVENT_KEYUP, stopPropagation)
     }
 
     override var newGroupName: String
@@ -39,42 +46,76 @@ class HtmlView(
             inputNewGroupMember.value = value
         }
 
+    private var groupElements = emptyMap<Group, HTMLButtonElement>()
     override fun showGroups(groups: List<Group>) {
-        divListExistingGroups.removeChildren { it !is HTMLFormElement }
-        groups.reversed()
-                .map { createGroupItem(it) }
-                .forEach { divListExistingGroups.prepend(it) }
+        divListExistingGroups.removeChildren { !it.classList.contains("gr-allways-there") }
+        groupElements = groups.reversed()
+            .map { it to createGroupItem(it) }
+            .toMap()
+        groupElements.forEach { divListExistingGroups.prepend(it.value) }
     }
 
+    override fun selectGroup(group: Group?) =
+        groupElements.forEach { it.value.classList.toggle("active", group != null && it.key == group) }
+
+
+    private var memberElements = emptyMap<Member, HTMLButtonElement>()
     override fun showMembers(members: List<Member>) {
         divListGroupMembers.removeChildren { it !is HTMLFormElement }
-        members.reversed()
-                .mapNotNull { createMemberItem(it) }
-                .forEach { divListGroupMembers.prepend(it) }
+        memberElements = members.reversed()
+            .map { it to createMemberItem(it) }
+            .toMap()
+        memberElements.forEach { divListGroupMembers.prepend(it.value) }
     }
 
     private fun Element.removeChildren(filter: (Element) -> Boolean) =
-            childElementCount
-                    .downTo(0)
-                    .mapNotNull { children[it] }
-                    .filter(filter)
-                    .forEach { removeChild(it) }
+        childElementCount
+            .downTo(0)
+            .mapNotNull { children[it] }
+            .filter(filter)
+            .forEach { removeChild(it) }
 
-    private fun createGroupItem(group: Group) = document.create.button(type = ButtonType.button,
-            classes = "list-group-item list-group-item-action d-flex justify-content-between") {
+    private fun createGroupItem(group: Group) = document.create.button(
+        type = ButtonType.button,
+        classes = "list-group-item list-group-item-action d-flex justify-content-between gr-action-link-container"
+    ) {
         // TODO add listener for member counter
         +group.name
-        span("badge badge-primary badge-pill ml-2") {
-            +group.members.size.toString()
+        onClickFunction = {
+            presenter.group = group
+        }
+        div("ml-1") {
+            a(classes = "gr-action-link ml-1") {
+                title = "Delete group '${group.name}'."
+                +"\uD83D\uDDD1"
+                onClickFunction = { event ->
+                    presenter.removeGroup(group)
+                    event.stopPropagation()
+                }
+            }
+            span("badge badge-primary badge-pill ml-1") {
+                +group.members.size.toString()
+            }
         }
     }
 
-    private fun createMemberItem(member: Member) = document.create.button(type = ButtonType.button,
-            classes = "list-group-item list-group-item-action d-flex justify-content-between") {
-        // TODO add listener for member activation
+    private fun createMemberItem(member: Member) = document.create.button(
+        type = ButtonType.button,
+        classes = "list-group-item list-group-item-action d-flex justify-content-between gr-action-link-container"
+    ) {
         +member.name
-        span("badge badge-pill ml-2 ${member.getBadgeClass()}") {
-            +member.getIconText()
+        div("ml-1") {
+            a(classes = "gr-action-link ml-1") {
+                title = "Remove member '${member.name}'."
+                +"\uD83D\uDDD1"
+                onClickFunction = { event ->
+                    presenter.removeMember(member)
+                    event.stopPropagation()
+                }
+            }
+            span("badge badge-pill ml-1 ${member.getBadgeClass()}") {
+                +member.getIconText()
+            }
         }
     }
 
@@ -91,6 +132,7 @@ class HtmlView(
 
         const val EVENT_CLICK = "click"
         const val EVENT_INPUT = "input"
+        const val EVENT_KEYUP = "keyup"
         const val EVENT_MOUSE_ENTER = "mouseenter"
         const val EVENT_MOUSE_LEAVE = "mouseleave"
 
@@ -101,6 +143,21 @@ class HtmlView(
         const val ID_INPUT_NEW_MEMBER_NAME = "gr_new_member_name"
         const val ID_BUTTON_ADD_GROUP_MEMBER = "gr_add_group_member"
         const val ID_DIV_RESULT_TEXT = "gr_result_text"
+
+        /*private fun toKeyUp(callback: ((Event) -> Unit)): (KeyboardEvent) -> Unit {
+            return  {event ->
+                if (event.keyCode == 13) {
+                    callback.invoke(event)
+                }
+            }
+        }*/
+        private fun ((Event) -> Unit).toKeyUpOnEnter(): (Event) -> Unit {
+            return { event: Event ->
+                if (event is KeyboardEvent && event.keyCode == 13) {
+                    this(event)
+                }
+            }
+        }
     }
 }
 

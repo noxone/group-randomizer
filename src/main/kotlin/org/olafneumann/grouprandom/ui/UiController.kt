@@ -17,6 +17,7 @@ class UiController : DisplayContract.Controller {
 
     private fun fillUi() {
         view.showGroups(ApplicationSettings.getGroups())
+        view.showMembers(group?.members ?: emptyList())
     }
 
     override fun createGroup(name: String): Group? {
@@ -30,7 +31,16 @@ class UiController : DisplayContract.Controller {
 
         fillUi()
         view.newGroupName = ""
+        this.group = group
         return group
+    }
+
+    override fun removeGroup(group: Group) {
+        ApplicationSettings.deleteGroup(group.name)
+        if (group == this.group) {
+            this.group = null
+        }
+        fillUi()
     }
 
     private var selectedGroup: Group? = null
@@ -38,11 +48,19 @@ class UiController : DisplayContract.Controller {
         get() = selectedGroup
         set(value) {
             selectedGroup = value
+            view.selectGroup(value)
+            view.showMembers(value?.members ?: emptyList())
         }
 
     override fun addMemberToGroup(name: String) {
         group?.members?.add(Member(name))
+        group?.let { ApplicationSettings.setGroup(it) }
         view.newMemberName = ""
+        fillUi()
+    }
+
+    override fun removeMember(member: Member) {
+        TODO("Not yet implemented")
     }
 
     override fun toggleMemberActivation(member: Member) {

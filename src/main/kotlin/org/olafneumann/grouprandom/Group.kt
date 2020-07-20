@@ -1,10 +1,9 @@
 package org.olafneumann.grouprandom
 
 data class Group(
-        var name: String
-) {
-    val members: MutableList<Member> get() = mutableListOf()
-}
+        var name: String,
+        val members: MutableList<Member> = mutableListOf()
+)
 
 data class Member(
         var name: String,

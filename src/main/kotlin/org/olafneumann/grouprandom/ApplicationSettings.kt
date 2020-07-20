@@ -49,4 +49,8 @@ internal object ApplicationSettings : AbstractApplicationSettings() {
     }
 
     fun getGroup(name: String): Group? = getGroups().find { it.name == name }
+
+    fun deleteGroup(name: String) {
+        setMutableGroups(getMutableGroups().filter { name != it.name })
+    }
 }
