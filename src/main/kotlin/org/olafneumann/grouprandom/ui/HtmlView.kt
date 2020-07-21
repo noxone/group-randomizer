@@ -19,20 +19,22 @@ class HtmlView(
 
     // HTML elements we need to change
     private val divListExistingGroups = HtmlHelper.getElementById<HTMLDivElement>(ID_LIST_EXISTING_GROUPS)
+    private val formAddGroup = HtmlHelper.getElementById<HTMLFormElement>(ID_FORM_ADD_GROUP)
     private val inputNewGroupName = HtmlHelper.getElementById<HTMLInputElement>(ID_INPUT_NEW_GROUP_NAME)
     private val btnCreateNewGroup = HtmlHelper.getElementById<HTMLButtonElement>(ID_BUTTON_NEW_GROUP)
     private val divListGroupMembers = HtmlHelper.getElementById<HTMLDivElement>(ID_LIST_EXISTING_MEMBERS)
+    private val formAddMember = HtmlHelper.getElementById<HTMLFormElement>(ID_FORM_ADD_MEMBER)
     private val inputNewGroupMember = HtmlHelper.getElementById<HTMLInputElement>(ID_INPUT_NEW_MEMBER_NAME)
     private val btnAddGroupMember = HtmlHelper.getElementById<HTMLButtonElement>(ID_BUTTON_ADD_GROUP_MEMBER)
+    private val divResultText = HtmlHelper.getElementById<HTMLDivElement>(ID_DIV_RESULT_TEXT)
 
     init {
-        val stopPropagation: (Event) -> Unit = { it.stopPropagation() }
         val createGroupCallback: (Event) -> Unit = { presenter.createGroup(newGroupName) }
         val addMemberToGroupCallback: (Event) -> Unit = { presenter.addMemberToGroup(newMemberName) }
+        formAddGroup.addEventListener(EVENT_SUBMIT, createGroupCallback)
+        formAddMember.addEventListener(EVENT_SUBMIT, addMemberToGroupCallback)
         btnCreateNewGroup.addEventListener(EVENT_CLICK, createGroupCallback)
-        inputNewGroupName.addEventListener(EVENT_KEYUP, stopPropagation)
         btnAddGroupMember.addEventListener(EVENT_CLICK, addMemberToGroupCallback)
-        inputNewGroupMember.addEventListener(EVENT_KEYUP, stopPropagation)
     }
 
     override var newGroupName: String
@@ -47,9 +49,14 @@ class HtmlView(
             inputNewGroupMember.value = value
         }
 
+    override fun focusNewGroupEditor() = inputNewGroupName.focus()
+    override fun focusNewMemberEditor() = inputNewGroupMember.focus()
+
+    private fun Element.shouldBeRemoved(): Boolean = !(this is HTMLFormElement || this.classList.contains("gr-always-there"))
+
     private var groupElements = emptyMap<Group, HTMLButtonElement>()
     override fun showGroups(groups: List<Group>) {
-        divListExistingGroups.removeChildren { !it.classList.contains("gr-allways-there") }
+        divListExistingGroups.removeChildren { it.shouldBeRemoved() }
         groupElements = groups.reversed()
             .map { it to createGroupItem(it) }
             .toMap()
@@ -62,12 +69,37 @@ class HtmlView(
 
     private var memberElements = emptyMap<Member, HTMLButtonElement>()
     override fun showMembers(members: List<Member>) {
-        divListGroupMembers.removeChildren { !it.classList.contains("gr-allways-there") }
+        divListGroupMembers.removeChildren { it.shouldBeRemoved() }
         memberElements = members.sortedBy { it.name }
             .reversed()
             .map { it to createMemberItem(it) }
             .toMap()
         memberElements.forEach { divListGroupMembers.prepend(it.value) }
+    }
+
+    override val prefix: String
+        get() = ""
+
+    override val postfix: String
+        get() = ""
+
+    override val separator: String
+        get() = ", "
+
+    override fun selectPrefix(prefix: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun selectSeparator(separator: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun selectPostfix(postfix: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun setGeneratedText(text: String) {
+        divResultText.innerText = text
     }
 
     private fun Element.removeChildren(filter: (Element) -> Boolean) =
@@ -144,6 +176,7 @@ class HtmlView(
         const val EVENT_KEYUP = "keyup"
         const val EVENT_MOUSE_ENTER = "mouseenter"
         const val EVENT_MOUSE_LEAVE = "mouseleave"
+        const val EVENT_SUBMIT = "submit"
 
         const val ID_LIST_EXISTING_GROUPS = "gr_existing_groups"
         const val ID_INPUT_NEW_GROUP_NAME = "gr_new_group_name"
@@ -151,6 +184,8 @@ class HtmlView(
         const val ID_LIST_EXISTING_MEMBERS = "gr_existing_members"
         const val ID_INPUT_NEW_MEMBER_NAME = "gr_new_member_name"
         const val ID_BUTTON_ADD_GROUP_MEMBER = "gr_add_group_member"
+        const val ID_FORM_ADD_GROUP = "gr_add_group_form"
+        const val ID_FORM_ADD_MEMBER = "gr_add_member_form"
         const val ID_DIV_RESULT_TEXT = "gr_result_text"
 
         /*private fun toKeyUp(callback: ((Event) -> Unit)): (KeyboardEvent) -> Unit {

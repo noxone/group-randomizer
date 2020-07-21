@@ -18,29 +18,32 @@ internal object ApplicationSettings : AbstractApplicationSettings() {
     )
 
     fun getGroups(): List<Group> = getMutableGroups()
-    private fun getMutableGroups(): MutableList<Group> {
-        var groupsJson = JSON.parse<dynamic>(get("groups") ?: "[]")
-        val groupCount: Int = groupsJson.length
-        return (0 until groupCount).asSequence().map { groupsJson[it] }
-            .map {
-                val group = Group(
-                    it.name as String
-                )
-                group.members.addAll(getMembers(it))
-                group
-            }.sortedBy { it.name.toLowerCase() }.toMutableList()
-    }
+    private fun getMutableGroups(): MutableList<Group> =
+        readArrayToMutableList(JSON.parse<dynamic>(get("groups") ?: "[]")) {
+            val group = Group(
+                it.name as String
+            )
+            group.members.addAll(getMembers(it))
+            group
+        }
+            .sortedBy { it.name.toLowerCase() }
+            .toMutableList()
 
     private fun setMutableGroups(groups: List<Group>) {
         set("groups", JSON.stringify(groups))
     }
 
     private fun getMembers(groupJson: dynamic) = if (groupJson.members != undefined) {
-        (0 until (groupJson.members.length ?: 0)).asSequence().map { groupJson.members[it] }
-            .map { Member(it.name as String, it.active as Boolean) }.toMutableList()
+        readArrayToMutableList(groupJson.members) { Member(it.name as String, it.active as Boolean) }
     } else {
         mutableListOf<Member>()
     }
+
+    private fun <T> readArrayToMutableList(array: dynamic, handler: (dynamic) -> T): MutableList<T> =
+        (0 until (array.length ?: 0)).asSequence()
+            .map { array[it] }
+            .map { handler(it) }
+            .toMutableList()
 
     fun setGroup(group: Group) {
         val newGroups = getMutableGroups().filter { it.name != group.name }.toMutableList()
@@ -53,4 +56,18 @@ internal object ApplicationSettings : AbstractApplicationSettings() {
     fun deleteGroup(name: String) {
         setMutableGroups(getMutableGroups().filter { name != it.name })
     }
+
+    private fun readConfigFromArray(key: String): MutableList<String> = readArrayToMutableList(JSON.parse(get(key) ?: "")) { it.toString() }
+
+    var prefixes: List<String>
+        get() = readConfigFromArray("prefixes")
+        set(value) { set("prefixes", JSON.stringify(value)) }
+
+    var separators: List<String>
+        get() = readConfigFromArray("separators")
+        set(value) { set("separators", JSON.stringify(value)) }
+
+    var postfixes: List<String>
+        get() = readConfigFromArray("postfixes")
+        set(value) { set("postfixes", JSON.stringify(value)) }
 }

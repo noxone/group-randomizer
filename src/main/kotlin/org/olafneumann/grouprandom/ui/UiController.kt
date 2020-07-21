@@ -15,11 +15,15 @@ class UiController : DisplayContract.Controller {
         fillUi()
     }
 
-    private fun fillUi() {
-        view.showGroups(ApplicationSettings.getGroups())
-        view.showMembers(group?.members ?: emptyList())
-        view.selectGroup(group)
-    }
+    private var selectedGroup: Group? = null
+    override var group: Group?
+        get() = selectedGroup
+        set(value) {
+            value?.let { ApplicationSettings.setGroup(it) }
+            selectedGroup = value
+            view.selectGroup(value)
+            view.showMembers(value?.members ?: emptyList())
+        }
 
     override fun createGroup(name: String): Group? {
         if (name.isBlank()) {
@@ -28,11 +32,10 @@ class UiController : DisplayContract.Controller {
 
         val validGroupName = name.toValidName()
         val group = ApplicationSettings.getGroup(validGroupName) ?: Group(validGroupName)
-        ApplicationSettings.setGroup(group)
-
-        fillUi()
         view.newGroupName = ""
         this.group = group
+        fillUi()
+        view.focusNewGroupEditor()
         return group
     }
 
@@ -44,15 +47,6 @@ class UiController : DisplayContract.Controller {
         fillUi()
     }
 
-    private var selectedGroup: Group? = null
-    override var group: Group?
-        get() = selectedGroup
-        set(value) {
-            selectedGroup = value
-            view.selectGroup(value)
-            view.showMembers(value?.members ?: emptyList())
-        }
-
     override fun addMemberToGroup(name: String) {
         val validName = name.toValidName()
         if (group?.members?.find { it.name == validName } == null) {
@@ -61,6 +55,7 @@ class UiController : DisplayContract.Controller {
         group?.let { ApplicationSettings.setGroup(it) }
         view.newMemberName = ""
         fillUi()
+        view.focusNewMemberEditor()
     }
 
     override fun removeMember(member: Member) {
@@ -74,6 +69,38 @@ class UiController : DisplayContract.Controller {
         group?.let { ApplicationSettings.setGroup(it) }
         fillUi()
     }
+
+    override var prefixes: List<String>
+        get() = ApplicationSettings.prefixes
+        set(value) { ApplicationSettings.prefixes = value }
+
+    override var separators: List<String>
+        get() = ApplicationSettings.separators
+        set(value) { ApplicationSettings.separators = value }
+
+    override var postfixes: List<String>
+        get() = ApplicationSettings.postfixes
+        set(value) { ApplicationSettings.postfixes = value }
+
+    private fun fillUi() {
+        view.showGroups(ApplicationSettings.getGroups())
+        view.showMembers(group?.members ?: emptyList())
+        view.selectGroup(group)
+        view.setGeneratedText(createRandomText())
+    }
+
+    private fun createRandomText(): String =
+        (selectedGroup?.members
+            ?.filter { it.active }
+            ?.map { it.name }
+            ?.shuffled()
+            ?: emptyList())
+            .joinToString(
+                separator = view.separator,
+                prefix = view.prefix,
+                postfix = view.postfix
+            )
+
 
     private fun String.toValidName() = replace(Regex("\\s+"), " ").trim()
 }
