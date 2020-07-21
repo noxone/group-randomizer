@@ -16,13 +16,12 @@ class UiController : DisplayContract.Controller {
     }
 
     private var selectedGroup: Group? = null
-    override var group: Group?
-        get() = selectedGroup
-        set(value) {
-            value?.let { ApplicationSettings.setGroup(it) }
-            selectedGroup = value
-            view.selectGroup(value)
-            view.showMembers(value?.members ?: emptyList())
+    override fun selectGroup(group: Group?) {
+            group?.let { ApplicationSettings.setGroup(it) }
+            selectedGroup = group
+            view.selectGroup(group)
+            view.showMembers(group?.members ?: emptyList())
+            fillUi()
         }
 
     override fun createGroup(name: String): Group? {
@@ -33,60 +32,81 @@ class UiController : DisplayContract.Controller {
         val validGroupName = name.toValidName()
         val group = ApplicationSettings.getGroup(validGroupName) ?: Group(validGroupName)
         view.newGroupName = ""
-        this.group = group
-        fillUi()
+        selectGroup( group)
         view.focusNewGroupEditor()
         return group
     }
 
     override fun removeGroup(group: Group) {
         ApplicationSettings.deleteGroup(group.name)
-        if (group == this.group) {
-            this.group = null
+        if (group == selectedGroup) {
+            selectGroup(group)
         }
-        fillUi()
+        fillUi(regenerateText = false)
     }
 
     override fun addMemberToGroup(name: String) {
         val validName = name.toValidName()
-        if (group?.members?.find { it.name == validName } == null) {
-            group?.members?.add(Member(validName))
+        if (selectedGroup?.members?.find { it.name == validName } == null) {
+            selectedGroup?.members?.add(Member(validName))
         }
-        group?.let { ApplicationSettings.setGroup(it) }
+        fireCurrentGroupChanged()
         view.newMemberName = ""
-        fillUi()
         view.focusNewMemberEditor()
     }
 
     override fun removeMember(member: Member) {
-        group?.members?.removeAll { it.name == member.name }
-        group?.let { ApplicationSettings.setGroup(it) }
-        fillUi()
+        selectedGroup?.members?.removeAll { it.name == member.name }
+        fireCurrentGroupChanged()
     }
 
     override fun toggleMemberActivation(member: Member) {
         member.active = !member.active
-        group?.let { ApplicationSettings.setGroup(it) }
+        fireCurrentGroupChanged()
+    }
+
+    private fun fireCurrentGroupChanged() {
+        selectedGroup?.let { ApplicationSettings.setGroup(it) }
         fillUi()
     }
 
-    override var prefixes: List<String>
-        get() = ApplicationSettings.prefixes
-        set(value) { ApplicationSettings.prefixes = value }
+    override var currentPrefix: String
+        get() = ApplicationSettings.currentPrefix
+        set(value) {
+            ApplicationSettings.currentPrefix = value
+            fillUi()
+        }
 
-    override var separators: List<String>
-        get() = ApplicationSettings.separators
-        set(value) { ApplicationSettings.separators = value }
+    override var currentSeparator: String
+        get() = ApplicationSettings.currentSeparator
+        set(value) {
+            ApplicationSettings.currentSeparator = value
+            fillUi()
+        }
 
-    override var postfixes: List<String>
-        get() = ApplicationSettings.postfixes
-        set(value) { ApplicationSettings.postfixes = value }
+    override var currentPostfix: String
+        get() = ApplicationSettings.currentPrefix
+        set(value) {
+            ApplicationSettings.currentPostfix = value
+            fillUi()
+        }
 
-    private fun fillUi() {
-        view.showGroups(ApplicationSettings.getGroups())
-        view.showMembers(group?.members ?: emptyList())
-        view.selectGroup(group)
-        view.setGeneratedText(createRandomText())
+    override fun generateRandomOrder() = view.setGeneratedText(createRandomText())
+
+    private fun fillUi(refreshGroups: Boolean = true, refreshMembers: Boolean = true, refreshTextAdditions: Boolean = true, regenerateText: Boolean = true) {
+        if (refreshGroups) {
+            view.showGroups(ApplicationSettings.getGroups())
+        }
+        if (refreshMembers) {
+            view.showMembers(selectedGroup?.members ?: emptyList())
+        }
+        view.selectGroup(selectedGroup)
+        if (refreshTextAdditions) {
+            view.setPrefixes(ApplicationSettings.prefixes)
+        }
+        if (regenerateText) {
+            generateRandomOrder()
+        }
     }
 
     private fun createRandomText(): String =
@@ -96,11 +116,10 @@ class UiController : DisplayContract.Controller {
             ?.shuffled()
             ?: emptyList())
             .joinToString(
-                separator = view.separator,
-                prefix = view.prefix,
-                postfix = view.postfix
+                separator = currentSeparator,
+                prefix = currentPrefix,
+                postfix = currentPostfix
             )
-
 
     private fun String.toValidName() = replace(Regex("\\s+"), " ").trim()
 }

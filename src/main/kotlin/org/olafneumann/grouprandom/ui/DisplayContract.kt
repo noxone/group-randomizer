@@ -13,9 +13,9 @@ interface DisplayContract {
         fun focusNewGroupEditor()
         fun focusNewMemberEditor()
         fun setGeneratedText(text: String)
-        val prefix: String
-        val separator: String
-        val postfix: String
+        fun setPrefixes(prefixes: List<String>)
+        fun setSeparators(separators: List<String>)
+        fun setPostfixes(postfixes: List<String>)
         fun selectPrefix(prefix: String)
         fun selectSeparator(separator: String)
         fun selectPostfix(postfix: String)
@@ -24,13 +24,14 @@ interface DisplayContract {
     interface Controller {
         fun createGroup(name: String): Group?
         fun removeGroup(group: Group)
-        var group: Group?
+        fun selectGroup(group: Group?)
         fun addMemberToGroup(name: String)
         fun removeMember(member: Member)
         fun toggleMemberActivation(member: Member)
-        var prefixes: List<String>
-        var separators: List<String>
-        var postfixes: List<String>
+        var currentPrefix: String
+        var currentSeparator: String
+        var currentPostfix: String
+        fun generateRandomOrder()
     }
 }
 
