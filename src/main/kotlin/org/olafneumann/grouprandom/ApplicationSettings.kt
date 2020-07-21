@@ -57,7 +57,7 @@ internal object ApplicationSettings : AbstractApplicationSettings() {
         setMutableGroups(getMutableGroups().filter { name != it.name })
     }
 
-    private fun readConfigFromArray(key: String, defaultJson: String = ""): MutableList<String> =
+    private fun readConfigFromArray(key: String, defaultJson: String = "[]"): MutableList<String> =
         readArrayToMutableList(JSON.parse(get(key) ?: defaultJson)) { it.toString() }
 
     var currentPrefix: String
