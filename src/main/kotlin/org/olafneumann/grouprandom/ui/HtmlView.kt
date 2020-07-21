@@ -7,6 +7,7 @@ import kotlinx.html.js.onClickFunction
 import org.olafneumann.grouprandom.Group
 import org.olafneumann.grouprandom.Member
 import org.olafneumann.grouprandom.browser.HtmlHelper
+import org.olafneumann.grouprandom.js.navigator
 import org.w3c.dom.*
 import org.w3c.dom.events.Event
 import org.w3c.dom.events.KeyboardEvent
@@ -33,6 +34,8 @@ class HtmlView(
     private val inputSeparator = HtmlHelper.getElementById<HTMLInputElement>(ID_INPUT_SEPARATOR)
     private val inputPostfix = HtmlHelper.getElementById<HTMLInputElement>(ID_INPUT_POSTFIX)
     private val divResultText = HtmlHelper.getElementById<HTMLDivElement>(ID_DIV_RESULT_TEXT)
+    private val btnRegenerate = HtmlHelper.getElementById<HTMLButtonElement>(ID_BUTTON_REGENERATE)
+    private val btnCopy = HtmlHelper.getElementById<HTMLButtonElement>(ID_BUTTON_COPY)
 
     init {
         val createGroupCallback: (Event) -> Unit = { controller.createGroup(newGroupName) }
@@ -41,6 +44,8 @@ class HtmlView(
         formAddMember.addEventListener(EVENT_SUBMIT, addMemberToGroupCallback)
         btnCreateNewGroup.addEventListener(EVENT_CLICK, createGroupCallback)
         btnAddGroupMember.addEventListener(EVENT_CLICK, addMemberToGroupCallback)
+        btnRegenerate.addEventListener(EVENT_CLICK, { controller.generateRandomOrder() })
+        btnCopy.addEventListener(EVENT_CLICK, { navigator.clipboard.writeText(divResultText.innerText) })
     }
 
     override var newGroupName: String
@@ -67,7 +72,13 @@ class HtmlView(
 
     override fun showMembers(members: List<Member>) = memberListMaintainer.showItems(members)
 
-    private val prefixListMaintainer = ListMaintainer<String>(divListPrefixes, { createTextItem(it) })
+    private val prefixListMaintainer = ListMaintainer<String>(divListPrefixes, {
+        createTextItem(it, { event ->
+            controller.currentPrefix = it
+            event.stopPropagation()
+        })
+    })
+
     override fun setPrefixes(prefixes: List<String>) = prefixListMaintainer.showItems(prefixes)
 
     private val separatorListMaintainer = ListMaintainer<String>(divListSeparators, { createTextItem(it) })
@@ -105,7 +116,7 @@ class HtmlView(
         // TODO add listener for member counter
         +group.name
         onClickFunction = {
-            controller.group = group
+            controller.selectGroup(group)
         }
         div("ml-1") {
             a(classes = "gr-action-link ml-1") {
@@ -201,6 +212,8 @@ class HtmlView(
         const val ID_INPUT_SEPARATOR = "gr_input_separator"
         const val ID_INPUT_POSTFIX = "gr_input_postfix"
         const val ID_DIV_RESULT_TEXT = "gr_result_text"
+        const val ID_BUTTON_REGENERATE = "gr_btn_regenerate"
+        const val ID_BUTTON_COPY = "gr_btn_copy"
 
         /*private fun toKeyUp(callback: ((Event) -> Unit)): (KeyboardEvent) -> Unit {
             return  {event ->

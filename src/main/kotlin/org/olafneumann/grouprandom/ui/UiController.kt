@@ -16,15 +16,11 @@ class UiController : DisplayContract.Controller {
     }
 
     private var selectedGroup: Group? = null
-    override var group: Group?
-        get() {
-            return selectedGroup
-        }
-        set(value) {
-            value?.let { ApplicationSettings.setGroup(it) }
-            selectedGroup = value
-            view.selectGroup(value)
-            view.showMembers(value?.members ?: emptyList())
+    override fun selectGroup(group: Group?) {
+            group?.let { ApplicationSettings.setGroup(it) }
+            selectedGroup = group
+            view.selectGroup(group)
+            view.showMembers(group?.members ?: emptyList())
             fillUi()
         }
 
@@ -36,23 +32,23 @@ class UiController : DisplayContract.Controller {
         val validGroupName = name.toValidName()
         val group = ApplicationSettings.getGroup(validGroupName) ?: Group(validGroupName)
         view.newGroupName = ""
-        this.group = group
+        selectGroup( group)
         view.focusNewGroupEditor()
         return group
     }
 
     override fun removeGroup(group: Group) {
         ApplicationSettings.deleteGroup(group.name)
-        if (group == this.group) {
-            this.group = null
+        if (group == selectedGroup) {
+            selectGroup(group)
         }
         fillUi(regenerateText = false)
     }
 
     override fun addMemberToGroup(name: String) {
         val validName = name.toValidName()
-        if (group?.members?.find { it.name == validName } == null) {
-            group?.members?.add(Member(validName))
+        if (selectedGroup?.members?.find { it.name == validName } == null) {
+            selectedGroup?.members?.add(Member(validName))
         }
         fireCurrentGroupChanged()
         view.newMemberName = ""
@@ -60,7 +56,7 @@ class UiController : DisplayContract.Controller {
     }
 
     override fun removeMember(member: Member) {
-        group?.members?.removeAll { it.name == member.name }
+        selectedGroup?.members?.removeAll { it.name == member.name }
         fireCurrentGroupChanged()
     }
 
@@ -70,27 +66,9 @@ class UiController : DisplayContract.Controller {
     }
 
     private fun fireCurrentGroupChanged() {
-        group?.let { ApplicationSettings.setGroup(it) }
+        selectedGroup?.let { ApplicationSettings.setGroup(it) }
         fillUi()
     }
-
-    override var prefixes: List<String>
-        get() = ApplicationSettings.prefixes
-        set(value) {
-            ApplicationSettings.prefixes = value
-        }
-
-    override var separators: List<String>
-        get() = ApplicationSettings.separators
-        set(value) {
-            ApplicationSettings.separators = value
-        }
-
-    override var postfixes: List<String>
-        get() = ApplicationSettings.postfixes
-        set(value) {
-            ApplicationSettings.postfixes = value
-        }
 
     override var currentPrefix: String
         get() = ApplicationSettings.currentPrefix
@@ -113,16 +91,21 @@ class UiController : DisplayContract.Controller {
             fillUi()
         }
 
+    override fun generateRandomOrder() = view.setGeneratedText(createRandomText())
+
     private fun fillUi(refreshGroups: Boolean = true, refreshMembers: Boolean = true, refreshTextAdditions: Boolean = true, regenerateText: Boolean = true) {
-        if( refreshGroups) {
+        if (refreshGroups) {
             view.showGroups(ApplicationSettings.getGroups())
         }
-        if(refreshMembers) {
-            view.showMembers(group?.members ?: emptyList())
+        if (refreshMembers) {
+            view.showMembers(selectedGroup?.members ?: emptyList())
         }
-        view.selectGroup(group)
+        view.selectGroup(selectedGroup)
+        if (refreshTextAdditions) {
+            view.setPrefixes(ApplicationSettings.prefixes)
+        }
         if (regenerateText) {
-            view.setGeneratedText(createRandomText())
+            generateRandomOrder()
         }
     }
 
