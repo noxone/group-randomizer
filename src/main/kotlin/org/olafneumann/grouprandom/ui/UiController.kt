@@ -17,7 +17,9 @@ class UiController : DisplayContract.Controller {
 
     private var selectedGroup: Group? = null
     override var group: Group?
-        get() { return selectedGroup }
+        get() {
+            return selectedGroup
+        }
         set(value) {
             value?.let { ApplicationSettings.setGroup(it) }
             selectedGroup = value
@@ -44,7 +46,7 @@ class UiController : DisplayContract.Controller {
         if (group == this.group) {
             this.group = null
         }
-        fillUi()
+        fillUi(regenerateText = false)
     }
 
     override fun addMemberToGroup(name: String) {
@@ -52,41 +54,76 @@ class UiController : DisplayContract.Controller {
         if (group?.members?.find { it.name == validName } == null) {
             group?.members?.add(Member(validName))
         }
-        group?.let { ApplicationSettings.setGroup(it) }
+        fireCurrentGroupChanged()
         view.newMemberName = ""
-        fillUi()
         view.focusNewMemberEditor()
     }
 
     override fun removeMember(member: Member) {
         group?.members?.removeAll { it.name == member.name }
-        group?.let { ApplicationSettings.setGroup(it) }
-        fillUi()
+        fireCurrentGroupChanged()
     }
 
     override fun toggleMemberActivation(member: Member) {
         member.active = !member.active
+        fireCurrentGroupChanged()
+    }
+
+    private fun fireCurrentGroupChanged() {
         group?.let { ApplicationSettings.setGroup(it) }
         fillUi()
     }
 
     override var prefixes: List<String>
         get() = ApplicationSettings.prefixes
-        set(value) { ApplicationSettings.prefixes = value }
+        set(value) {
+            ApplicationSettings.prefixes = value
+        }
 
     override var separators: List<String>
         get() = ApplicationSettings.separators
-        set(value) { ApplicationSettings.separators = value }
+        set(value) {
+            ApplicationSettings.separators = value
+        }
 
     override var postfixes: List<String>
         get() = ApplicationSettings.postfixes
-        set(value) { ApplicationSettings.postfixes = value }
+        set(value) {
+            ApplicationSettings.postfixes = value
+        }
 
-    private fun fillUi() {
-        view.showGroups(ApplicationSettings.getGroups())
-        view.showMembers(group?.members ?: emptyList())
+    override var currentPrefix: String
+        get() = ApplicationSettings.currentPrefix
+        set(value) {
+            ApplicationSettings.currentPrefix = value
+            fillUi()
+        }
+
+    override var currentSeparator: String
+        get() = ApplicationSettings.currentSeparator
+        set(value) {
+            ApplicationSettings.currentSeparator = value
+            fillUi()
+        }
+
+    override var currentPostfix: String
+        get() = ApplicationSettings.currentPrefix
+        set(value) {
+            ApplicationSettings.currentPostfix = value
+            fillUi()
+        }
+
+    private fun fillUi(refreshGroups: Boolean = true, refreshMembers: Boolean = true, refreshTextAdditions: Boolean = true, regenerateText: Boolean = true) {
+        if( refreshGroups) {
+            view.showGroups(ApplicationSettings.getGroups())
+        }
+        if(refreshMembers) {
+            view.showMembers(group?.members ?: emptyList())
+        }
         view.selectGroup(group)
-        view.setGeneratedText(createRandomText())
+        if (regenerateText) {
+            view.setGeneratedText(createRandomText())
+        }
     }
 
     private fun createRandomText(): String =
@@ -96,9 +133,9 @@ class UiController : DisplayContract.Controller {
             ?.shuffled()
             ?: emptyList())
             .joinToString(
-                separator = view.separator,
-                prefix = view.prefix,
-                postfix = view.postfix
+                separator = currentSeparator,
+                prefix = currentPrefix,
+                postfix = currentPostfix
             )
 
     private fun String.toValidName() = replace(Regex("\\s+"), " ").trim()

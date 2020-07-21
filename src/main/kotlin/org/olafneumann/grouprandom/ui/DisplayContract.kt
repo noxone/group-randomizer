@@ -13,9 +13,9 @@ interface DisplayContract {
         fun focusNewGroupEditor()
         fun focusNewMemberEditor()
         fun setGeneratedText(text: String)
-        val prefix: String
-        val separator: String
-        val postfix: String
+        fun setPrefixes(prefixes: List<String>)
+        fun setSeparators(separators: List<String>)
+        fun setPostfixes(postfixes: List<String>)
         fun selectPrefix(prefix: String)
         fun selectSeparator(separator: String)
         fun selectPostfix(postfix: String)
@@ -31,6 +31,9 @@ interface DisplayContract {
         var prefixes: List<String>
         var separators: List<String>
         var postfixes: List<String>
+        var currentPrefix: String
+        var currentSeparator: String
+        var currentPostfix: String
     }
 }
 

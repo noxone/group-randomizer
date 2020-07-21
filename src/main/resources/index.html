@@ -95,7 +95,7 @@
                 <div class="d-flex justify-content-between">
                     <div>
                         <h6>Beginning</h6>
-                        <div class="list-group">
+                        <div id="gr_div_list_prefixes" class="list-group">
                             <button class="list-group-item list-group-item-action active">
                                 <em class="ml-2">none</em>
                             </button>
@@ -108,7 +108,7 @@
                             <form class="list-group-item list-group-item-action gr-always-there">
                                 <div class="form-row">
                                     <div class="mr-1">
-                                        <input type="text" placeholder="Custom beginning" class="form-control"
+                                        <input id="gr_input_prefix" type="text" placeholder="Custom beginning" class="form-control"
                                             id="exampleInputEmail1" aria-describedby="emailHelp">
                                     </div>
                                 </div>
@@ -116,8 +116,8 @@
                         </div>
                     </div>
                     <div>
-                        <h6>Divider</h6>
-                        <div class="list-group">
+                        <h6>Separator</h6>
+                        <div id="gr_div_list_separators" class="list-group">
                             <button class="list-group-item list-group-item-action">
                                 <em class="ml-2">space</em>
                             </button>
@@ -130,7 +130,7 @@
                             <form class="list-group-item list-group-item-action gr-always-there">
                                 <div class="form-row">
                                     <div class="mr-1">
-                                        <input type="text" placeholder="Custom divider" class="form-control"
+                                        <input id="gr_input_separator" type="text" placeholder="Custom divider" class="form-control"
                                             id="exampleInputEmail1" aria-describedby="emailHelp">
                                     </div>
                                 </div>
@@ -139,7 +139,7 @@
                     </div>
                     <div>
                         <h6>Ending</h6>
-                        <div class="list-group">
+                        <div id="gr_div_list_postfixes" class="list-group">
                             <button class="list-group-item list-group-item-action active">
                                 <em class="ml-2">none</em>
                             </button>
@@ -149,7 +149,7 @@
                             <form class="list-group-item list-group-item-action gr-always-there">
                                 <div class="form-row">
                                     <div class="mr-1">
-                                        <input type="text" placeholder="Custom ending" class="form-control"
+                                        <input id="gr_input_postfix" type="text" placeholder="Custom ending" class="form-control"
                                             id="exampleInputEmail1" aria-describedby="emailHelp">
                                     </div>
                                 </div>
@@ -174,7 +174,7 @@
                         This should be your result.
 
                     </div>
-                    <button>Randomize</button>
+                    <button class="btn btn-primary">Randomize</button>
                 </div>
             </div>
         </div>
@@ -191,7 +191,7 @@
             <h5 class="text-uppercase" style="width: 100%">Group Randomizer</h5>
             <div class="text-center text-md-left collapse show" id="footerContent">
                 <div class="row">
-                    <div class="col-md-6 mt-md-0 mt-3">
+                    <div class="col-md-7 mt-md-0 mt-3">
                         <p>This page is intended to provide a very simple randomizer to find a sort order for your daily
                             stand up meeting.
                         </p>
@@ -200,14 +200,7 @@
                         </p>
                     </div>
                     <hr class="clearfix w-100 d-md-none pb-3 border-secondary">
-                    <div class="col-md-3 mb-md-0 mb-3">
-                        <h5>Some content</h5>
-                        <ul class="list-unstyled">
-                            <li>Here</li>
-                            <li>And here</li>
-                        </ul>
-                    </div>
-                    <div class="col-md-3 mb-md-0 mb-3">
+                    <div class="col-md-5 mb-md-0 mb-3">
                         <h5>This project is built using</h5>
                         <ul class="list-unstyled">
                             <li><a href="https://kotlinlang.org/" target="_blank">Kotlin</a></li>
