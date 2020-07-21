@@ -17,12 +17,13 @@ class UiController : DisplayContract.Controller {
 
     private var selectedGroup: Group? = null
     override var group: Group?
-        get() = selectedGroup
+        get() { return selectedGroup }
         set(value) {
             value?.let { ApplicationSettings.setGroup(it) }
             selectedGroup = value
             view.selectGroup(value)
             view.showMembers(value?.members ?: emptyList())
+            fillUi()
         }
 
     override fun createGroup(name: String): Group? {
@@ -34,7 +35,6 @@ class UiController : DisplayContract.Controller {
         val group = ApplicationSettings.getGroup(validGroupName) ?: Group(validGroupName)
         view.newGroupName = ""
         this.group = group
-        fillUi()
         view.focusNewGroupEditor()
         return group
     }
@@ -100,7 +100,6 @@ class UiController : DisplayContract.Controller {
                 prefix = view.prefix,
                 postfix = view.postfix
             )
-
 
     private fun String.toValidName() = replace(Regex("\\s+"), " ").trim()
 }
