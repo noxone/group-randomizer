@@ -24,7 +24,7 @@ class UiController : DisplayContract.Controller {
             fillUi()
         }
 
-    override fun createGroup(name: String): Group? {
+    override fun addGroup(name: String): Group? {
         if (name.isBlank()) {
             return null
         }
@@ -45,7 +45,7 @@ class UiController : DisplayContract.Controller {
         fillUi(regenerateText = false)
     }
 
-    override fun addMemberToGroup(name: String) {
+    override fun addGroupMember(name: String) {
         val validName = name.toValidName()
         if (selectedGroup?.members?.find { it.name == validName } == null) {
             selectedGroup?.members?.add(Member(validName))
@@ -55,12 +55,12 @@ class UiController : DisplayContract.Controller {
         view.focusNewMemberEditor()
     }
 
-    override fun removeMember(member: Member) {
+    override fun removeGroupMember(member: Member) {
         selectedGroup?.members?.removeAll { it.name == member.name }
         fireCurrentGroupChanged()
     }
 
-    override fun toggleMemberActivation(member: Member) {
+    override fun toggleGroupMemberActive(member: Member) {
         member.active = !member.active
         fireCurrentGroupChanged()
     }
@@ -91,7 +91,7 @@ class UiController : DisplayContract.Controller {
             fillUi()
         }
 
-    override fun generateRandomOrder() = view.setGeneratedText(createRandomText())
+    override fun generateRandomOrder() = view.showGeneratedText(createRandomText())
 
     private fun fillUi(refreshGroups: Boolean = true, refreshMembers: Boolean = true, refreshTextAdditions: Boolean = true, regenerateText: Boolean = true) {
         if (refreshGroups) {
@@ -102,7 +102,7 @@ class UiController : DisplayContract.Controller {
         }
         view.selectGroup(selectedGroup)
         if (refreshTextAdditions) {
-            view.setPrefixes(ApplicationSettings.prefixes)
+            view.showPrefixes(ApplicationSettings.prefixes)
         }
         if (regenerateText) {
             generateRandomOrder()

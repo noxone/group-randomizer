@@ -9,25 +9,25 @@ interface DisplayContract {
         var newMemberName: String
         fun showGroups(groups: List<Group>)
         fun showMembers(members: List<Member>)
+        fun showPrefixes(prefixes: List<String>)
+        fun showSeparators(separators: List<String>)
+        fun showPostfixes(postfixes: List<String>)
         fun selectGroup(group: Group?)
-        fun focusNewGroupEditor()
-        fun focusNewMemberEditor()
-        fun setGeneratedText(text: String)
-        fun setPrefixes(prefixes: List<String>)
-        fun setSeparators(separators: List<String>)
-        fun setPostfixes(postfixes: List<String>)
         fun selectPrefix(prefix: String)
         fun selectSeparator(separator: String)
         fun selectPostfix(postfix: String)
+        fun focusNewGroupEditor()
+        fun focusNewMemberEditor()
+        fun showGeneratedText(text: String)
     }
 
     interface Controller {
-        fun createGroup(name: String): Group?
+        fun addGroup(name: String): Group?
         fun removeGroup(group: Group)
         fun selectGroup(group: Group?)
-        fun addMemberToGroup(name: String)
-        fun removeMember(member: Member)
-        fun toggleMemberActivation(member: Member)
+        fun addGroupMember(name: String)
+        fun removeGroupMember(member: Member)
+        fun toggleGroupMemberActive(member: Member)
         var currentPrefix: String
         var currentSeparator: String
         var currentPostfix: String
