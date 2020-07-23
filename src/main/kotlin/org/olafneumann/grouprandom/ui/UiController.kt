@@ -82,6 +82,40 @@ class UiController : DisplayContract.Controller {
         ApplicationSettings.currentPostfix = postfix
     }
 
+    override fun addPrefix(prefix: String) =
+        addListEntry({ ApplicationSettings.prefixes }, { ApplicationSettings.prefixes = it }, prefix)
+
+    override fun addSeparator(separator: String) =
+        addListEntry({ ApplicationSettings.separators }, { ApplicationSettings.separators = it }, separator)
+
+    override fun addPostfix(postfix: String) =
+        addListEntry({ ApplicationSettings.postfixes }, { ApplicationSettings.postfixes = it }, postfix)
+
+    override fun removePrefix(prefix: String) =
+        removeListEntry({ ApplicationSettings.prefixes }, { ApplicationSettings.prefixes = it }, prefix)
+
+    override fun removeSeparator(separator: String) =
+        removeListEntry({ ApplicationSettings.separators }, { ApplicationSettings.separators = it }, separator)
+
+    override fun removePostfix(postfix: String) =
+        removeListEntry({ ApplicationSettings.postfixes }, { ApplicationSettings.postfixes = it }, postfix)
+
+    private fun <T> addListEntry(provider: () -> List<T>, consumer: (List<T>) -> Unit, itemToAdd: T) =
+        changeList(provider, consumer, { it.add(itemToAdd) })
+
+    private fun <T> removeListEntry(provider: () -> List<T>, consumer: (List<T>) -> Unit, itemToDelete: T) =
+        changeList(provider, consumer, { it.remove(itemToDelete) })
+
+    private inline fun <T> changeList(
+        provider: () -> List<T>,
+        consumer: (List<T>) -> Unit,
+        changeList: (MutableList<T>) -> Unit
+    ) {
+        val list = provider().toMutableList()
+        changeList(list)
+        consumer(list)
+    }
+
     override fun generateRandomOrder() = view.showGeneratedText(createRandomText())
 
     private fun fillUi(

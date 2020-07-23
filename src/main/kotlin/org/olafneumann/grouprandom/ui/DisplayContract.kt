@@ -28,9 +28,15 @@ interface DisplayContract {
         fun addGroupMember(name: String)
         fun removeGroupMember(member: Member)
         fun toggleGroupMemberActive(member: Member)
+        fun addPrefix(prefix: String)
+        fun addSeparator(separator: String)
+        fun addPostfix(postfix: String)
         fun selectPrefix(prefix: String)
         fun selectSeparator(separator: String)
         fun selectPostfix(postfix: String)
+        fun removePrefix(prefix: String)
+        fun removeSeparator(separator: String)
+        fun removePostfix(postfix: String)
         fun generateRandomOrder()
     }
 }

@@ -79,19 +79,19 @@ internal object ApplicationSettings : AbstractApplicationSettings() {
         }
 
     var prefixes: List<String>
-        get() = readConfigFromArray("list.prefixes")
+        get() = readConfigFromArray("list.prefixes", "[\"\u00A0\",\"Today's order: \"]")
         set(value) {
             set("list.prefixes", JSON.stringify(value))
         }
 
     var separators: List<String>
-        get() = readConfigFromArray("list.separators")
+        get() = readConfigFromArray("list.separators", "[\", \",\" : \"]")
         set(value) {
             set("list.separators", JSON.stringify(value))
         }
 
     var postfixes: List<String>
-        get() = readConfigFromArray("list.postfixes")
+        get() = readConfigFromArray("list.postfixes", "[\"\",\".\"]")
         set(value) {
             set("list.postfixes", JSON.stringify(value))
         }
