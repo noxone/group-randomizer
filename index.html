@@ -23,7 +23,7 @@
         <div id="ck_container_cookie" class="alert alert-danger fixed-top m-2" role="alert">
             <div class="d-flex justify-content-between">
                 <p class="m-0">This site uses cookies to improve your user experience.</p>
-                <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                <div class="btn-group btn-group-sm" role="group">
                     <button id="ck_btn_reject" type="button" class="btn btn-danger">Reject</button>
                     <button id="ck_btn_accept" type="button" class="btn btn-success">Accept</button>
                 </div>
@@ -43,38 +43,43 @@
                 <div class="d-flex justify-content-between">
                     <h5>Select a group.</h5>
                 </div>
-                <div class="d-flex justify-content-between">
-                    <div>
+                <div class="row">
+                    <div class="col-xl-4 col-lg-5 col-md-6 mt-2">
                         <h6>Groups</h6>
                         <div class="list-group" id="gr_existing_groups">
-                            <form id="gr_add_group_form"
-                                class="list-group-item list-group-item-action bg-secondary text-light gr-always-there"
-                                action="#">
+                            <div class="list-group-item">
+                                There are currently no groups
+                            </div>
+                            <form id="gr_add_group_form" action="#"
+                                class="list-group-item list-group-item-action bg-secondary text-light gr-always-there">
                                 <div class="form-row">
-                                    <div class="mr-1">
+                                    <div class="col-xl-9 col-lg-8 col-md-7 col-7">
                                         <input id="gr_new_group_name" type="text" placeholder="Group name"
-                                            class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                                    </div>
-                                    <div class="col">
-                                        <button id="gr_create_new_group" type="button"
-                                            class="btn btn-info">Create</button>
-                                    </div>
+                                            class="form-control"></div>
+                                    <div class="col-xl-3 col-lg-4 col-md-5 col-5">
+                                        <button id="gr_create_new_group" class="btn btn-info" type="button"
+                                            style="width:100%">Create</button></div>
                                 </div>
                             </form>
                         </div>
                     </div>
-                    <div>
+                    <div class="col-xl-8 col-lg-7 col-md-6 mt-2">
                         <h6>Group members</h6>
-                        <div class="list-group" id="gr_existing_members">
+                        <div class="list-group">
+                            <div class="list-group-item">
+                                <div id="gr_existing_members" class="row">
+
+                                </div>
+                            </div>
                             <form id="gr_add_member_form"
                                 class="list-group-item list-group-item-action bg-secondary text-light gr-always-there">
                                 <div class="form-row">
-                                    <div class="mr-1">
+                                    <div class="col-xl-10 col-lg-9 col-md-7 col-7">
                                         <input id="gr_new_member_name" type="text" placeholder="Member name"
-                                            class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                            class="form-control">
                                     </div>
-                                    <div class="col">
-                                        <button id="gr_add_group_member" type="button" class="btn btn-info">Add</button>
+                                    <div class="col-xl-2 col-lg-3 col-md-5 col-5">
+                                        <button id="gr_add_group_member" type="button" class="btn btn-info" style="width:100%">Add</button>
                                     </div>
                                 </div>
                             </form>
@@ -92,66 +97,51 @@
                 <div class="d-flex justify-content-between">
                     <h5>Choose text additions.</h5>
                 </div>
-                <div class="d-flex justify-content-between">
-                    <div>
+                <div class="row">
+                    <div class="col-md-4 mt-2">
                         <h6>Beginning</h6>
                         <div id="gr_div_list_prefixes" class="list-group">
-                            <button class="list-group-item list-group-item-action active">
-                                <em class="ml-2">none</em>
-                            </button>
-                            <button class="list-group-item list-group-item-action">
-                                <div class="ml-2">Die heutige Reihenfolge: </div>
-                            </button>
-                            <button class="list-group-item list-group-item-action d-flex justify-content-between">
-                                <div class="ml-2">Heute: </div>
-                            </button>
-                            <form class="list-group-item list-group-item-action gr-always-there">
+                            <form
+                                class="list-group-item list-group-item-action bg-secondary text-light gr-always-there">
                                 <div class="form-row">
-                                    <div class="mr-1">
-                                        <input id="gr_input_prefix" type="text" placeholder="Custom beginning" class="form-control"
-                                            id="exampleInputEmail1" aria-describedby="emailHelp">
-                                    </div>
+                                    <div class="col-xl-9 col-lg-8 col-md-7 col-7">
+                                        <input id="gr_input_prefix" type="text" placeholder="Custom prefix"
+                                            class="form-control"></div>
+                                    <div class="col-xl-3 col-lg-4 col-md-5 col-5">
+                                        <button id="gr_create_new_prefix" class="btn btn-info" type="button"
+                                            style="width:100%">Add</button></div>
                                 </div>
                             </form>
                         </div>
                     </div>
-                    <div>
+                    <div class="col-md-4 mt-2">
                         <h6>Separator</h6>
                         <div id="gr_div_list_separators" class="list-group">
-                            <button class="list-group-item list-group-item-action">
-                                <em class="ml-2">space</em>
-                            </button>
-                            <button class="list-group-item list-group-item-action">
-                                <div class="ml-2">,</div>
-                            </button>
-                            <button class="list-group-item list-group-item-action d-flex justify-content-between">
-                                <div class="ml-2">:</div>
-                            </button>
-                            <form class="list-group-item list-group-item-action gr-always-there">
+                            <form
+                                class="list-group-item list-group-item-action bg-secondary text-light gr-always-there">
                                 <div class="form-row">
-                                    <div class="mr-1">
-                                        <input id="gr_input_separator" type="text" placeholder="Custom divider" class="form-control"
-                                            id="exampleInputEmail1" aria-describedby="emailHelp">
-                                    </div>
+                                    <div class="col-xl-9 col-lg-8 col-md-7 col-7">
+                                        <input id="gr_input_separator" type="text" placeholder="Custom separator"
+                                            class="form-control"></div>
+                                    <div class="col-xl-3 col-lg-4 col-md-5 col-5">
+                                        <button id="gr_create_new_separator" class="btn btn-info" type="button"
+                                            style="width:100%">Add</button></div>
                                 </div>
                             </form>
                         </div>
                     </div>
-                    <div>
+                    <div class="col-md-4 mt-2">
                         <h6>Ending</h6>
                         <div id="gr_div_list_postfixes" class="list-group">
-                            <button class="list-group-item list-group-item-action active">
-                                <em class="ml-2">none</em>
-                            </button>
-                            <button class="list-group-item list-group-item-action">
-                                <div class="ml-2">.</div>
-                            </button>
-                            <form class="list-group-item list-group-item-action gr-always-there">
+                            <form
+                                class="list-group-item list-group-item-action bg-secondary text-light gr-always-there">
                                 <div class="form-row">
-                                    <div class="mr-1">
-                                        <input id="gr_input_postfix" type="text" placeholder="Custom ending" class="form-control"
-                                            id="exampleInputEmail1" aria-describedby="emailHelp">
-                                    </div>
+                                    <div class="col-xl-9 col-lg-8 col-md-7 col-7">
+                                        <input id="gr_input_postfix" type="text" placeholder="Custom postfix"
+                                            class="form-control"></div>
+                                    <div class="col-xl-3 col-lg-4 col-md-5 col-5">
+                                        <button id="gr_create_new_postfix" class="btn btn-info" type="button"
+                                            style="width:100%">Add</button></div>
                                 </div>
                             </form>
                         </div>
@@ -169,7 +159,8 @@
                 <div class="d-flex justify-content-between">
                     <h5>Have your group.</h5>
                     <div>
-                        <button id="gr_btn_regenerate" class="btn btn-primary" title="Regenerate a random order">&#128472;</button>
+                        <button id="gr_btn_regenerate" class="btn btn-primary"
+                            title="Regenerate a random order">&#128472;</button>
                         <button id="gr_btn_copy" class="btn btn-primary" title="Copy to clipboard">&#128203;</button>
                     </div>
                 </div>
