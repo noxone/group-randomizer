@@ -17,14 +17,14 @@ class UiController : DisplayContract.Controller {
 
     private var selectedGroup: Group? = null
     override fun selectGroup(group: Group?) {
-            group?.let { ApplicationSettings.setGroup(it) }
-            selectedGroup = group
-            view.selectGroup(group)
-            view.showMembers(group?.members ?: emptyList())
-            fillUi()
-        }
+        group?.let { ApplicationSettings.setGroup(it) }
+        selectedGroup = group
+        view.selectGroup(group)
+        view.showMembers(group?.members ?: emptyList())
+        fillUi()
+    }
 
-    override fun createGroup(name: String): Group? {
+    override fun addGroup(name: String): Group? {
         if (name.isBlank()) {
             return null
         }
@@ -32,7 +32,7 @@ class UiController : DisplayContract.Controller {
         val validGroupName = name.toValidName()
         val group = ApplicationSettings.getGroup(validGroupName) ?: Group(validGroupName)
         view.newGroupName = ""
-        selectGroup( group)
+        selectGroup(group)
         view.focusNewGroupEditor()
         return group
     }
@@ -45,7 +45,7 @@ class UiController : DisplayContract.Controller {
         fillUi(regenerateText = false)
     }
 
-    override fun addMemberToGroup(name: String) {
+    override fun addGroupMember(name: String) {
         val validName = name.toValidName()
         if (selectedGroup?.members?.find { it.name == validName } == null) {
             selectedGroup?.members?.add(Member(validName))
@@ -55,12 +55,12 @@ class UiController : DisplayContract.Controller {
         view.focusNewMemberEditor()
     }
 
-    override fun removeMember(member: Member) {
+    override fun removeGroupMember(member: Member) {
         selectedGroup?.members?.removeAll { it.name == member.name }
         fireCurrentGroupChanged()
     }
 
-    override fun toggleMemberActivation(member: Member) {
+    override fun toggleGroupMemberActive(member: Member) {
         member.active = !member.active
         fireCurrentGroupChanged()
     }
@@ -70,30 +70,60 @@ class UiController : DisplayContract.Controller {
         fillUi()
     }
 
-    override var currentPrefix: String
-        get() = ApplicationSettings.currentPrefix
-        set(value) {
-            ApplicationSettings.currentPrefix = value
-            fillUi()
-        }
+    override fun selectPrefix(prefix: String) {
+        ApplicationSettings.currentPrefix = prefix
+    }
 
-    override var currentSeparator: String
-        get() = ApplicationSettings.currentSeparator
-        set(value) {
-            ApplicationSettings.currentSeparator = value
-            fillUi()
-        }
+    override fun selectSeparator(separator: String) {
+        ApplicationSettings.currentSeparator = separator
+    }
 
-    override var currentPostfix: String
-        get() = ApplicationSettings.currentPrefix
-        set(value) {
-            ApplicationSettings.currentPostfix = value
-            fillUi()
-        }
+    override fun selectPostfix(postfix: String) {
+        ApplicationSettings.currentPostfix = postfix
+    }
 
-    override fun generateRandomOrder() = view.setGeneratedText(createRandomText())
+    override fun addPrefix(prefix: String) =
+        addListEntry({ ApplicationSettings.prefixes }, { ApplicationSettings.prefixes = it }, prefix)
 
-    private fun fillUi(refreshGroups: Boolean = true, refreshMembers: Boolean = true, refreshTextAdditions: Boolean = true, regenerateText: Boolean = true) {
+    override fun addSeparator(separator: String) =
+        addListEntry({ ApplicationSettings.separators }, { ApplicationSettings.separators = it }, separator)
+
+    override fun addPostfix(postfix: String) =
+        addListEntry({ ApplicationSettings.postfixes }, { ApplicationSettings.postfixes = it }, postfix)
+
+    override fun removePrefix(prefix: String) =
+        removeListEntry({ ApplicationSettings.prefixes }, { ApplicationSettings.prefixes = it }, prefix)
+
+    override fun removeSeparator(separator: String) =
+        removeListEntry({ ApplicationSettings.separators }, { ApplicationSettings.separators = it }, separator)
+
+    override fun removePostfix(postfix: String) =
+        removeListEntry({ ApplicationSettings.postfixes }, { ApplicationSettings.postfixes = it }, postfix)
+
+    private fun <T> addListEntry(provider: () -> List<T>, consumer: (List<T>) -> Unit, itemToAdd: T) =
+        changeList(provider, consumer, { it.add(itemToAdd) })
+
+    private fun <T> removeListEntry(provider: () -> List<T>, consumer: (List<T>) -> Unit, itemToDelete: T) =
+        changeList(provider, consumer, { it.remove(itemToDelete) })
+
+    private inline fun <T> changeList(
+        provider: () -> List<T>,
+        consumer: (List<T>) -> Unit,
+        changeList: (MutableList<T>) -> Unit
+    ) {
+        val list = provider().toMutableList()
+        changeList(list)
+        consumer(list)
+    }
+
+    override fun generateRandomOrder() = view.showGeneratedText(createRandomText())
+
+    private fun fillUi(
+        refreshGroups: Boolean = true,
+        refreshMembers: Boolean = true,
+        refreshTextAdditions: Boolean = true,
+        regenerateText: Boolean = true
+    ) {
         if (refreshGroups) {
             view.showGroups(ApplicationSettings.getGroups())
         }
@@ -102,7 +132,9 @@ class UiController : DisplayContract.Controller {
         }
         view.selectGroup(selectedGroup)
         if (refreshTextAdditions) {
-            view.setPrefixes(ApplicationSettings.prefixes)
+            view.showPrefixes(ApplicationSettings.prefixes)
+            view.showSeparators(ApplicationSettings.separators)
+            view.showPostfixes(ApplicationSettings.postfixes)
         }
         if (regenerateText) {
             generateRandomOrder()
@@ -116,9 +148,9 @@ class UiController : DisplayContract.Controller {
             ?.shuffled()
             ?: emptyList())
             .joinToString(
-                separator = currentSeparator,
-                prefix = currentPrefix,
-                postfix = currentPostfix
+                separator = ApplicationSettings.currentSeparator,
+                prefix = ApplicationSettings.currentPrefix,
+                postfix = ApplicationSettings.currentPostfix
             )
 
     private fun String.toValidName() = replace(Regex("\\s+"), " ").trim()

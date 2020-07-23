@@ -19,14 +19,14 @@ class HtmlView(
 ) : DisplayContract.View {
 
     // HTML elements we need to change
-    private val divListExistingGroups = HtmlHelper.getElementById<HTMLDivElement>(ID_LIST_EXISTING_GROUPS)
+    private val divListGroups = HtmlHelper.getElementById<HTMLDivElement>(ID_LIST_EXISTING_GROUPS)
     private val formAddGroup = HtmlHelper.getElementById<HTMLFormElement>(ID_FORM_ADD_GROUP)
-    private val inputNewGroupName = HtmlHelper.getElementById<HTMLInputElement>(ID_INPUT_NEW_GROUP_NAME)
-    private val btnCreateNewGroup = HtmlHelper.getElementById<HTMLButtonElement>(ID_BUTTON_NEW_GROUP)
+    private val inputAddGroupName = HtmlHelper.getElementById<HTMLInputElement>(ID_INPUT_NEW_GROUP_NAME)
+    private val buttonAddGroup = HtmlHelper.getElementById<HTMLButtonElement>(ID_BUTTON_NEW_GROUP)
     private val divListGroupMembers = HtmlHelper.getElementById<HTMLDivElement>(ID_LIST_EXISTING_MEMBERS)
-    private val formAddMember = HtmlHelper.getElementById<HTMLFormElement>(ID_FORM_ADD_MEMBER)
-    private val inputNewGroupMember = HtmlHelper.getElementById<HTMLInputElement>(ID_INPUT_NEW_MEMBER_NAME)
-    private val btnAddGroupMember = HtmlHelper.getElementById<HTMLButtonElement>(ID_BUTTON_ADD_GROUP_MEMBER)
+    private val formAddGroupMember = HtmlHelper.getElementById<HTMLFormElement>(ID_FORM_ADD_MEMBER)
+    private val inputAddGroupMember = HtmlHelper.getElementById<HTMLInputElement>(ID_INPUT_NEW_MEMBER_NAME)
+    private val buttonAddGroupMember = HtmlHelper.getElementById<HTMLButtonElement>(ID_BUTTON_ADD_GROUP_MEMBER)
     private val divListPrefixes = HtmlHelper.getElementById<HTMLDivElement>(ID_DIV_LIST_PREFIXES)
     private val divListSeparators = HtmlHelper.getElementById<HTMLDivElement>(ID_DIV_LIST_SEPARATORS)
     private val divListPostfixes = HtmlHelper.getElementById<HTMLDivElement>(ID_DIV_LIST_POSTFIXES)
@@ -34,59 +34,63 @@ class HtmlView(
     private val inputSeparator = HtmlHelper.getElementById<HTMLInputElement>(ID_INPUT_SEPARATOR)
     private val inputPostfix = HtmlHelper.getElementById<HTMLInputElement>(ID_INPUT_POSTFIX)
     private val divResultText = HtmlHelper.getElementById<HTMLDivElement>(ID_DIV_RESULT_TEXT)
-    private val btnRegenerate = HtmlHelper.getElementById<HTMLButtonElement>(ID_BUTTON_REGENERATE)
-    private val btnCopy = HtmlHelper.getElementById<HTMLButtonElement>(ID_BUTTON_COPY)
+    private val buttonRegenerate = HtmlHelper.getElementById<HTMLButtonElement>(ID_BUTTON_REGENERATE)
+    private val buttonCopy = HtmlHelper.getElementById<HTMLButtonElement>(ID_BUTTON_COPY)
 
     init {
-        val createGroupCallback: (Event) -> Unit = { controller.createGroup(newGroupName) }
-        val addMemberToGroupCallback: (Event) -> Unit = { controller.addMemberToGroup(newMemberName) }
+        val createGroupCallback: (Event) -> Unit = { controller.addGroup(newGroupName) }
+        val addMemberToGroupCallback: (Event) -> Unit = { controller.addGroupMember(newMemberName) }
         formAddGroup.addEventListener(EVENT_SUBMIT, createGroupCallback)
-        formAddMember.addEventListener(EVENT_SUBMIT, addMemberToGroupCallback)
-        btnCreateNewGroup.addEventListener(EVENT_CLICK, createGroupCallback)
-        btnAddGroupMember.addEventListener(EVENT_CLICK, addMemberToGroupCallback)
-        btnRegenerate.addEventListener(EVENT_CLICK, { controller.generateRandomOrder() })
-        btnCopy.addEventListener(EVENT_CLICK, { navigator.clipboard.writeText(divResultText.innerText) })
+        formAddGroupMember.addEventListener(EVENT_SUBMIT, addMemberToGroupCallback)
+        buttonAddGroup.addEventListener(EVENT_CLICK, createGroupCallback)
+        buttonAddGroupMember.addEventListener(EVENT_CLICK, addMemberToGroupCallback)
+        buttonRegenerate.addEventListener(EVENT_CLICK, { controller.generateRandomOrder() })
+        buttonCopy.addEventListener(EVENT_CLICK, { navigator.clipboard.writeText(divResultText.innerText) })
     }
 
     override var newGroupName: String
-        get() = inputNewGroupName.value
+        get() = inputAddGroupName.value
         set(value) {
-            inputNewGroupName.value = value
+            inputAddGroupName.value = value
         }
 
     override var newMemberName: String
-        get() = inputNewGroupMember.value
+        get() = inputAddGroupMember.value
         set(value) {
-            inputNewGroupMember.value = value
+            inputAddGroupMember.value = value
         }
 
-    override fun focusNewGroupEditor() = inputNewGroupName.focus()
-    override fun focusNewMemberEditor() = inputNewGroupMember.focus()
+    override fun focusNewGroupEditor() = inputAddGroupName.focus()
+    override fun focusNewMemberEditor() = inputAddGroupMember.focus()
 
 
-    private val groupListMaintainer = ListMaintainer<Group>(divListExistingGroups, { createGroupItem(it) }, { it.name })
-    override fun showGroups(groups: List<Group>) = groupListMaintainer.showItems(groups)
-
+    private val groupListMaintainer = ListMaintainer<Group>(divListGroups, { createGroupItem(it) }, { it.name })
     private val memberListMaintainer =
         ListMaintainer<Member>(divListGroupMembers, { createMemberItem(it) }, { it.name })
-
-    override fun showMembers(members: List<Member>) = memberListMaintainer.showItems(members)
-
     private val prefixListMaintainer = ListMaintainer<String>(divListPrefixes, {
         createTextItem(it, { event ->
-            controller.currentPrefix = it
+            controller.selectPrefix(it)
+            event.stopPropagation()
+        })
+    })
+    private val separatorListMaintainer = ListMaintainer<String>(divListSeparators, {
+        createTextItem(it, { event ->
+            controller.selectSeparator(it)
+            event.stopPropagation()
+        })
+    })
+    private val postfixListMaintainer = ListMaintainer<String>(divListPostfixes, {
+        createTextItem(it, { event ->
+            controller.selectPostfix(it)
             event.stopPropagation()
         })
     })
 
-    override fun setPrefixes(prefixes: List<String>) = prefixListMaintainer.showItems(prefixes)
-
-    private val separatorListMaintainer = ListMaintainer<String>(divListSeparators, { createTextItem(it) })
-    override fun setSeparators(separators: List<String>) = separatorListMaintainer.showItems(separators)
-
-    private val postfixListMaintainer = ListMaintainer<String>(divListPostfixes, { createTextItem(it) })
-    override fun setPostfixes(postfixes: List<String>) = postfixListMaintainer.showItems(postfixes)
-
+    override fun showGroups(groups: List<Group>) = groupListMaintainer.showItems(groups)
+    override fun showMembers(members: List<Member>) = memberListMaintainer.showItems(members)
+    override fun showPrefixes(prefixes: List<String>) = prefixListMaintainer.showItems(prefixes)
+    override fun showSeparators(separators: List<String>) = separatorListMaintainer.showItems(separators)
+    override fun showPostfixes(postfixes: List<String>) = postfixListMaintainer.showItems(postfixes)
 
     override fun selectGroup(group: Group?) =
         groupListMaintainer.forEach { it.value.classList.toggle("active", group != null && it.key == group) }
@@ -104,7 +108,7 @@ class HtmlView(
         TODO("Not yet implemented")
     }
 
-    override fun setGeneratedText(text: String) {
+    override fun showGeneratedText(text: String) {
         divResultText.innerText = text
     }
 
@@ -135,27 +139,30 @@ class HtmlView(
         }
     }
 
-    private fun createMemberItem(member: Member) = document.create.button(
-        type = ButtonType.button,
-        classes = "list-group-item list-group-item-action d-flex justify-content-between gr-action-link-container"
-    ) {
-        onClickFunction = {
-            controller.toggleMemberActivation(member)
-        }
-        div {
-            span("badge badge-pill mr-1 ${member.getBadgeClass()}") {
-                +member.getIconText()
+    private fun createMemberItem(member: Member) = document.create.div(classes = "col-sm-6 col-md-6 col-lg-4 col-xl-3 p-1") {
+        button(
+            type = ButtonType.button,
+            //classes = "list-group-item list-group-item-action d-flex justify-content-between gr-action-link-container"
+            classes = "btn btn-light d-flex justify-content-between gr-action-link-container gr-full-width"
+        ) {
+            onClickFunction = {
+                controller.toggleGroupMemberActive(member)
             }
-            +member.name
-        }
-        a(classes = "gr-action-link ml-1") {
-            title = "Remove member '${member.name}'."
-            +"\uD83D\uDDD1"
-            onClickFunction = { event ->
-                if (window.confirm("Do you really want to remove member '${member.name}'?")) {
-                    controller.removeMember(member)
+            div {
+                span("badge badge-pill mr-1 ${member.getBadgeClass()}") {
+                    +member.getIconText()
                 }
-                event.stopPropagation()
+                +member.name
+            }
+            a(classes = "gr-action-link ml-1") {
+                title = "Remove member '${member.name}'."
+                +"\uD83D\uDDD1"
+                onClickFunction = { event ->
+                    if (window.confirm("Do you really want to remove member '${member.name}'?")) {
+                        controller.removeGroupMember(member)
+                    }
+                    event.stopPropagation()
+                }
             }
         }
     }
