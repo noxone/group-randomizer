@@ -28,9 +28,9 @@ interface DisplayContract {
         fun addGroupMember(name: String)
         fun removeGroupMember(member: Member)
         fun toggleGroupMemberActive(member: Member)
-        var currentPrefix: String
-        var currentSeparator: String
-        var currentPostfix: String
+        fun selectPrefix(prefix: String)
+        fun selectSeparator(separator: String)
+        fun selectPostfix(postfix: String)
         fun generateRandomOrder()
     }
 }

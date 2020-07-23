@@ -69,12 +69,22 @@ class HtmlView(
         ListMaintainer<Member>(divListGroupMembers, { createMemberItem(it) }, { it.name })
     private val prefixListMaintainer = ListMaintainer<String>(divListPrefixes, {
         createTextItem(it, { event ->
-            controller.currentPrefix = it
+            controller.selectPrefix(it)
             event.stopPropagation()
         })
     })
-    private val separatorListMaintainer = ListMaintainer<String>(divListSeparators, { createTextItem(it) })
-    private val postfixListMaintainer = ListMaintainer<String>(divListPostfixes, { createTextItem(it) })
+    private val separatorListMaintainer = ListMaintainer<String>(divListSeparators, {
+        createTextItem(it, { event ->
+            controller.selectSeparator(it)
+            event.stopPropagation()
+        })
+    })
+    private val postfixListMaintainer = ListMaintainer<String>(divListPostfixes, {
+        createTextItem(it, { event ->
+            controller.selectPostfix(it)
+            event.stopPropagation()
+        })
+    })
 
     override fun showGroups(groups: List<Group>) = groupListMaintainer.showItems(groups)
     override fun showMembers(members: List<Member>) = memberListMaintainer.showItems(members)
