@@ -15,3 +15,7 @@ a.gr-action-link {
 a.gr-action-link:hover {
     opacity: 1;
 }
+
+.gr-full-width {
+    width: 100%;
+}

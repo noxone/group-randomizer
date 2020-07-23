@@ -139,27 +139,30 @@ class HtmlView(
         }
     }
 
-    private fun createMemberItem(member: Member) = document.create.button(
-        type = ButtonType.button,
-        classes = "list-group-item list-group-item-action d-flex justify-content-between gr-action-link-container"
-    ) {
-        onClickFunction = {
-            controller.toggleGroupMemberActive(member)
-        }
-        div {
-            span("badge badge-pill mr-1 ${member.getBadgeClass()}") {
-                +member.getIconText()
+    private fun createMemberItem(member: Member) = document.create.div(classes = "col-sm-6 col-md-6 col-lg-4 col-xl-3 p-1") {
+        button(
+            type = ButtonType.button,
+            //classes = "list-group-item list-group-item-action d-flex justify-content-between gr-action-link-container"
+            classes = "btn btn-light d-flex justify-content-between gr-action-link-container gr-full-width"
+        ) {
+            onClickFunction = {
+                controller.toggleGroupMemberActive(member)
             }
-            +member.name
-        }
-        a(classes = "gr-action-link ml-1") {
-            title = "Remove member '${member.name}'."
-            +"\uD83D\uDDD1"
-            onClickFunction = { event ->
-                if (window.confirm("Do you really want to remove member '${member.name}'?")) {
-                    controller.removeGroupMember(member)
+            div {
+                span("badge badge-pill mr-1 ${member.getBadgeClass()}") {
+                    +member.getIconText()
                 }
-                event.stopPropagation()
+                +member.name
+            }
+            a(classes = "gr-action-link ml-1") {
+                title = "Remove member '${member.name}'."
+                +"\uD83D\uDDD1"
+                onClickFunction = { event ->
+                    if (window.confirm("Do you really want to remove member '${member.name}'?")) {
+                        controller.removeGroupMember(member)
+                    }
+                    event.stopPropagation()
+                }
             }
         }
     }
