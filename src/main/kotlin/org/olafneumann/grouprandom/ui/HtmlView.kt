@@ -36,8 +36,14 @@ class HtmlView(
     private val divResultText = HtmlHelper.getElementById<HTMLDivElement>(ID_DIV_RESULT_TEXT)
 
     init {
-        val createGroupCallback: (Event) -> Unit = { controller.addGroup(newGroupName) }
-        val addMemberToGroupCallback: (Event) -> Unit = { controller.addGroupMember(newMemberName) }
+        val createGroupCallback: (Event) -> Unit = {
+            controller.addGroup(inputAddGroupName.value)
+            inputAddGroupName.value = ""
+        }
+        val addMemberToGroupCallback: (Event) -> Unit = {
+            controller.addGroupMember(inputAddGroupMember.value)
+            inputAddGroupMember.value = ""
+        }
         formAddGroup.addEventListener(EVENT_SUBMIT, createGroupCallback)
         formAddGroupMember.addEventListener(EVENT_SUBMIT, addMemberToGroupCallback)
         buttonAddGroup.addEventListener(EVENT_CLICK, createGroupCallback)
@@ -48,21 +54,11 @@ class HtmlView(
             .forEach { it.addEventListener(EVENT_CLICK, { navigator.clipboard.writeText(divResultText.innerText) }) }
     }
 
-    override var newGroupName: String
-        get() = inputAddGroupName.value
-        set(value) {
-            inputAddGroupName.value = value
-        }
-
-    override var newMemberName: String
-        get() = inputAddGroupMember.value
-        set(value) {
-            inputAddGroupMember.value = value
-        }
-
     override fun focusNewGroupEditor() = inputAddGroupName.focus()
     override fun focusNewMemberEditor() = inputAddGroupMember.focus()
-
+    override fun focusNewPrefix() = inputPrefix.focus()
+    override fun focusNewSeparator() = inputSeparator.focus()
+    override fun focusNewPostfix() = inputPostfix.focus()
 
     private val groupListMaintainer = ListMaintainer<Group>(divListGroups, { createGroupItem(it) }, { it.name })
     private val memberListMaintainer =
@@ -92,26 +88,14 @@ class HtmlView(
     override fun showSeparators(separators: List<String>) = separatorListMaintainer.showItems(separators)
     override fun showPostfixes(postfixes: List<String>) = postfixListMaintainer.showItems(postfixes)
 
-    override fun selectGroup(group: Group?) =
-        groupListMaintainer.forEach { it.value.classList.toggle("active", group != null && it.key == group) }
-
-
-    override fun selectPrefix(prefix: String) {
-        TODO("Not yet implemented")
-    }
-
-    override fun selectSeparator(separator: String) {
-        TODO("Not yet implemented")
-    }
-
-    override fun selectPostfix(postfix: String) {
-        TODO("Not yet implemented")
-    }
+    override fun selectGroup(group: Group?) = groupListMaintainer.toggleActive(group)
+    override fun selectPrefix(prefix: String?) = prefixListMaintainer.toggleActive(prefix)
+    override fun selectSeparator(separator: String?) = separatorListMaintainer.toggleActive(separator)
+    override fun selectPostfix(postfix: String?) = postfixListMaintainer.toggleActive(postfix)
 
     override fun showGeneratedText(text: String) {
         divResultText.innerText = text
     }
-
 
     private fun createGroupItem(group: Group) = document.create.button(
         type = ButtonType.button,
@@ -263,4 +247,7 @@ private class ListMaintainer<T>(
             .mapNotNull { children[it] }
             .filter(filter)
             .forEach { removeChild(it) }
+
+    fun toggleActive(item: T?) =
+        elements.forEach { it.value.classList.toggle("active", item != null && it.key == item) }
 }
