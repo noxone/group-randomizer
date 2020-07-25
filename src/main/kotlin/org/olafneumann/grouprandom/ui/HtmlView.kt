@@ -7,10 +7,12 @@ import kotlinx.html.js.onClickFunction
 import org.olafneumann.grouprandom.Group
 import org.olafneumann.grouprandom.Member
 import org.olafneumann.grouprandom.browser.HtmlHelper
+import org.olafneumann.grouprandom.js.encodeURIComponent
 import org.olafneumann.grouprandom.js.navigator
 import org.w3c.dom.*
 import org.w3c.dom.events.Event
 import org.w3c.dom.events.KeyboardEvent
+import org.w3c.dom.url.URL
 import kotlin.browser.document
 import kotlin.browser.window
 
@@ -48,10 +50,25 @@ class HtmlView(
         formAddGroupMember.addEventListener(EVENT_SUBMIT, addMemberToGroupCallback)
         buttonAddGroup.addEventListener(EVENT_CLICK, createGroupCallback)
         buttonAddGroupMember.addEventListener(EVENT_CLICK, addMemberToGroupCallback)
+
         HtmlHelper.getElementById<HTMLButtonElement>(ID_BUTTON_REGENERATE)
             .addEventListener(EVENT_CLICK, { controller.generateRandomOrder() })
         HtmlHelper.getElementsByClassName<HTMLButtonElement>(CLASS_COPY_BUTTON)
             .forEach { it.addEventListener(EVENT_CLICK, { navigator.clipboard.writeText(divResultText.innerText) }) }
+
+        window.addEventListener(EVENT_POPSTATE, {
+            if (it is PopStateEvent) {
+                console.log(it)
+                if (it.state != null) {
+                    val dynamicGroup: dynamic = it.state
+                    val groupName: String? = dynamicGroup.name as String
+                    controller.tryToSelectGroupByName(groupName)
+                }
+            }
+        })
+
+        // find out if there is a group selected via URL
+        // controller.tryToSelectGroupByName(URL(document.URL).hash?.substring(1))
     }
 
     override fun focusNewGroupEditor() = inputAddGroupName.focus()
@@ -88,7 +105,16 @@ class HtmlView(
     override fun showSeparators(separators: List<String>) = separatorListMaintainer.showItems(separators)
     override fun showPostfixes(postfixes: List<String>) = postfixListMaintainer.showItems(postfixes)
 
-    override fun selectGroup(group: Group?) = groupListMaintainer.toggleActive(group)
+    override fun selectGroup(group: Group?) {
+        groupListMaintainer.toggleActive(group)
+        group?.let {
+            val state: dynamic = window.history.state
+            if (state != null && state.name != it.name) {
+                window.history.pushState(group, it.name, "#${encodeURIComponent(it.name)}")
+            }
+        }
+    }
+
     override fun selectPrefix(prefix: String?) = prefixListMaintainer.toggleActive(prefix)
     override fun selectSeparator(separator: String?) = separatorListMaintainer.toggleActive(separator)
     override fun selectPostfix(postfix: String?) = postfixListMaintainer.toggleActive(postfix)
@@ -184,6 +210,7 @@ class HtmlView(
         const val EVENT_MOUSE_ENTER = "mouseenter"
         const val EVENT_MOUSE_LEAVE = "mouseleave"
         const val EVENT_SUBMIT = "submit"
+        const val EVENT_POPSTATE = "popstate"
 
         const val ID_LIST_EXISTING_GROUPS = "gr_existing_groups"
         const val ID_INPUT_NEW_GROUP_NAME = "gr_new_group_name"
@@ -236,7 +263,7 @@ private class ListMaintainer<T>(
         elements.forEach { parent.prepend(it.value) }
     }
 
-    fun forEach(action: (Map.Entry<T, HTMLElement>) -> Unit) = elements.forEach(action)
+    private fun forEach(action: (Map.Entry<T, HTMLElement>) -> Unit) = elements.forEach(action)
 
     private fun Element.shouldBeRemoved(): Boolean =
         !(this is HTMLFormElement || this.classList.contains("gr-always-there"))
