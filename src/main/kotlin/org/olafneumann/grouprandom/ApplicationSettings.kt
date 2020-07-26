@@ -91,7 +91,7 @@ internal object ApplicationSettings : AbstractApplicationSettings() {
         }
 
     var postfixes: List<String>
-        get() = readConfigFromArray("list.postfixes", "[\"\",\".\"]")
+        get() = readConfigFromArray("list.postfixes", "[\"\u00A0\",\".\"]")
         set(value) {
             set("list.postfixes", JSON.stringify(value))
         }
