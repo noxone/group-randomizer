@@ -22,13 +22,9 @@ class HtmlView(
 
     // HTML elements we need to change
     private val divListGroups = HtmlHelper.getElementById<HTMLDivElement>(ID_LIST_EXISTING_GROUPS)
-    private val formAddGroup = HtmlHelper.getElementById<HTMLFormElement>(ID_FORM_ADD_GROUP)
     private val inputAddGroupName = HtmlHelper.getElementById<HTMLInputElement>(ID_INPUT_NEW_GROUP_NAME)
-    private val buttonAddGroup = HtmlHelper.getElementById<HTMLButtonElement>(ID_BUTTON_NEW_GROUP)
     private val divListGroupMembers = HtmlHelper.getElementById<HTMLDivElement>(ID_LIST_EXISTING_MEMBERS)
-    private val formAddGroupMember = HtmlHelper.getElementById<HTMLFormElement>(ID_FORM_ADD_MEMBER)
     private val inputAddGroupMember = HtmlHelper.getElementById<HTMLInputElement>(ID_INPUT_NEW_MEMBER_NAME)
-    private val buttonAddGroupMember = HtmlHelper.getElementById<HTMLButtonElement>(ID_BUTTON_ADD_GROUP_MEMBER)
     private val divListPrefixes = HtmlHelper.getElementById<HTMLDivElement>(ID_DIV_LIST_PREFIXES)
     private val divListSeparators = HtmlHelper.getElementById<HTMLDivElement>(ID_DIV_LIST_SEPARATORS)
     private val divListPostfixes = HtmlHelper.getElementById<HTMLDivElement>(ID_DIV_LIST_POSTFIXES)
@@ -38,18 +34,28 @@ class HtmlView(
     private val divResultText = HtmlHelper.getElementById<HTMLDivElement>(ID_DIV_RESULT_TEXT)
 
     init {
-        val createGroupCallback: (Event) -> Unit = {
-            controller.addGroup(inputAddGroupName.value)
-            inputAddGroupName.value = ""
-        }
-        val addMemberToGroupCallback: (Event) -> Unit = {
-            controller.addGroupMember(inputAddGroupMember.value)
-            inputAddGroupMember.value = ""
-        }
-        formAddGroup.addEventListener(EVENT_SUBMIT, createGroupCallback)
-        formAddGroupMember.addEventListener(EVENT_SUBMIT, addMemberToGroupCallback)
-        buttonAddGroup.addEventListener(EVENT_CLICK, createGroupCallback)
-        buttonAddGroupMember.addEventListener(EVENT_CLICK, addMemberToGroupCallback)
+        val buttonAddGroup = HtmlHelper.getElementById<HTMLButtonElement>(ID_BUTTON_NEW_GROUP)
+        val buttonAddGroupMember = HtmlHelper.getElementById<HTMLButtonElement>(ID_BUTTON_ADD_GROUP_MEMBER)
+        val buttonAddPrefix = HtmlHelper.getElementById<HTMLButtonElement>(ID_BUTTON_NEW_PREFIX)
+        val buttonAddSeparator = HtmlHelper.getElementById<HTMLButtonElement>(ID_BUTTON_NEW_SEPARATOR)
+        val buttonAddPostfix = HtmlHelper.getElementById<HTMLButtonElement>(ID_BUTTON_NEW_POSTFIX)
+
+        val createGroupCallback = inputAddGroupName.createValueCallback { controller.addGroup(it) }
+        val addMemberToGroupCallback = inputAddGroupMember.createValueCallback { controller.addGroupMember(it) }
+        val createPrefixCallback = inputPrefix.createValueCallback { controller.addPrefix(it) }
+        val createSeparatorCallback = inputSeparator.createValueCallback { controller.addSeparator(it) }
+        val createPostfixCallback = inputPostfix.createValueCallback { controller.addPostfix(it) }
+
+        buttonAddGroup.addClickListener(createGroupCallback)
+        buttonAddGroup.parentForm?.addSubmitListener(createGroupCallback)
+        buttonAddGroupMember.addClickListener(addMemberToGroupCallback)
+        buttonAddGroupMember.parentForm?.addSubmitListener(addMemberToGroupCallback)
+        buttonAddPrefix.addClickListener(createPrefixCallback)
+        buttonAddPrefix.parentForm?.addSubmitListener(createPrefixCallback)
+        buttonAddSeparator.addClickListener(createSeparatorCallback)
+        buttonAddSeparator.parentForm?.addSubmitListener(createSeparatorCallback)
+        buttonAddPostfix.addClickListener(createPostfixCallback)
+        buttonAddPostfix.parentForm?.addSubmitListener(createPostfixCallback)
 
         HtmlHelper.getElementById<HTMLButtonElement>(ID_BUTTON_REGENERATE)
             .addEventListener(EVENT_CLICK, { controller.generateRandomOrder() })
@@ -84,17 +90,32 @@ class HtmlView(
         createTextItem(it, { event ->
             controller.selectPrefix(it)
             event.stopPropagation()
+        }, { event ->
+            if (window.confirm("Remove prefix '$it'?")) {
+                controller.removePrefix(it)
+            }
+            event.stopPropagation()
         })
     })
     private val separatorListMaintainer = ListMaintainer<String>(divListSeparators, {
         createTextItem(it, { event ->
             controller.selectSeparator(it)
             event.stopPropagation()
+        }, { event ->
+            if (window.confirm("Remove separator '$it'?")) {
+                controller.removeSeparator(it)
+            }
+            event.stopPropagation()
         })
     })
     private val postfixListMaintainer = ListMaintainer<String>(divListPostfixes, {
         createTextItem(it, { event ->
             controller.selectPostfix(it)
+            event.stopPropagation()
+        }, { event ->
+            if (window.confirm("Remove postfix '$it'?")) {
+                controller.removePostfix(it)
+            }
             event.stopPropagation()
         })
     })
@@ -186,9 +207,9 @@ class HtmlView(
         type = ButtonType.button,
         classes = "list-group-item list-group-item-action d-flex justify-content-between gr-action-link-container"
     ) {
+        onClickFunction = onSelectFunction
         div("ml-2") {
             +text
-            onClickFunction = onSelectFunction
         }
         a(classes = "gr-action-link ml-1") {
             title = "Remove '${text}'."
@@ -205,11 +226,7 @@ class HtmlView(
         const val CLASS_COPY_BUTTON = "gr-copy-button"
 
         const val EVENT_CLICK = "click"
-        const val EVENT_INPUT = "input"
-        const val EVENT_KEYUP = "keyup"
-        const val EVENT_MOUSE_ENTER = "mouseenter"
-        const val EVENT_MOUSE_LEAVE = "mouseleave"
-        const val EVENT_SUBMIT = "submit"
+        private const val EVENT_SUBMIT = "submit"
         const val EVENT_POPSTATE = "popstate"
 
         const val ID_LIST_EXISTING_GROUPS = "gr_existing_groups"
@@ -218,25 +235,18 @@ class HtmlView(
         const val ID_LIST_EXISTING_MEMBERS = "gr_existing_members"
         const val ID_INPUT_NEW_MEMBER_NAME = "gr_new_member_name"
         const val ID_BUTTON_ADD_GROUP_MEMBER = "gr_add_group_member"
-        const val ID_FORM_ADD_GROUP = "gr_add_group_form"
-        const val ID_FORM_ADD_MEMBER = "gr_add_member_form"
         const val ID_DIV_LIST_PREFIXES = "gr_div_list_prefixes"
         const val ID_DIV_LIST_SEPARATORS = "gr_div_list_separators"
         const val ID_DIV_LIST_POSTFIXES = "gr_div_list_postfixes"
         const val ID_INPUT_PREFIX = "gr_input_prefix"
         const val ID_INPUT_SEPARATOR = "gr_input_separator"
         const val ID_INPUT_POSTFIX = "gr_input_postfix"
+        const val ID_BUTTON_NEW_PREFIX = "gr_create_new_prefix"
+        const val ID_BUTTON_NEW_SEPARATOR = "gr_create_new_separator"
+        const val ID_BUTTON_NEW_POSTFIX = "gr_create_new_postfix"
         const val ID_DIV_RESULT_TEXT = "gr_result_text"
         const val ID_BUTTON_REGENERATE = "gr_btn_regenerate"
-        const val ID_BUTTON_COPY = "gr_btn_copy"
 
-        /*private fun toKeyUp(callback: ((Event) -> Unit)): (KeyboardEvent) -> Unit {
-            return  {event ->
-                if (event.keyCode == 13) {
-                    callback.invoke(event)
-                }
-            }
-        }*/
         private fun ((Event) -> Unit).toKeyUpOnEnter(): (Event) -> Unit {
             return { event: Event ->
                 if (event is KeyboardEvent && event.keyCode == 13) {
@@ -244,6 +254,28 @@ class HtmlView(
                 }
             }
         }
+
+        private fun HTMLInputElement.createValueCallback(consumer: (String) -> Unit): (Event) -> Unit {
+            return {
+                consumer(value)
+                value = ""
+            }
+        }
+
+        private val Element.parentForm: HTMLFormElement?
+            get() {
+                if (parentElement == null || parentElement == document) {
+                    return null
+                }
+                if (parentElement is HTMLFormElement) {
+                    return parentElement as HTMLFormElement
+                }
+                return parentElement?.parentForm
+            }
+
+        private fun HTMLElement.addClickListener(handler: (Event) -> Unit) = this.addEventListener(EVENT_CLICK, handler)
+        private fun HTMLFormElement.addSubmitListener(handler: (Event) -> Unit) =
+            this.addEventListener(EVENT_SUBMIT, handler)
     }
 }
 

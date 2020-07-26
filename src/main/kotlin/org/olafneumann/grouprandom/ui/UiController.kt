@@ -12,7 +12,7 @@ class UiController : DisplayContract.Controller {
         // handle the cookie banner
         CookieBanner.initialize()
 
-        fillUi()
+        refreshUi()
     }
 
     private var selectedGroup: Group? = null
@@ -21,7 +21,7 @@ class UiController : DisplayContract.Controller {
         selectedGroup = group
         view.selectGroup(group)
         view.showMembers(group?.members ?: emptyList())
-        fillUi()
+        refreshUi()
     }
 
     override fun tryToSelectGroupByName(name: String?) {
@@ -47,7 +47,7 @@ class UiController : DisplayContract.Controller {
         if (group == selectedGroup) {
             selectGroup(group)
         }
-        fillUi(regenerateText = false)
+        refreshUi(refreshTextAdditions = false, regenerateText = false)
     }
 
     override fun addGroupMember(name: String) {
@@ -71,44 +71,74 @@ class UiController : DisplayContract.Controller {
 
     private fun fireCurrentGroupChanged() {
         selectedGroup?.let { ApplicationSettings.setGroup(it) }
-        fillUi()
+        refreshUi(refreshTextAdditions = false)
     }
 
     override fun selectPrefix(prefix: String) {
-        ApplicationSettings.currentPrefix = prefix
+        ApplicationSettings.currentPrefix = prefix.toValidAddition()
+        refreshUi(refreshGroups = false, refreshMembers = false, refreshTextAdditions = true, regenerateText = true)
+        view.selectPrefix(ApplicationSettings.currentPrefix)
     }
 
     override fun selectSeparator(separator: String) {
-        ApplicationSettings.currentSeparator = separator
+        ApplicationSettings.currentSeparator = separator.toValidAddition()
+        refreshUi(refreshGroups = false, refreshMembers = false, refreshTextAdditions = true, regenerateText = true)
+        view.selectSeparator(ApplicationSettings.currentSeparator)
     }
 
     override fun selectPostfix(postfix: String) {
-        ApplicationSettings.currentPostfix = postfix
+        ApplicationSettings.currentPostfix = postfix.toValidAddition()
+        refreshUi(refreshGroups = false, refreshMembers = false, refreshTextAdditions = true, regenerateText = true)
+        view.selectPostfix(ApplicationSettings.currentPostfix)
     }
 
     override fun addPrefix(prefix: String) =
-        addListEntry({ ApplicationSettings.prefixes }, { ApplicationSettings.prefixes = it }, prefix)
+        addListEntry({ ApplicationSettings.prefixes }, { ApplicationSettings.prefixes = it }, prefix.toValidAddition())
 
     override fun addSeparator(separator: String) =
-        addListEntry({ ApplicationSettings.separators }, { ApplicationSettings.separators = it }, separator)
+        addListEntry(
+            { ApplicationSettings.separators },
+            { ApplicationSettings.separators = it },
+            separator.toValidAddition()
+        )
 
     override fun addPostfix(postfix: String) =
-        addListEntry({ ApplicationSettings.postfixes }, { ApplicationSettings.postfixes = it }, postfix)
+        addListEntry(
+            { ApplicationSettings.postfixes },
+            { ApplicationSettings.postfixes = it },
+            postfix.toValidAddition()
+        )
 
     override fun removePrefix(prefix: String) =
-        removeListEntry({ ApplicationSettings.prefixes }, { ApplicationSettings.prefixes = it }, prefix)
+        removeListEntry(
+            { ApplicationSettings.prefixes },
+            { ApplicationSettings.prefixes = it },
+            prefix.toValidAddition()
+        )
 
     override fun removeSeparator(separator: String) =
-        removeListEntry({ ApplicationSettings.separators }, { ApplicationSettings.separators = it }, separator)
+        removeListEntry(
+            { ApplicationSettings.separators },
+            { ApplicationSettings.separators = it },
+            separator.toValidAddition()
+        )
 
     override fun removePostfix(postfix: String) =
-        removeListEntry({ ApplicationSettings.postfixes }, { ApplicationSettings.postfixes = it }, postfix)
+        removeListEntry(
+            { ApplicationSettings.postfixes },
+            { ApplicationSettings.postfixes = it },
+            postfix.toValidAddition()
+        )
 
-    private fun <T> addListEntry(provider: () -> List<T>, consumer: (List<T>) -> Unit, itemToAdd: T) =
+    private fun <T> addListEntry(provider: () -> List<T>, consumer: (List<T>) -> Unit, itemToAdd: T) {
         changeList(provider, consumer, { it.add(itemToAdd) })
+        refreshUi(refreshGroups = false, refreshMembers = false, refreshTextAdditions = true, regenerateText = false)
+    }
 
-    private fun <T> removeListEntry(provider: () -> List<T>, consumer: (List<T>) -> Unit, itemToDelete: T) =
+    private fun <T> removeListEntry(provider: () -> List<T>, consumer: (List<T>) -> Unit, itemToDelete: T) {
         changeList(provider, consumer, { it.remove(itemToDelete) })
+        refreshUi(refreshGroups = false, refreshMembers = false, refreshTextAdditions = true, regenerateText = false)
+    }
 
     private inline fun <T> changeList(
         provider: () -> List<T>,
@@ -122,7 +152,7 @@ class UiController : DisplayContract.Controller {
 
     override fun generateRandomOrder() = view.showGeneratedText(createRandomText())
 
-    private fun fillUi(
+    private fun refreshUi(
         refreshGroups: Boolean = true,
         refreshMembers: Boolean = true,
         refreshTextAdditions: Boolean = true,
@@ -137,8 +167,11 @@ class UiController : DisplayContract.Controller {
         view.selectGroup(selectedGroup)
         if (refreshTextAdditions) {
             view.showPrefixes(ApplicationSettings.prefixes)
+            view.selectPrefix(ApplicationSettings.currentPrefix)
             view.showSeparators(ApplicationSettings.separators)
+            view.selectSeparator(ApplicationSettings.currentSeparator)
             view.showPostfixes(ApplicationSettings.postfixes)
+            view.selectPostfix(ApplicationSettings.currentPostfix)
         }
         if (regenerateText) {
             generateRandomOrder()
@@ -158,4 +191,6 @@ class UiController : DisplayContract.Controller {
             )
 
     private fun String.toValidName() = replace(Regex("\\s+"), " ").trim()
+    private fun String.toValidAddition() = if (isEmpty()) "\u00A0" /* non-breaking space */ else this
+
 }
