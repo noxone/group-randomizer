@@ -232,7 +232,7 @@ if (typeof kotlin === 'undefined') {
   });
   Object.defineProperty(ApplicationSettings.prototype, 'postfixes', {
     get: function () {
-      return this.readConfigFromArray_0('list.postfixes', '["","."]');
+      return this.readConfigFromArray_0('list.postfixes', '["\xA0","."]');
     },
     set: function (value) {
       this.set_1('list.postfixes', JSON.stringify(value));
@@ -672,43 +672,43 @@ if (typeof kotlin === 'undefined') {
         throw e;
     }
     this.divListGroups_0 = getElementById_359kph$result;
-    var id_0 = HtmlView$Companion_getInstance().ID_FORM_ADD_GROUP;
+    var id_0 = HtmlView$Companion_getInstance().ID_INPUT_NEW_GROUP_NAME;
     var getElementById_359kph$result_0;
     var tmp$_0;
     try {
-      getElementById_359kph$result_0 = Kotlin.isType(tmp$_0 = document.getElementById(id_0), HTMLFormElement) ? tmp$_0 : throwCCE();
+      getElementById_359kph$result_0 = Kotlin.isType(tmp$_0 = document.getElementById(id_0), HTMLInputElement) ? tmp$_0 : throwCCE();
     } catch (e_0) {
       if (Kotlin.isType(e_0, ClassCastException)) {
         throw new RuntimeException_init("Unable to find element with id '" + id_0 + "'.", e_0);
       } else
         throw e_0;
     }
-    this.formAddGroup_0 = getElementById_359kph$result_0;
-    var id_1 = HtmlView$Companion_getInstance().ID_INPUT_NEW_GROUP_NAME;
+    this.inputAddGroupName_0 = getElementById_359kph$result_0;
+    var id_1 = HtmlView$Companion_getInstance().ID_LIST_EXISTING_MEMBERS;
     var getElementById_359kph$result_1;
     var tmp$_1;
     try {
-      getElementById_359kph$result_1 = Kotlin.isType(tmp$_1 = document.getElementById(id_1), HTMLInputElement) ? tmp$_1 : throwCCE();
+      getElementById_359kph$result_1 = Kotlin.isType(tmp$_1 = document.getElementById(id_1), HTMLDivElement) ? tmp$_1 : throwCCE();
     } catch (e_1) {
       if (Kotlin.isType(e_1, ClassCastException)) {
         throw new RuntimeException_init("Unable to find element with id '" + id_1 + "'.", e_1);
       } else
         throw e_1;
     }
-    this.inputAddGroupName_0 = getElementById_359kph$result_1;
-    var id_2 = HtmlView$Companion_getInstance().ID_BUTTON_NEW_GROUP;
+    this.divListGroupMembers_0 = getElementById_359kph$result_1;
+    var id_2 = HtmlView$Companion_getInstance().ID_INPUT_NEW_MEMBER_NAME;
     var getElementById_359kph$result_2;
     var tmp$_2;
     try {
-      getElementById_359kph$result_2 = Kotlin.isType(tmp$_2 = document.getElementById(id_2), HTMLButtonElement) ? tmp$_2 : throwCCE();
+      getElementById_359kph$result_2 = Kotlin.isType(tmp$_2 = document.getElementById(id_2), HTMLInputElement) ? tmp$_2 : throwCCE();
     } catch (e_2) {
       if (Kotlin.isType(e_2, ClassCastException)) {
         throw new RuntimeException_init("Unable to find element with id '" + id_2 + "'.", e_2);
       } else
         throw e_2;
     }
-    this.buttonAddGroup_0 = getElementById_359kph$result_2;
-    var id_3 = HtmlView$Companion_getInstance().ID_LIST_EXISTING_MEMBERS;
+    this.inputAddGroupMember_0 = getElementById_359kph$result_2;
+    var id_3 = HtmlView$Companion_getInstance().ID_DIV_LIST_PREFIXES;
     var getElementById_359kph$result_3;
     var tmp$_3;
     try {
@@ -719,68 +719,68 @@ if (typeof kotlin === 'undefined') {
       } else
         throw e_3;
     }
-    this.divListGroupMembers_0 = getElementById_359kph$result_3;
-    var id_4 = HtmlView$Companion_getInstance().ID_FORM_ADD_MEMBER;
+    this.divListPrefixes_0 = getElementById_359kph$result_3;
+    var id_4 = HtmlView$Companion_getInstance().ID_DIV_LIST_SEPARATORS;
     var getElementById_359kph$result_4;
     var tmp$_4;
     try {
-      getElementById_359kph$result_4 = Kotlin.isType(tmp$_4 = document.getElementById(id_4), HTMLFormElement) ? tmp$_4 : throwCCE();
+      getElementById_359kph$result_4 = Kotlin.isType(tmp$_4 = document.getElementById(id_4), HTMLDivElement) ? tmp$_4 : throwCCE();
     } catch (e_4) {
       if (Kotlin.isType(e_4, ClassCastException)) {
         throw new RuntimeException_init("Unable to find element with id '" + id_4 + "'.", e_4);
       } else
         throw e_4;
     }
-    this.formAddGroupMember_0 = getElementById_359kph$result_4;
-    var id_5 = HtmlView$Companion_getInstance().ID_INPUT_NEW_MEMBER_NAME;
+    this.divListSeparators_0 = getElementById_359kph$result_4;
+    var id_5 = HtmlView$Companion_getInstance().ID_DIV_LIST_POSTFIXES;
     var getElementById_359kph$result_5;
     var tmp$_5;
     try {
-      getElementById_359kph$result_5 = Kotlin.isType(tmp$_5 = document.getElementById(id_5), HTMLInputElement) ? tmp$_5 : throwCCE();
+      getElementById_359kph$result_5 = Kotlin.isType(tmp$_5 = document.getElementById(id_5), HTMLDivElement) ? tmp$_5 : throwCCE();
     } catch (e_5) {
       if (Kotlin.isType(e_5, ClassCastException)) {
         throw new RuntimeException_init("Unable to find element with id '" + id_5 + "'.", e_5);
       } else
         throw e_5;
     }
-    this.inputAddGroupMember_0 = getElementById_359kph$result_5;
-    var id_6 = HtmlView$Companion_getInstance().ID_BUTTON_ADD_GROUP_MEMBER;
+    this.divListPostfixes_0 = getElementById_359kph$result_5;
+    var id_6 = HtmlView$Companion_getInstance().ID_INPUT_PREFIX;
     var getElementById_359kph$result_6;
     var tmp$_6;
     try {
-      getElementById_359kph$result_6 = Kotlin.isType(tmp$_6 = document.getElementById(id_6), HTMLButtonElement) ? tmp$_6 : throwCCE();
+      getElementById_359kph$result_6 = Kotlin.isType(tmp$_6 = document.getElementById(id_6), HTMLInputElement) ? tmp$_6 : throwCCE();
     } catch (e_6) {
       if (Kotlin.isType(e_6, ClassCastException)) {
         throw new RuntimeException_init("Unable to find element with id '" + id_6 + "'.", e_6);
       } else
         throw e_6;
     }
-    this.buttonAddGroupMember_0 = getElementById_359kph$result_6;
-    var id_7 = HtmlView$Companion_getInstance().ID_DIV_LIST_PREFIXES;
+    this.inputPrefix_0 = getElementById_359kph$result_6;
+    var id_7 = HtmlView$Companion_getInstance().ID_INPUT_SEPARATOR;
     var getElementById_359kph$result_7;
     var tmp$_7;
     try {
-      getElementById_359kph$result_7 = Kotlin.isType(tmp$_7 = document.getElementById(id_7), HTMLDivElement) ? tmp$_7 : throwCCE();
+      getElementById_359kph$result_7 = Kotlin.isType(tmp$_7 = document.getElementById(id_7), HTMLInputElement) ? tmp$_7 : throwCCE();
     } catch (e_7) {
       if (Kotlin.isType(e_7, ClassCastException)) {
         throw new RuntimeException_init("Unable to find element with id '" + id_7 + "'.", e_7);
       } else
         throw e_7;
     }
-    this.divListPrefixes_0 = getElementById_359kph$result_7;
-    var id_8 = HtmlView$Companion_getInstance().ID_DIV_LIST_SEPARATORS;
+    this.inputSeparator_0 = getElementById_359kph$result_7;
+    var id_8 = HtmlView$Companion_getInstance().ID_INPUT_POSTFIX;
     var getElementById_359kph$result_8;
     var tmp$_8;
     try {
-      getElementById_359kph$result_8 = Kotlin.isType(tmp$_8 = document.getElementById(id_8), HTMLDivElement) ? tmp$_8 : throwCCE();
+      getElementById_359kph$result_8 = Kotlin.isType(tmp$_8 = document.getElementById(id_8), HTMLInputElement) ? tmp$_8 : throwCCE();
     } catch (e_8) {
       if (Kotlin.isType(e_8, ClassCastException)) {
         throw new RuntimeException_init("Unable to find element with id '" + id_8 + "'.", e_8);
       } else
         throw e_8;
     }
-    this.divListSeparators_0 = getElementById_359kph$result_8;
-    var id_9 = HtmlView$Companion_getInstance().ID_DIV_LIST_POSTFIXES;
+    this.inputPostfix_0 = getElementById_359kph$result_8;
+    var id_9 = HtmlView$Companion_getInstance().ID_DIV_RESULT_TEXT;
     var getElementById_359kph$result_9;
     var tmp$_9;
     try {
@@ -791,98 +791,120 @@ if (typeof kotlin === 'undefined') {
       } else
         throw e_9;
     }
-    this.divListPostfixes_0 = getElementById_359kph$result_9;
-    var id_10 = HtmlView$Companion_getInstance().ID_INPUT_PREFIX;
+    this.divResultText_0 = getElementById_359kph$result_9;
+    var tmp$_10, tmp$_11, tmp$_12, tmp$_13, tmp$_14;
+    var id_10 = HtmlView$Companion_getInstance().ID_BUTTON_NEW_GROUP;
     var getElementById_359kph$result_10;
-    var tmp$_10;
+    var tmp$_15;
     try {
-      getElementById_359kph$result_10 = Kotlin.isType(tmp$_10 = document.getElementById(id_10), HTMLInputElement) ? tmp$_10 : throwCCE();
+      getElementById_359kph$result_10 = Kotlin.isType(tmp$_15 = document.getElementById(id_10), HTMLButtonElement) ? tmp$_15 : throwCCE();
     } catch (e_10) {
       if (Kotlin.isType(e_10, ClassCastException)) {
         throw new RuntimeException_init("Unable to find element with id '" + id_10 + "'.", e_10);
       } else
         throw e_10;
     }
-    this.inputPrefix_0 = getElementById_359kph$result_10;
-    var id_11 = HtmlView$Companion_getInstance().ID_INPUT_SEPARATOR;
+    var buttonAddGroup = getElementById_359kph$result_10;
+    var id_11 = HtmlView$Companion_getInstance().ID_BUTTON_ADD_GROUP_MEMBER;
     var getElementById_359kph$result_11;
-    var tmp$_11;
+    var tmp$_16;
     try {
-      getElementById_359kph$result_11 = Kotlin.isType(tmp$_11 = document.getElementById(id_11), HTMLInputElement) ? tmp$_11 : throwCCE();
+      getElementById_359kph$result_11 = Kotlin.isType(tmp$_16 = document.getElementById(id_11), HTMLButtonElement) ? tmp$_16 : throwCCE();
     } catch (e_11) {
       if (Kotlin.isType(e_11, ClassCastException)) {
         throw new RuntimeException_init("Unable to find element with id '" + id_11 + "'.", e_11);
       } else
         throw e_11;
     }
-    this.inputSeparator_0 = getElementById_359kph$result_11;
-    var id_12 = HtmlView$Companion_getInstance().ID_INPUT_POSTFIX;
+    var buttonAddGroupMember = getElementById_359kph$result_11;
+    var id_12 = HtmlView$Companion_getInstance().ID_BUTTON_NEW_PREFIX;
     var getElementById_359kph$result_12;
-    var tmp$_12;
+    var tmp$_17;
     try {
-      getElementById_359kph$result_12 = Kotlin.isType(tmp$_12 = document.getElementById(id_12), HTMLInputElement) ? tmp$_12 : throwCCE();
+      getElementById_359kph$result_12 = Kotlin.isType(tmp$_17 = document.getElementById(id_12), HTMLButtonElement) ? tmp$_17 : throwCCE();
     } catch (e_12) {
       if (Kotlin.isType(e_12, ClassCastException)) {
         throw new RuntimeException_init("Unable to find element with id '" + id_12 + "'.", e_12);
       } else
         throw e_12;
     }
-    this.inputPostfix_0 = getElementById_359kph$result_12;
-    var id_13 = HtmlView$Companion_getInstance().ID_DIV_RESULT_TEXT;
+    var buttonAddPrefix = getElementById_359kph$result_12;
+    var id_13 = HtmlView$Companion_getInstance().ID_BUTTON_NEW_SEPARATOR;
     var getElementById_359kph$result_13;
-    var tmp$_13;
+    var tmp$_18;
     try {
-      getElementById_359kph$result_13 = Kotlin.isType(tmp$_13 = document.getElementById(id_13), HTMLDivElement) ? tmp$_13 : throwCCE();
+      getElementById_359kph$result_13 = Kotlin.isType(tmp$_18 = document.getElementById(id_13), HTMLButtonElement) ? tmp$_18 : throwCCE();
     } catch (e_13) {
       if (Kotlin.isType(e_13, ClassCastException)) {
         throw new RuntimeException_init("Unable to find element with id '" + id_13 + "'.", e_13);
       } else
         throw e_13;
     }
-    this.divResultText_0 = getElementById_359kph$result_13;
-    var createGroupCallback = HtmlView_init$lambda(this);
-    var addMemberToGroupCallback = HtmlView_init$lambda_0(this);
-    this.formAddGroup_0.addEventListener(HtmlView$Companion_getInstance().EVENT_SUBMIT, createGroupCallback);
-    this.formAddGroupMember_0.addEventListener(HtmlView$Companion_getInstance().EVENT_SUBMIT, addMemberToGroupCallback);
-    this.buttonAddGroup_0.addEventListener(HtmlView$Companion_getInstance().EVENT_CLICK, createGroupCallback);
-    this.buttonAddGroupMember_0.addEventListener(HtmlView$Companion_getInstance().EVENT_CLICK, addMemberToGroupCallback);
-    var id_14 = HtmlView$Companion_getInstance().ID_BUTTON_REGENERATE;
+    var buttonAddSeparator = getElementById_359kph$result_13;
+    var id_14 = HtmlView$Companion_getInstance().ID_BUTTON_NEW_POSTFIX;
     var getElementById_359kph$result_14;
-    var tmp$_14;
+    var tmp$_19;
     try {
-      getElementById_359kph$result_14 = Kotlin.isType(tmp$_14 = document.getElementById(id_14), HTMLButtonElement) ? tmp$_14 : throwCCE();
+      getElementById_359kph$result_14 = Kotlin.isType(tmp$_19 = document.getElementById(id_14), HTMLButtonElement) ? tmp$_19 : throwCCE();
     } catch (e_14) {
       if (Kotlin.isType(e_14, ClassCastException)) {
         throw new RuntimeException_init("Unable to find element with id '" + id_14 + "'.", e_14);
       } else
         throw e_14;
     }
-    getElementById_359kph$result_14.addEventListener(HtmlView$Companion_getInstance().EVENT_CLICK, HtmlView_init$lambda_1(this));
+    var buttonAddPostfix = getElementById_359kph$result_14;
+    var createGroupCallback = HtmlView$Companion_getInstance().createValueCallback_0(this.inputAddGroupName_0, HtmlView_init$lambda(this));
+    var addMemberToGroupCallback = HtmlView$Companion_getInstance().createValueCallback_0(this.inputAddGroupMember_0, HtmlView_init$lambda_0(this));
+    var createPrefixCallback = HtmlView$Companion_getInstance().createValueCallback_0(this.inputPrefix_0, HtmlView_init$lambda_1(this));
+    var createSeparatorCallback = HtmlView$Companion_getInstance().createValueCallback_0(this.inputSeparator_0, HtmlView_init$lambda_2(this));
+    var createPostfixCallback = HtmlView$Companion_getInstance().createValueCallback_0(this.inputPostfix_0, HtmlView_init$lambda_3(this));
+    HtmlView$Companion_getInstance().addClickListener_0(buttonAddGroup, createGroupCallback);
+    (tmp$_10 = HtmlView$Companion_getInstance().get_parentForm_0(buttonAddGroup)) != null ? (HtmlView$Companion_getInstance().addSubmitListener_0(tmp$_10, createGroupCallback), Unit) : null;
+    HtmlView$Companion_getInstance().addClickListener_0(buttonAddGroupMember, addMemberToGroupCallback);
+    (tmp$_11 = HtmlView$Companion_getInstance().get_parentForm_0(buttonAddGroupMember)) != null ? (HtmlView$Companion_getInstance().addSubmitListener_0(tmp$_11, addMemberToGroupCallback), Unit) : null;
+    HtmlView$Companion_getInstance().addClickListener_0(buttonAddPrefix, createPrefixCallback);
+    (tmp$_12 = HtmlView$Companion_getInstance().get_parentForm_0(buttonAddPrefix)) != null ? (HtmlView$Companion_getInstance().addSubmitListener_0(tmp$_12, createPrefixCallback), Unit) : null;
+    HtmlView$Companion_getInstance().addClickListener_0(buttonAddSeparator, createSeparatorCallback);
+    (tmp$_13 = HtmlView$Companion_getInstance().get_parentForm_0(buttonAddSeparator)) != null ? (HtmlView$Companion_getInstance().addSubmitListener_0(tmp$_13, createSeparatorCallback), Unit) : null;
+    HtmlView$Companion_getInstance().addClickListener_0(buttonAddPostfix, createPostfixCallback);
+    (tmp$_14 = HtmlView$Companion_getInstance().get_parentForm_0(buttonAddPostfix)) != null ? (HtmlView$Companion_getInstance().addSubmitListener_0(tmp$_14, createPostfixCallback), Unit) : null;
+    var id_15 = HtmlView$Companion_getInstance().ID_BUTTON_REGENERATE;
+    var getElementById_359kph$result_15;
+    var tmp$_20;
+    try {
+      getElementById_359kph$result_15 = Kotlin.isType(tmp$_20 = document.getElementById(id_15), HTMLButtonElement) ? tmp$_20 : throwCCE();
+    } catch (e_15) {
+      if (Kotlin.isType(e_15, ClassCastException)) {
+        throw new RuntimeException_init("Unable to find element with id '" + id_15 + "'.", e_15);
+      } else
+        throw e_15;
+    }
+    getElementById_359kph$result_15.addEventListener(HtmlView$Companion_getInstance().EVENT_CLICK, HtmlView_init$lambda_4(this));
     var className = HtmlView$Companion_getInstance().CLASS_COPY_BUTTON;
     try {
       var collection = document.getElementsByClassName(className);
       var $receiver = until(0, collection.length);
       var destination = ArrayList_init_0(collectionSizeOrDefault($receiver, 10));
-      var tmp$_15;
-      tmp$_15 = $receiver.iterator();
-      while (tmp$_15.hasNext()) {
-        var item = tmp$_15.next();
-        var tmp$_16;
-        destination.add_11rb$(Kotlin.isType(tmp$_16 = collection[item], HTMLButtonElement) ? tmp$_16 : throwCCE());
+      var tmp$_21;
+      tmp$_21 = $receiver.iterator();
+      while (tmp$_21.hasNext()) {
+        var item = tmp$_21.next();
+        var tmp$_22;
+        destination.add_11rb$(Kotlin.isType(tmp$_22 = collection[item], HTMLButtonElement) ? tmp$_22 : throwCCE());
       }
-    } catch (e_15) {
-      if (Kotlin.isType(e_15, ClassCastException)) {
-        throw new RuntimeException_init("Unable to find elements with class name '" + className + "'.", e_15);
+    } catch (e_16) {
+      if (Kotlin.isType(e_16, ClassCastException)) {
+        throw new RuntimeException_init("Unable to find elements with class name '" + className + "'.", e_16);
       } else
-        throw e_15;
+        throw e_16;
     }
-    var tmp$_17;
-    tmp$_17 = destination.iterator();
-    while (tmp$_17.hasNext()) {
-      var element = tmp$_17.next();
+    var tmp$_23;
+    tmp$_23 = destination.iterator();
+    while (tmp$_23.hasNext()) {
+      var element = tmp$_23.next();
       element.addEventListener(HtmlView$Companion_getInstance().EVENT_CLICK, HtmlView_init$lambda$lambda(this));
     }
-    window.addEventListener(HtmlView$Companion_getInstance().EVENT_POPSTATE, HtmlView_init$lambda_2(this));
+    window.addEventListener(HtmlView$Companion_getInstance().EVENT_POPSTATE, HtmlView_init$lambda_5(this));
     this.groupListMaintainer_0 = new ListMaintainer(this.divListGroups_0, HtmlView$groupListMaintainer$lambda(this), HtmlView$groupListMaintainer$lambda_0);
     this.memberListMaintainer_0 = new ListMaintainer(this.divListGroupMembers_0, HtmlView$memberListMaintainer$lambda(this), HtmlView$memberListMaintainer$lambda_0);
     this.prefixListMaintainer_0 = new ListMaintainer(this.divListPrefixes_0, HtmlView$prefixListMaintainer$lambda(this));
@@ -1062,10 +1084,9 @@ if (typeof kotlin === 'undefined') {
     it.stopPropagation();
     return Unit;
   }
-  function HtmlView$createTextItem$lambda$lambda(closure$text, closure$onSelectFunction) {
+  function HtmlView$createTextItem$lambda$lambda(closure$text) {
     return function ($receiver) {
       $receiver.unaryPlus_pdl1vz$(closure$text);
-      set_onClickFunction($receiver, closure$onSelectFunction);
       return Unit;
     };
   }
@@ -1077,9 +1098,10 @@ if (typeof kotlin === 'undefined') {
       return Unit;
     };
   }
-  function HtmlView$createTextItem$lambda_1(closure$text, closure$onSelectFunction, closure$onDeleteFunction) {
+  function HtmlView$createTextItem$lambda_1(closure$onSelectFunction, closure$text, closure$onDeleteFunction) {
     return function ($receiver) {
-      var block = HtmlView$createTextItem$lambda$lambda(closure$text, closure$onSelectFunction);
+      set_onClickFunction($receiver, closure$onSelectFunction);
+      var block = HtmlView$createTextItem$lambda$lambda(closure$text);
       visitTag(new DIV_init(attributesMapOf_0('class', 'ml-2'), $receiver.consumer), visit$lambda_1(block));
       var classes = 'gr-action-link ml-1';
       var block_0 = HtmlView$createTextItem$lambda$lambda_0(closure$text, closure$onDeleteFunction);
@@ -1096,7 +1118,7 @@ if (typeof kotlin === 'undefined') {
     var type = ButtonType.button;
     var classes = 'list-group-item list-group-item-action d-flex justify-content-between gr-action-link-container';
     var tmp$;
-    return Kotlin.isType(tmp$ = visitTagAndFinalize(new BUTTON_init(attributesMapOf(['formenctype', null != null ? enumEncode(null) : null, 'formmethod', null != null ? enumEncode(null) : null, 'name', null, 'type', type != null ? enumEncode(type) : null, 'class', classes]), $receiver), $receiver, visitAndFinalize$lambda(HtmlView$createTextItem$lambda_1(text, onSelectFunction, onDeleteFunction))), HTMLButtonElement_0) ? tmp$ : throwCCE();
+    return Kotlin.isType(tmp$ = visitTagAndFinalize(new BUTTON_init(attributesMapOf(['formenctype', null != null ? enumEncode(null) : null, 'formmethod', null != null ? enumEncode(null) : null, 'name', null, 'type', type != null ? enumEncode(type) : null, 'class', classes]), $receiver), $receiver, visitAndFinalize$lambda(HtmlView$createTextItem$lambda_1(onSelectFunction, text, onDeleteFunction))), HTMLButtonElement_0) ? tmp$ : throwCCE();
   };
   HtmlView.prototype.getBadgeClass_0 = function ($receiver) {
     return $receiver.active ? 'badge-success' : 'badge-danger';
@@ -1108,11 +1130,7 @@ if (typeof kotlin === 'undefined') {
     HtmlView$Companion_instance = this;
     this.CLASS_COPY_BUTTON = 'gr-copy-button';
     this.EVENT_CLICK = 'click';
-    this.EVENT_INPUT = 'input';
-    this.EVENT_KEYUP = 'keyup';
-    this.EVENT_MOUSE_ENTER = 'mouseenter';
-    this.EVENT_MOUSE_LEAVE = 'mouseleave';
-    this.EVENT_SUBMIT = 'submit';
+    this.EVENT_SUBMIT_0 = 'submit';
     this.EVENT_POPSTATE = 'popstate';
     this.ID_LIST_EXISTING_GROUPS = 'gr_existing_groups';
     this.ID_INPUT_NEW_GROUP_NAME = 'gr_new_group_name';
@@ -1120,17 +1138,17 @@ if (typeof kotlin === 'undefined') {
     this.ID_LIST_EXISTING_MEMBERS = 'gr_existing_members';
     this.ID_INPUT_NEW_MEMBER_NAME = 'gr_new_member_name';
     this.ID_BUTTON_ADD_GROUP_MEMBER = 'gr_add_group_member';
-    this.ID_FORM_ADD_GROUP = 'gr_add_group_form';
-    this.ID_FORM_ADD_MEMBER = 'gr_add_member_form';
     this.ID_DIV_LIST_PREFIXES = 'gr_div_list_prefixes';
     this.ID_DIV_LIST_SEPARATORS = 'gr_div_list_separators';
     this.ID_DIV_LIST_POSTFIXES = 'gr_div_list_postfixes';
     this.ID_INPUT_PREFIX = 'gr_input_prefix';
     this.ID_INPUT_SEPARATOR = 'gr_input_separator';
     this.ID_INPUT_POSTFIX = 'gr_input_postfix';
+    this.ID_BUTTON_NEW_PREFIX = 'gr_create_new_prefix';
+    this.ID_BUTTON_NEW_SEPARATOR = 'gr_create_new_separator';
+    this.ID_BUTTON_NEW_POSTFIX = 'gr_create_new_postfix';
     this.ID_DIV_RESULT_TEXT = 'gr_result_text';
     this.ID_BUTTON_REGENERATE = 'gr_btn_regenerate';
-    this.ID_BUTTON_COPY = 'gr_btn_copy';
   }
   function HtmlView$Companion$toKeyUpOnEnter$lambda(this$toKeyUpOnEnter) {
     return function (event) {
@@ -1141,6 +1159,30 @@ if (typeof kotlin === 'undefined') {
   }
   HtmlView$Companion.prototype.toKeyUpOnEnter_0 = function ($receiver) {
     return HtmlView$Companion$toKeyUpOnEnter$lambda($receiver);
+  };
+  function HtmlView$Companion$createValueCallback$lambda(closure$consumer, this$createValueCallback) {
+    return function (it) {
+      closure$consumer(this$createValueCallback.value);
+      this$createValueCallback.value = '';
+      return Unit;
+    };
+  }
+  HtmlView$Companion.prototype.createValueCallback_0 = function ($receiver, consumer) {
+    return HtmlView$Companion$createValueCallback$lambda(consumer, $receiver);
+  };
+  HtmlView$Companion.prototype.get_parentForm_0 = function ($receiver) {
+    var tmp$, tmp$_0;
+    if ($receiver.parentElement == null || equals($receiver.parentElement, document)) {
+      return null;
+    }if (Kotlin.isType($receiver.parentElement, HTMLFormElement)) {
+      return Kotlin.isType(tmp$ = $receiver.parentElement, HTMLFormElement) ? tmp$ : throwCCE();
+    }return (tmp$_0 = $receiver.parentElement) != null ? this.get_parentForm_0(tmp$_0) : null;
+  };
+  HtmlView$Companion.prototype.addClickListener_0 = function ($receiver, handler) {
+    $receiver.addEventListener(this.EVENT_CLICK, handler);
+  };
+  HtmlView$Companion.prototype.addSubmitListener_0 = function ($receiver, handler) {
+    $receiver.addEventListener(this.EVENT_SUBMIT_0, handler);
   };
   HtmlView$Companion.$metadata$ = {
     kind: Kind_OBJECT,
@@ -1155,19 +1197,35 @@ if (typeof kotlin === 'undefined') {
   }
   function HtmlView_init$lambda(this$HtmlView) {
     return function (it) {
-      this$HtmlView.controller_0.addGroup_61zpoe$(this$HtmlView.inputAddGroupName_0.value);
-      this$HtmlView.inputAddGroupName_0.value = '';
+      this$HtmlView.controller_0.addGroup_61zpoe$(it);
       return Unit;
     };
   }
   function HtmlView_init$lambda_0(this$HtmlView) {
     return function (it) {
-      this$HtmlView.controller_0.addGroupMember_61zpoe$(this$HtmlView.inputAddGroupMember_0.value);
-      this$HtmlView.inputAddGroupMember_0.value = '';
+      this$HtmlView.controller_0.addGroupMember_61zpoe$(it);
       return Unit;
     };
   }
   function HtmlView_init$lambda_1(this$HtmlView) {
+    return function (it) {
+      this$HtmlView.controller_0.addPrefix_61zpoe$(it);
+      return Unit;
+    };
+  }
+  function HtmlView_init$lambda_2(this$HtmlView) {
+    return function (it) {
+      this$HtmlView.controller_0.addSeparator_61zpoe$(it);
+      return Unit;
+    };
+  }
+  function HtmlView_init$lambda_3(this$HtmlView) {
+    return function (it) {
+      this$HtmlView.controller_0.addPostfix_61zpoe$(it);
+      return Unit;
+    };
+  }
+  function HtmlView_init$lambda_4(this$HtmlView) {
     return function (it) {
       this$HtmlView.controller_0.generateRandomOrder();
       return Unit;
@@ -1179,7 +1237,7 @@ if (typeof kotlin === 'undefined') {
       return Unit;
     };
   }
-  function HtmlView_init$lambda_2(this$HtmlView) {
+  function HtmlView_init$lambda_5(this$HtmlView) {
     return function (it) {
       var tmp$;
       if (Kotlin.isType(it, PopStateEvent)) {
@@ -1214,9 +1272,17 @@ if (typeof kotlin === 'undefined') {
       return Unit;
     };
   }
+  function HtmlView$prefixListMaintainer$lambda$lambda_0(closure$it, this$HtmlView) {
+    return function (event) {
+      if (window.confirm("Remove prefix '" + closure$it + "'?")) {
+        this$HtmlView.controller_0.removePrefix_61zpoe$(closure$it);
+      }event.stopPropagation();
+      return Unit;
+    };
+  }
   function HtmlView$prefixListMaintainer$lambda(this$HtmlView) {
     return function (it) {
-      return this$HtmlView.createTextItem_0(it, HtmlView$prefixListMaintainer$lambda$lambda(this$HtmlView, it));
+      return this$HtmlView.createTextItem_0(it, HtmlView$prefixListMaintainer$lambda$lambda(this$HtmlView, it), HtmlView$prefixListMaintainer$lambda$lambda_0(it, this$HtmlView));
     };
   }
   function HtmlView$separatorListMaintainer$lambda$lambda(this$HtmlView, closure$it) {
@@ -1226,9 +1292,17 @@ if (typeof kotlin === 'undefined') {
       return Unit;
     };
   }
+  function HtmlView$separatorListMaintainer$lambda$lambda_0(closure$it, this$HtmlView) {
+    return function (event) {
+      if (window.confirm("Remove separator '" + closure$it + "'?")) {
+        this$HtmlView.controller_0.removeSeparator_61zpoe$(closure$it);
+      }event.stopPropagation();
+      return Unit;
+    };
+  }
   function HtmlView$separatorListMaintainer$lambda(this$HtmlView) {
     return function (it) {
-      return this$HtmlView.createTextItem_0(it, HtmlView$separatorListMaintainer$lambda$lambda(this$HtmlView, it));
+      return this$HtmlView.createTextItem_0(it, HtmlView$separatorListMaintainer$lambda$lambda(this$HtmlView, it), HtmlView$separatorListMaintainer$lambda$lambda_0(it, this$HtmlView));
     };
   }
   function HtmlView$postfixListMaintainer$lambda$lambda(this$HtmlView, closure$it) {
@@ -1238,9 +1312,17 @@ if (typeof kotlin === 'undefined') {
       return Unit;
     };
   }
+  function HtmlView$postfixListMaintainer$lambda$lambda_0(closure$it, this$HtmlView) {
+    return function (event) {
+      if (window.confirm("Remove postfix '" + closure$it + "'?")) {
+        this$HtmlView.controller_0.removePostfix_61zpoe$(closure$it);
+      }event.stopPropagation();
+      return Unit;
+    };
+  }
   function HtmlView$postfixListMaintainer$lambda(this$HtmlView) {
     return function (it) {
-      return this$HtmlView.createTextItem_0(it, HtmlView$postfixListMaintainer$lambda$lambda(this$HtmlView, it));
+      return this$HtmlView.createTextItem_0(it, HtmlView$postfixListMaintainer$lambda$lambda(this$HtmlView, it), HtmlView$postfixListMaintainer$lambda$lambda_0(it, this$HtmlView));
     };
   }
   HtmlView.$metadata$ = {
@@ -1340,7 +1422,7 @@ if (typeof kotlin === 'undefined') {
   function UiController() {
     this.view_0 = new HtmlView(this);
     CookieBanner_getInstance().initialize();
-    this.fillUi_0();
+    this.refreshUi_0();
     this.selectedGroup_0 = null;
   }
   UiController.prototype.selectGroup_gdrvas$ = function (group) {
@@ -1350,7 +1432,7 @@ if (typeof kotlin === 'undefined') {
     }this.selectedGroup_0 = group;
     this.view_0.selectGroup_gdrvas$(group);
     this.view_0.showMembers_hxfhdp$((tmp$ = group != null ? group.members : null) != null ? tmp$ : emptyList());
-    this.fillUi_0();
+    this.refreshUi_0();
   };
   UiController.prototype.tryToSelectGroupByName_pdl1vj$ = function (name) {
     var tmp$;
@@ -1385,7 +1467,7 @@ if (typeof kotlin === 'undefined') {
     ApplicationSettings_getInstance().deleteGroup_61zpoe$(group.name);
     if (equals(group, this.selectedGroup_0)) {
       this.selectGroup_gdrvas$(group);
-    }this.fillUi_0(void 0, void 0, void 0, false);
+    }this.refreshUi_0(void 0, void 0, false, false);
   };
   UiController.prototype.addGroupMember_61zpoe$ = function (name) {
     var tmp$, tmp$_0, tmp$_1, tmp$_2;
@@ -1431,16 +1513,22 @@ if (typeof kotlin === 'undefined') {
     var tmp$;
     if ((tmp$ = this.selectedGroup_0) != null) {
       ApplicationSettings_getInstance().setGroup_bzgne3$(tmp$);
-    }this.fillUi_0();
+    }this.refreshUi_0(void 0, void 0, false);
   };
   UiController.prototype.selectPrefix_61zpoe$ = function (prefix) {
-    ApplicationSettings_getInstance().currentPrefix = prefix;
+    ApplicationSettings_getInstance().currentPrefix = this.toValidAddition_0(prefix);
+    this.refreshUi_0(false, false, true, true);
+    this.view_0.selectPrefix_pdl1vj$(ApplicationSettings_getInstance().currentPrefix);
   };
   UiController.prototype.selectSeparator_61zpoe$ = function (separator) {
-    ApplicationSettings_getInstance().currentSeparator = separator;
+    ApplicationSettings_getInstance().currentSeparator = this.toValidAddition_0(separator);
+    this.refreshUi_0(false, false, true, true);
+    this.view_0.selectSeparator_pdl1vj$(ApplicationSettings_getInstance().currentSeparator);
   };
   UiController.prototype.selectPostfix_61zpoe$ = function (postfix) {
-    ApplicationSettings_getInstance().currentPostfix = postfix;
+    ApplicationSettings_getInstance().currentPostfix = this.toValidAddition_0(postfix);
+    this.refreshUi_0(false, false, true, true);
+    this.view_0.selectPostfix_pdl1vj$(ApplicationSettings_getInstance().currentPostfix);
   };
   function UiController$addPrefix$lambda() {
     return ApplicationSettings_getInstance().prefixes;
@@ -1450,7 +1538,7 @@ if (typeof kotlin === 'undefined') {
     return Unit;
   }
   UiController.prototype.addPrefix_61zpoe$ = function (prefix) {
-    this.addListEntry_0(UiController$addPrefix$lambda, UiController$addPrefix$lambda_0, prefix);
+    this.addListEntry_0(UiController$addPrefix$lambda, UiController$addPrefix$lambda_0, this.toValidAddition_0(prefix));
   };
   function UiController$addSeparator$lambda() {
     return ApplicationSettings_getInstance().separators;
@@ -1460,7 +1548,7 @@ if (typeof kotlin === 'undefined') {
     return Unit;
   }
   UiController.prototype.addSeparator_61zpoe$ = function (separator) {
-    this.addListEntry_0(UiController$addSeparator$lambda, UiController$addSeparator$lambda_0, separator);
+    this.addListEntry_0(UiController$addSeparator$lambda, UiController$addSeparator$lambda_0, this.toValidAddition_0(separator));
   };
   function UiController$addPostfix$lambda() {
     return ApplicationSettings_getInstance().postfixes;
@@ -1470,7 +1558,7 @@ if (typeof kotlin === 'undefined') {
     return Unit;
   }
   UiController.prototype.addPostfix_61zpoe$ = function (postfix) {
-    this.addListEntry_0(UiController$addPostfix$lambda, UiController$addPostfix$lambda_0, postfix);
+    this.addListEntry_0(UiController$addPostfix$lambda, UiController$addPostfix$lambda_0, this.toValidAddition_0(postfix));
   };
   function UiController$removePrefix$lambda() {
     return ApplicationSettings_getInstance().prefixes;
@@ -1480,7 +1568,7 @@ if (typeof kotlin === 'undefined') {
     return Unit;
   }
   UiController.prototype.removePrefix_61zpoe$ = function (prefix) {
-    this.removeListEntry_0(UiController$removePrefix$lambda, UiController$removePrefix$lambda_0, prefix);
+    this.removeListEntry_0(UiController$removePrefix$lambda, UiController$removePrefix$lambda_0, this.toValidAddition_0(prefix));
   };
   function UiController$removeSeparator$lambda() {
     return ApplicationSettings_getInstance().separators;
@@ -1490,7 +1578,7 @@ if (typeof kotlin === 'undefined') {
     return Unit;
   }
   UiController.prototype.removeSeparator_61zpoe$ = function (separator) {
-    this.removeListEntry_0(UiController$removeSeparator$lambda, UiController$removeSeparator$lambda_0, separator);
+    this.removeListEntry_0(UiController$removeSeparator$lambda, UiController$removeSeparator$lambda_0, this.toValidAddition_0(separator));
   };
   function UiController$removePostfix$lambda() {
     return ApplicationSettings_getInstance().postfixes;
@@ -1500,17 +1588,19 @@ if (typeof kotlin === 'undefined') {
     return Unit;
   }
   UiController.prototype.removePostfix_61zpoe$ = function (postfix) {
-    this.removeListEntry_0(UiController$removePostfix$lambda, UiController$removePostfix$lambda_0, postfix);
+    this.removeListEntry_0(UiController$removePostfix$lambda, UiController$removePostfix$lambda_0, this.toValidAddition_0(postfix));
   };
   UiController.prototype.addListEntry_0 = function (provider, consumer, itemToAdd) {
     var list = toMutableList(provider());
     list.add_11rb$(itemToAdd);
     consumer(list);
+    this.refreshUi_0(false, false, true, false);
   };
   UiController.prototype.removeListEntry_0 = function (provider, consumer, itemToDelete) {
     var list = toMutableList(provider());
     list.remove_11rb$(itemToDelete);
     consumer(list);
+    this.refreshUi_0(false, false, true, false);
   };
   UiController.prototype.changeList_0 = function (provider, consumer, changeList) {
     var list = toMutableList(provider());
@@ -1520,7 +1610,7 @@ if (typeof kotlin === 'undefined') {
   UiController.prototype.generateRandomOrder = function () {
     this.view_0.showGeneratedText_61zpoe$(this.createRandomText_0());
   };
-  UiController.prototype.fillUi_0 = function (refreshGroups, refreshMembers, refreshTextAdditions, regenerateText) {
+  UiController.prototype.refreshUi_0 = function (refreshGroups, refreshMembers, refreshTextAdditions, regenerateText) {
     if (refreshGroups === void 0)
       refreshGroups = true;
     if (refreshMembers === void 0)
@@ -1537,8 +1627,11 @@ if (typeof kotlin === 'undefined') {
     }this.view_0.selectGroup_gdrvas$(this.selectedGroup_0);
     if (refreshTextAdditions) {
       this.view_0.showPrefixes_mhpeer$(ApplicationSettings_getInstance().prefixes);
+      this.view_0.selectPrefix_pdl1vj$(ApplicationSettings_getInstance().currentPrefix);
       this.view_0.showSeparators_mhpeer$(ApplicationSettings_getInstance().separators);
+      this.view_0.selectSeparator_pdl1vj$(ApplicationSettings_getInstance().currentSeparator);
       this.view_0.showPostfixes_mhpeer$(ApplicationSettings_getInstance().postfixes);
+      this.view_0.selectPostfix_pdl1vj$(ApplicationSettings_getInstance().currentPostfix);
     }if (regenerateText) {
       this.generateRandomOrder();
     }};
@@ -1575,6 +1668,9 @@ if (typeof kotlin === 'undefined') {
     var $receiver_0 = Regex_init('\\s+').replace_x2uqeu$($receiver, ' ');
     var tmp$;
     return trim(Kotlin.isCharSequence(tmp$ = $receiver_0) ? tmp$ : throwCCE()).toString();
+  };
+  UiController.prototype.toValidAddition_0 = function ($receiver) {
+    return $receiver.length === 0 ? '\xA0' : $receiver;
   };
   UiController.$metadata$ = {
     kind: Kind_CLASS,
