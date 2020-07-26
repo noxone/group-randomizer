@@ -7,10 +7,12 @@ import kotlinx.html.js.onClickFunction
 import org.olafneumann.grouprandom.Group
 import org.olafneumann.grouprandom.Member
 import org.olafneumann.grouprandom.browser.HtmlHelper
+import org.olafneumann.grouprandom.js.encodeURIComponent
 import org.olafneumann.grouprandom.js.navigator
 import org.w3c.dom.*
 import org.w3c.dom.events.Event
 import org.w3c.dom.events.KeyboardEvent
+import org.w3c.dom.url.URL
 import kotlin.browser.document
 import kotlin.browser.window
 
@@ -34,35 +36,46 @@ class HtmlView(
     private val inputSeparator = HtmlHelper.getElementById<HTMLInputElement>(ID_INPUT_SEPARATOR)
     private val inputPostfix = HtmlHelper.getElementById<HTMLInputElement>(ID_INPUT_POSTFIX)
     private val divResultText = HtmlHelper.getElementById<HTMLDivElement>(ID_DIV_RESULT_TEXT)
-    private val buttonRegenerate = HtmlHelper.getElementById<HTMLButtonElement>(ID_BUTTON_REGENERATE)
-    private val buttonCopy = HtmlHelper.getElementById<HTMLButtonElement>(ID_BUTTON_COPY)
 
     init {
-        val createGroupCallback: (Event) -> Unit = { controller.addGroup(newGroupName) }
-        val addMemberToGroupCallback: (Event) -> Unit = { controller.addGroupMember(newMemberName) }
+        val createGroupCallback: (Event) -> Unit = {
+            controller.addGroup(inputAddGroupName.value)
+            inputAddGroupName.value = ""
+        }
+        val addMemberToGroupCallback: (Event) -> Unit = {
+            controller.addGroupMember(inputAddGroupMember.value)
+            inputAddGroupMember.value = ""
+        }
         formAddGroup.addEventListener(EVENT_SUBMIT, createGroupCallback)
         formAddGroupMember.addEventListener(EVENT_SUBMIT, addMemberToGroupCallback)
         buttonAddGroup.addEventListener(EVENT_CLICK, createGroupCallback)
         buttonAddGroupMember.addEventListener(EVENT_CLICK, addMemberToGroupCallback)
-        buttonRegenerate.addEventListener(EVENT_CLICK, { controller.generateRandomOrder() })
-        buttonCopy.addEventListener(EVENT_CLICK, { navigator.clipboard.writeText(divResultText.innerText) })
+
+        HtmlHelper.getElementById<HTMLButtonElement>(ID_BUTTON_REGENERATE)
+            .addEventListener(EVENT_CLICK, { controller.generateRandomOrder() })
+        HtmlHelper.getElementsByClassName<HTMLButtonElement>(CLASS_COPY_BUTTON)
+            .forEach { it.addEventListener(EVENT_CLICK, { navigator.clipboard.writeText(divResultText.innerText) }) }
+
+        window.addEventListener(EVENT_POPSTATE, {
+            if (it is PopStateEvent) {
+                console.log(it)
+                if (it.state != null) {
+                    val dynamicGroup: dynamic = it.state
+                    val groupName: String? = dynamicGroup.name as String
+                    controller.tryToSelectGroupByName(groupName)
+                }
+            }
+        })
+
+        // find out if there is a group selected via URL
+        // controller.tryToSelectGroupByName(URL(document.URL).hash?.substring(1))
     }
-
-    override var newGroupName: String
-        get() = inputAddGroupName.value
-        set(value) {
-            inputAddGroupName.value = value
-        }
-
-    override var newMemberName: String
-        get() = inputAddGroupMember.value
-        set(value) {
-            inputAddGroupMember.value = value
-        }
 
     override fun focusNewGroupEditor() = inputAddGroupName.focus()
     override fun focusNewMemberEditor() = inputAddGroupMember.focus()
-
+    override fun focusNewPrefix() = inputPrefix.focus()
+    override fun focusNewSeparator() = inputSeparator.focus()
+    override fun focusNewPostfix() = inputPostfix.focus()
 
     private val groupListMaintainer = ListMaintainer<Group>(divListGroups, { createGroupItem(it) }, { it.name })
     private val memberListMaintainer =
@@ -92,26 +105,23 @@ class HtmlView(
     override fun showSeparators(separators: List<String>) = separatorListMaintainer.showItems(separators)
     override fun showPostfixes(postfixes: List<String>) = postfixListMaintainer.showItems(postfixes)
 
-    override fun selectGroup(group: Group?) =
-        groupListMaintainer.forEach { it.value.classList.toggle("active", group != null && it.key == group) }
-
-
-    override fun selectPrefix(prefix: String) {
-        TODO("Not yet implemented")
+    override fun selectGroup(group: Group?) {
+        groupListMaintainer.toggleActive(group)
+        group?.let {
+            val state: dynamic = window.history.state
+            if (state != null && state.name != it.name) {
+                window.history.pushState(group, it.name, "#${encodeURIComponent(it.name)}")
+            }
+        }
     }
 
-    override fun selectSeparator(separator: String) {
-        TODO("Not yet implemented")
-    }
-
-    override fun selectPostfix(postfix: String) {
-        TODO("Not yet implemented")
-    }
+    override fun selectPrefix(prefix: String?) = prefixListMaintainer.toggleActive(prefix)
+    override fun selectSeparator(separator: String?) = separatorListMaintainer.toggleActive(separator)
+    override fun selectPostfix(postfix: String?) = postfixListMaintainer.toggleActive(postfix)
 
     override fun showGeneratedText(text: String) {
         divResultText.innerText = text
     }
-
 
     private fun createGroupItem(group: Group) = document.create.button(
         type = ButtonType.button,
@@ -139,33 +149,34 @@ class HtmlView(
         }
     }
 
-    private fun createMemberItem(member: Member) = document.create.div(classes = "col-sm-6 col-md-6 col-lg-4 col-xl-3 p-1") {
-        button(
-            type = ButtonType.button,
-            //classes = "list-group-item list-group-item-action d-flex justify-content-between gr-action-link-container"
-            classes = "btn btn-light d-flex justify-content-between gr-action-link-container gr-full-width"
-        ) {
-            onClickFunction = {
-                controller.toggleGroupMemberActive(member)
-            }
-            div {
-                span("badge badge-pill mr-1 ${member.getBadgeClass()}") {
-                    +member.getIconText()
+    private fun createMemberItem(member: Member) =
+        document.create.div(classes = "col-sm-6 col-md-6 col-lg-4 col-xl-3 p-1") {
+            button(
+                type = ButtonType.button,
+                //classes = "list-group-item list-group-item-action d-flex justify-content-between gr-action-link-container"
+                classes = "btn btn-light d-flex justify-content-between gr-action-link-container gr-full-width"
+            ) {
+                onClickFunction = {
+                    controller.toggleGroupMemberActive(member)
                 }
-                +member.name
-            }
-            a(classes = "gr-action-link ml-1") {
-                title = "Remove member '${member.name}'."
-                +"\uD83D\uDDD1"
-                onClickFunction = { event ->
-                    if (window.confirm("Do you really want to remove member '${member.name}'?")) {
-                        controller.removeGroupMember(member)
+                div {
+                    span("badge badge-pill mr-1 ${member.getBadgeClass()}") {
+                        +member.getIconText()
                     }
-                    event.stopPropagation()
+                    +member.name
+                }
+                a(classes = "gr-action-link ml-1") {
+                    title = "Remove member '${member.name}'."
+                    +"\uD83D\uDDD1"
+                    onClickFunction = { event ->
+                        if (window.confirm("Do you really want to remove member '${member.name}'?")) {
+                            controller.removeGroupMember(member)
+                        }
+                        event.stopPropagation()
+                    }
                 }
             }
         }
-    }
 
     private fun createTextItem(
         text: String,
@@ -191,11 +202,7 @@ class HtmlView(
 
 
     companion object {
-        const val CLASS_MATCH_ROW = "gr-match-row"
-        const val CLASS_MATCH_ITEM = "gr-match-item"
-        const val CLASS_ITEM_SELECTED = "gr-item-selected"
-        const val CLASS_CHAR_SELECTED = "gr-char-selected"
-        const val CLASS_ITEM_NOT_AVAILABLE = "gr-item-not-available"
+        const val CLASS_COPY_BUTTON = "gr-copy-button"
 
         const val EVENT_CLICK = "click"
         const val EVENT_INPUT = "input"
@@ -203,6 +210,7 @@ class HtmlView(
         const val EVENT_MOUSE_ENTER = "mouseenter"
         const val EVENT_MOUSE_LEAVE = "mouseleave"
         const val EVENT_SUBMIT = "submit"
+        const val EVENT_POPSTATE = "popstate"
 
         const val ID_LIST_EXISTING_GROUPS = "gr_existing_groups"
         const val ID_INPUT_NEW_GROUP_NAME = "gr_new_group_name"
@@ -255,7 +263,7 @@ private class ListMaintainer<T>(
         elements.forEach { parent.prepend(it.value) }
     }
 
-    fun forEach(action: (Map.Entry<T, HTMLElement>) -> Unit) = elements.forEach(action)
+    private fun forEach(action: (Map.Entry<T, HTMLElement>) -> Unit) = elements.forEach(action)
 
     private fun Element.shouldBeRemoved(): Boolean =
         !(this is HTMLFormElement || this.classList.contains("gr-always-there"))
@@ -266,4 +274,7 @@ private class ListMaintainer<T>(
             .mapNotNull { children[it] }
             .filter(filter)
             .forEach { removeChild(it) }
+
+    fun toggleActive(item: T?) =
+        elements.forEach { it.value.classList.toggle("active", item != null && it.key == item) }
 }

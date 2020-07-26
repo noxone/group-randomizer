@@ -24,6 +24,12 @@ class UiController : DisplayContract.Controller {
         fillUi()
     }
 
+    override fun tryToSelectGroupByName(name: String?) {
+        ApplicationSettings.getGroups()
+            .find { it.name == name }
+            ?.let { selectGroup(it) }
+    }
+
     override fun addGroup(name: String): Group? {
         if (name.isBlank()) {
             return null
@@ -31,7 +37,6 @@ class UiController : DisplayContract.Controller {
 
         val validGroupName = name.toValidName()
         val group = ApplicationSettings.getGroup(validGroupName) ?: Group(validGroupName)
-        view.newGroupName = ""
         selectGroup(group)
         view.focusNewGroupEditor()
         return group
@@ -51,7 +56,6 @@ class UiController : DisplayContract.Controller {
             selectedGroup?.members?.add(Member(validName))
         }
         fireCurrentGroupChanged()
-        view.newMemberName = ""
         view.focusNewMemberEditor()
     }
 

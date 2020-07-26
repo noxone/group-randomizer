@@ -5,19 +5,20 @@ import org.olafneumann.grouprandom.Member
 
 interface DisplayContract {
     interface View {
-        var newGroupName: String
-        var newMemberName: String
         fun showGroups(groups: List<Group>)
         fun showMembers(members: List<Member>)
         fun showPrefixes(prefixes: List<String>)
         fun showSeparators(separators: List<String>)
         fun showPostfixes(postfixes: List<String>)
         fun selectGroup(group: Group?)
-        fun selectPrefix(prefix: String)
-        fun selectSeparator(separator: String)
-        fun selectPostfix(postfix: String)
+        fun selectPrefix(prefix: String?)
+        fun selectSeparator(separator: String?)
+        fun selectPostfix(postfix: String?)
         fun focusNewGroupEditor()
         fun focusNewMemberEditor()
+        fun focusNewPrefix()
+        fun focusNewSeparator()
+        fun focusNewPostfix()
         fun showGeneratedText(text: String)
     }
 
@@ -25,6 +26,7 @@ interface DisplayContract {
         fun addGroup(name: String): Group?
         fun removeGroup(group: Group)
         fun selectGroup(group: Group?)
+        fun tryToSelectGroupByName(name: String?)
         fun addGroupMember(name: String)
         fun removeGroupMember(member: Member)
         fun toggleGroupMemberActive(member: Member)
