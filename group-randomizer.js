@@ -187,6 +187,15 @@ if (typeof kotlin === 'undefined') {
     var tmp$;
     return this.readArrayToMutableList_0(JSON.parse((tmp$ = this.get_0(key)) != null ? tmp$ : defaultJson), ApplicationSettings$readConfigFromArray$lambda);
   };
+  Object.defineProperty(ApplicationSettings.prototype, 'selectedGroupName', {
+    get: function () {
+      var tmp$;
+      return (tmp$ = this.get_0('current.group.name')) != null ? tmp$ : '';
+    },
+    set: function (value) {
+      this.set_1('current.group.name', value);
+    }
+  });
   Object.defineProperty(ApplicationSettings.prototype, 'currentPrefix', {
     get: function () {
       var tmp$;
@@ -911,12 +920,14 @@ if (typeof kotlin === 'undefined') {
     this.separatorListMaintainer_0 = new ListMaintainer(this.divListSeparators_0, HtmlView$separatorListMaintainer$lambda(this));
     this.postfixListMaintainer_0 = new ListMaintainer(this.divListPostfixes_0, HtmlView$postfixListMaintainer$lambda(this));
   }
-  HtmlView.prototype.handlePreselectedGroup = function () {
+  HtmlView.prototype.selectPreselectedGroup = function () {
     var url = new URL(document.URL);
-    var groupName = url.hash.length > 1 ? url.hash.substring(1) : null;
-    if (groupName != null) {
+    if (url.hash.length > 1) {
+      var groupName = url.hash.substring(1);
       this.controller_0.tryToSelectGroupByName_61zpoe$(groupName);
-    }};
+      return true;
+    }return false;
+  };
   HtmlView.prototype.focusNewGroupEditor = function () {
     this.inputAddGroupName_0.focus();
   };
@@ -1430,13 +1441,15 @@ if (typeof kotlin === 'undefined') {
     this.view_0 = new HtmlView(this);
     CookieBanner_getInstance().initialize();
     this.refreshUi_0();
-    this.view_0.handlePreselectedGroup();
-    this.selectedGroup_0 = null;
+    if (!this.view_0.selectPreselectedGroup()) {
+      this.tryToSelectGroupByName_61zpoe$(ApplicationSettings_getInstance().selectedGroupName);
+    }this.selectedGroup_0 = null;
   }
   UiController.prototype.selectGroup_gdrvas$ = function (group) {
     var tmp$;
     if (group != null) {
       ApplicationSettings_getInstance().setGroup_bzgne3$(group);
+      ApplicationSettings_getInstance().selectedGroupName = group.name;
     }this.selectedGroup_0 = group;
     this.view_0.selectGroup_gdrvas$(group);
     this.view_0.showMembers_hxfhdp$((tmp$ = group != null ? group.members : null) != null ? tmp$ : emptyList());
