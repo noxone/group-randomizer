@@ -68,13 +68,16 @@ class HtmlView(
                 if (it.state != null) {
                     val dynamicGroup: dynamic = it.state
                     val groupName: String? = dynamicGroup.name as String
-                    controller.tryToSelectGroupByName(groupName)
+                    groupName?.let { controller.tryToSelectGroupByName(groupName) }
                 }
             }
         })
+    }
 
-        // find out if there is a group selected via URL
-        // controller.tryToSelectGroupByName(URL(document.URL).hash?.substring(1))
+    override fun handlePreselectedGroup() {
+        val url = URL(document.URL)
+        val groupName = if (url.hash.length > 1) url.hash.substring(1) else null
+        groupName?.let { controller.tryToSelectGroupByName(groupName) }
     }
 
     override fun focusNewGroupEditor() = inputAddGroupName.focus()
@@ -130,7 +133,7 @@ class HtmlView(
         groupListMaintainer.toggleActive(group)
         group?.let {
             val state: dynamic = window.history.state
-            if (state != null && state.name != it.name) {
+            if (state == null || state.name != it.name) {
                 window.history.pushState(group, it.name, "#${encodeURIComponent(it.name)}")
             }
         }

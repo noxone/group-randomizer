@@ -13,6 +13,7 @@ class UiController : DisplayContract.Controller {
         CookieBanner.initialize()
 
         refreshUi()
+        view.handlePreselectedGroup()
     }
 
     private var selectedGroup: Group? = null
@@ -24,7 +25,7 @@ class UiController : DisplayContract.Controller {
         refreshUi()
     }
 
-    override fun tryToSelectGroupByName(name: String?) {
+    override fun tryToSelectGroupByName(name: String) {
         ApplicationSettings.getGroups()
             .find { it.name == name }
             ?.let { selectGroup(it) }
