@@ -74,10 +74,14 @@ class HtmlView(
         })
     }
 
-    override fun handlePreselectedGroup() {
+    override fun selectPreselectedGroup(): Boolean {
         val url = URL(document.URL)
-        val groupName = if (url.hash.length > 1) url.hash.substring(1) else null
-        groupName?.let { controller.tryToSelectGroupByName(groupName) }
+        if (url.hash.length > 1) {
+            val groupName = url.hash.substring(1)
+            controller.tryToSelectGroupByName(groupName)
+            return true
+        }
+        return false
     }
 
     override fun focusNewGroupEditor() = inputAddGroupName.focus()

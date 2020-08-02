@@ -13,12 +13,17 @@ class UiController : DisplayContract.Controller {
         CookieBanner.initialize()
 
         refreshUi()
-        view.handlePreselectedGroup()
+        if (!view.selectPreselectedGroup()) {
+            tryToSelectGroupByName(ApplicationSettings.selectedGroupName)
+        }
     }
 
     private var selectedGroup: Group? = null
     override fun selectGroup(group: Group?) {
-        group?.let { ApplicationSettings.setGroup(it) }
+        group?.let {
+            ApplicationSettings.setGroup(it)
+            ApplicationSettings.selectedGroupName = group.name
+        }
         selectedGroup = group
         view.selectGroup(group)
         view.showMembers(group?.members ?: emptyList())
