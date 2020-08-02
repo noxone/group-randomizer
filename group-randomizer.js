@@ -911,6 +911,12 @@ if (typeof kotlin === 'undefined') {
     this.separatorListMaintainer_0 = new ListMaintainer(this.divListSeparators_0, HtmlView$separatorListMaintainer$lambda(this));
     this.postfixListMaintainer_0 = new ListMaintainer(this.divListPostfixes_0, HtmlView$postfixListMaintainer$lambda(this));
   }
+  HtmlView.prototype.handlePreselectedGroup = function () {
+    var url = new URL(document.URL);
+    var groupName = url.hash.length > 1 ? url.hash.substring(1) : null;
+    if (groupName != null) {
+      this.controller_0.tryToSelectGroupByName_61zpoe$(groupName);
+    }};
   HtmlView.prototype.focusNewGroupEditor = function () {
     this.inputAddGroupName_0.focus();
   };
@@ -945,7 +951,7 @@ if (typeof kotlin === 'undefined') {
     this.groupListMaintainer_0.toggleActive_11rb$(group);
     if (group != null) {
       var state = window.history.state;
-      if (state != null && state.name != group.name) {
+      if (state == null || state.name != group.name) {
         window.history.pushState(group, group.name, '#' + encodeURIComponent(group.name));
       }}};
   HtmlView.prototype.selectPrefix_pdl1vj$ = function (prefix) {
@@ -1245,8 +1251,9 @@ if (typeof kotlin === 'undefined') {
         if (it.state != null) {
           var dynamicGroup = it.state;
           var groupName = typeof (tmp$ = dynamicGroup.name) === 'string' ? tmp$ : throwCCE();
-          this$HtmlView.controller_0.tryToSelectGroupByName_pdl1vj$(groupName);
-        }}return Unit;
+          if (groupName != null) {
+            this$HtmlView.controller_0.tryToSelectGroupByName_61zpoe$(groupName);
+          }}}return Unit;
     };
   }
   function HtmlView$groupListMaintainer$lambda(this$HtmlView) {
@@ -1423,6 +1430,7 @@ if (typeof kotlin === 'undefined') {
     this.view_0 = new HtmlView(this);
     CookieBanner_getInstance().initialize();
     this.refreshUi_0();
+    this.view_0.handlePreselectedGroup();
     this.selectedGroup_0 = null;
   }
   UiController.prototype.selectGroup_gdrvas$ = function (group) {
@@ -1434,7 +1442,7 @@ if (typeof kotlin === 'undefined') {
     this.view_0.showMembers_hxfhdp$((tmp$ = group != null ? group.members : null) != null ? tmp$ : emptyList());
     this.refreshUi_0();
   };
-  UiController.prototype.tryToSelectGroupByName_pdl1vj$ = function (name) {
+  UiController.prototype.tryToSelectGroupByName_61zpoe$ = function (name) {
     var tmp$;
     var $receiver = ApplicationSettings_getInstance().getGroups();
     var firstOrNull$result;
