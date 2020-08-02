@@ -20,13 +20,14 @@ interface DisplayContract {
         fun focusNewSeparator()
         fun focusNewPostfix()
         fun showGeneratedText(text: String)
+        fun handlePreselectedGroup()
     }
 
     interface Controller {
         fun addGroup(name: String): Group?
         fun removeGroup(group: Group)
         fun selectGroup(group: Group?)
-        fun tryToSelectGroupByName(name: String?)
+        fun tryToSelectGroupByName(name: String)
         fun addGroupMember(name: String)
         fun removeGroupMember(member: Member)
         fun toggleGroupMemberActive(member: Member)
