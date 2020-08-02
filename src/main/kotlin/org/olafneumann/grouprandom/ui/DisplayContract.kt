@@ -20,7 +20,7 @@ interface DisplayContract {
         fun focusNewSeparator()
         fun focusNewPostfix()
         fun showGeneratedText(text: String)
-        fun handlePreselectedGroup()
+        fun selectPreselectedGroup(): Boolean
     }
 
     interface Controller {
