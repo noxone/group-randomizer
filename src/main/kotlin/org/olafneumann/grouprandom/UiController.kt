@@ -1,12 +1,15 @@
-package org.olafneumann.grouprandom.ui
+package org.olafneumann.grouprandom
 
-import org.olafneumann.grouprandom.Group
-import org.olafneumann.grouprandom.Member
-import org.olafneumann.grouprandom.ApplicationSettings
 import org.olafneumann.grouprandom.browser.CookieBanner
+import org.olafneumann.grouprandom.model.Group
+import org.olafneumann.grouprandom.model.Member
+import org.olafneumann.grouprandom.ui.HtmlView
 
-class UiController : DisplayContract.Controller {
-    private val view: DisplayContract.View = HtmlView(this)
+internal class UiController : DisplayContract.Controller {
+    private val view: DisplayContract.View =
+        HtmlView(this)
+
+    private var selectedGroup: Group? = null
 
     init {
         // handle the cookie banner
@@ -18,7 +21,6 @@ class UiController : DisplayContract.Controller {
         }
     }
 
-    private var selectedGroup: Group? = null
     override fun selectGroup(group: Group?) {
         group?.let {
             ApplicationSettings.setGroup(it)
@@ -196,7 +198,10 @@ class UiController : DisplayContract.Controller {
                 postfix = ApplicationSettings.currentPostfix
             )
 
-    private fun String.toValidName() = replace(Regex("\\s+"), " ").trim()
+    private fun String.toValidName() = replace(REGEX_WHITESPACE, " ").trim()
     private fun String.toValidAddition() = if (isEmpty()) "\u00A0" /* non-breaking space */ else this
 
+    companion object {
+        private val REGEX_WHITESPACE = Regex("\\s+")
+    }
 }
