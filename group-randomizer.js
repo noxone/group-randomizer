@@ -923,7 +923,7 @@ if (typeof kotlin === 'undefined') {
   HtmlView.prototype.selectPreselectedGroup = function () {
     var url = new URL(document.URL);
     if (url.hash.length > 1) {
-      var groupName = url.hash.substring(1);
+      var groupName = decodeURIComponent(url.hash.substring(1));
       this.controller_0.tryToSelectGroupByName_61zpoe$(groupName);
       return true;
     }return false;
