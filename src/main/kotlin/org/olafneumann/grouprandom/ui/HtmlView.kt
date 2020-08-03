@@ -4,15 +4,15 @@ import kotlinx.html.*
 import kotlinx.html.dom.create
 import kotlinx.html.js.button
 import kotlinx.html.js.onClickFunction
-import org.olafneumann.grouprandom.Group
-import org.olafneumann.grouprandom.Member
+import org.olafneumann.grouprandom.DisplayContract
+import org.olafneumann.grouprandom.model.Group
+import org.olafneumann.grouprandom.model.Member
 import org.olafneumann.grouprandom.browser.HtmlHelper
 import org.olafneumann.grouprandom.js.decodeURIComponent
 import org.olafneumann.grouprandom.js.encodeURIComponent
 import org.olafneumann.grouprandom.js.navigator
 import org.w3c.dom.*
 import org.w3c.dom.events.Event
-import org.w3c.dom.events.KeyboardEvent
 import org.w3c.dom.url.URL
 import kotlin.browser.document
 import kotlin.browser.window
@@ -65,7 +65,6 @@ class HtmlView(
 
         window.addEventListener(EVENT_POPSTATE, {
             if (it is PopStateEvent) {
-                console.log(it)
                 if (it.state != null) {
                     val dynamicGroup: dynamic = it.state
                     val groupName: String? = dynamicGroup.name as String
@@ -156,7 +155,6 @@ class HtmlView(
         type = ButtonType.button,
         classes = "list-group-item list-group-item-action d-flex justify-content-between gr-action-link-container"
     ) {
-        // TODO add listener for member counter
         +group.name
         onClickFunction = {
             controller.selectGroup(group)
@@ -182,7 +180,6 @@ class HtmlView(
         document.create.div(classes = "col-sm-6 col-md-6 col-lg-4 col-xl-3 p-1") {
             button(
                 type = ButtonType.button,
-                //classes = "list-group-item list-group-item-action d-flex justify-content-between gr-action-link-container"
                 classes = "btn btn-light d-flex justify-content-between gr-action-link-container gr-full-width"
             ) {
                 onClickFunction = {
@@ -255,14 +252,6 @@ class HtmlView(
         const val ID_DIV_RESULT_TEXT = "gr_result_text"
         const val ID_BUTTON_REGENERATE = "gr_btn_regenerate"
 
-        private fun ((Event) -> Unit).toKeyUpOnEnter(): (Event) -> Unit {
-            return { event: Event ->
-                if (event is KeyboardEvent && event.keyCode == 13) {
-                    this(event)
-                }
-            }
-        }
-
         private fun HTMLInputElement.createValueCallback(consumer: (String) -> Unit): (Event) -> Unit {
             return {
                 consumer(value)
@@ -285,36 +274,4 @@ class HtmlView(
         private fun HTMLFormElement.addSubmitListener(handler: (Event) -> Unit) =
             this.addEventListener(EVENT_SUBMIT, handler)
     }
-}
-
-private class ListMaintainer<T>(
-    val parent: HTMLDivElement,
-    inline val elementCreator: (T) -> HTMLElement,
-    inline val selector: (T) -> String = { it.toString() }
-) {
-    private var elements: Map<T, HTMLElement> = emptyMap()
-
-    fun showItems(items: List<T>) {
-        parent.removeChildren { it.shouldBeRemoved() }
-        elements = items.sortedBy { selector(it) }
-            .reversed()
-            .map { it to elementCreator(it) }
-            .toMap()
-        elements.forEach { parent.prepend(it.value) }
-    }
-
-    private fun forEach(action: (Map.Entry<T, HTMLElement>) -> Unit) = elements.forEach(action)
-
-    private fun Element.shouldBeRemoved(): Boolean =
-        !(this is HTMLFormElement || this.classList.contains("gr-always-there"))
-
-    private fun HTMLElement.removeChildren(filter: (Element) -> Boolean) =
-        childElementCount
-            .downTo(0)
-            .mapNotNull { children[it] }
-            .filter(filter)
-            .forEach { removeChild(it) }
-
-    fun toggleActive(item: T?) =
-        elements.forEach { it.value.classList.toggle("active", item != null && it.key == item) }
 }

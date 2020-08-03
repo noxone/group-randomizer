@@ -1,12 +1,13 @@
-package org.olafneumann.grouprandom.ui
+package org.olafneumann.grouprandom
 
-import org.olafneumann.grouprandom.Group
-import org.olafneumann.grouprandom.Member
-import org.olafneumann.grouprandom.ApplicationSettings
 import org.olafneumann.grouprandom.browser.CookieBanner
+import org.olafneumann.grouprandom.model.Group
+import org.olafneumann.grouprandom.model.Member
+import org.olafneumann.grouprandom.ui.HtmlView
 
-class UiController : DisplayContract.Controller {
-    private val view: DisplayContract.View = HtmlView(this)
+internal class UiController : DisplayContract.Controller {
+    private val view: DisplayContract.View =
+        HtmlView(this)
 
     private var selectedGroup: Group? = null
 

@@ -1,6 +1,5 @@
 package org.olafneumann.grouprandom.browser
 
-import org.w3c.dom.HTMLAnchorElement
 import org.w3c.dom.HTMLElement
 import org.w3c.dom.get
 import kotlin.browser.document

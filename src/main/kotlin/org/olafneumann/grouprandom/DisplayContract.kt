@@ -1,7 +1,7 @@
-package org.olafneumann.grouprandom.ui
+package org.olafneumann.grouprandom
 
-import org.olafneumann.grouprandom.Group
-import org.olafneumann.grouprandom.Member
+import org.olafneumann.grouprandom.model.Group
+import org.olafneumann.grouprandom.model.Member
 
 interface DisplayContract {
     interface View {

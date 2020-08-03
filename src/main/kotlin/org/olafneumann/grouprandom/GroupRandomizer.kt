@@ -1,6 +1,5 @@
 package org.olafneumann.grouprandom
 
-import org.olafneumann.grouprandom.ui.UiController
 import kotlin.browser.window
 
 fun main() {
@@ -14,8 +13,7 @@ fun main() {
 
 private fun initGroupRandomizer() {
     // initialize presentation code
-    /*val presenter = */UiController()
-    // presenter.initialize()
+    UiController()
 
     // store information, that we were already here
     ApplicationSettings.storeUserLastInfo()
