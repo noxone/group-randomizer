@@ -197,7 +197,10 @@ class UiController : DisplayContract.Controller {
                 postfix = ApplicationSettings.currentPostfix
             )
 
-    private fun String.toValidName() = replace(Regex("\\s+"), " ").trim()
+    private fun String.toValidName() = replace(REGEX_WHITESPACE, " ").trim()
     private fun String.toValidAddition() = if (isEmpty()) "\u00A0" /* non-breaking space */ else this
 
+    companion object {
+        private val REGEX_WHITESPACE = Regex("\\s+")
+    }
 }
