@@ -8,6 +8,8 @@ import org.olafneumann.grouprandom.browser.CookieBanner
 class UiController : DisplayContract.Controller {
     private val view: DisplayContract.View = HtmlView(this)
 
+    private var selectedGroup: Group? = null
+
     init {
         // handle the cookie banner
         CookieBanner.initialize()
@@ -18,7 +20,6 @@ class UiController : DisplayContract.Controller {
         }
     }
 
-    private var selectedGroup: Group? = null
     override fun selectGroup(group: Group?) {
         group?.let {
             ApplicationSettings.setGroup(it)
