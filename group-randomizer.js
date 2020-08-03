@@ -19,27 +19,30 @@ if (typeof kotlin === 'undefined') {
   var Kind_CLASS = Kotlin.Kind.CLASS;
   var Comparator = Kotlin.kotlin.Comparator;
   var ArrayList_init = Kotlin.kotlin.collections.ArrayList_init_287e2$;
+  var Kind_INTERFACE = Kotlin.Kind.INTERFACE;
   var toString = Kotlin.toString;
   var Exception = Kotlin.kotlin.Exception;
+  var Unit = Kotlin.kotlin.Unit;
+  var emptyList = Kotlin.kotlin.collections.emptyList_287e2$;
+  var isBlank = Kotlin.kotlin.text.isBlank_gw00vp$;
+  var removeAll = Kotlin.kotlin.collections.removeAll_qafx1e$;
+  var shuffled = Kotlin.kotlin.collections.shuffled_7wnvza$;
+  var joinToString = Kotlin.kotlin.collections.joinToString_fmv235$;
+  var Regex_init = Kotlin.kotlin.text.Regex_init_61zpoe$;
+  var collectionSizeOrDefault = Kotlin.kotlin.collections.collectionSizeOrDefault_ba2ldo$;
+  var ArrayList_init_0 = Kotlin.kotlin.collections.ArrayList_init_ww73n8$;
+  var trim = Kotlin.kotlin.text.trim_gw00vp$;
   var downTo = Kotlin.kotlin.ranges.downTo_dqglrj$;
   var mapNotNull = Kotlin.kotlin.sequences.mapNotNull_qpz9h9$;
   var toBoolean = Kotlin.kotlin.text.toBoolean_pdl1vz$;
   var LinkedHashMap_init = Kotlin.kotlin.collections.LinkedHashMap_init_q3lmfv$;
-  var Unit = Kotlin.kotlin.Unit;
   var RuntimeException_init = Kotlin.kotlin.RuntimeException;
   var ClassCastException = Kotlin.kotlin.ClassCastException;
   var defineInlineFunction = Kotlin.defineInlineFunction;
-  var Kind_INTERFACE = Kotlin.Kind.INTERFACE;
   var get_create = $module$kotlinx_html_js.kotlinx.html.dom.get_create_4wc2mh$;
   var ButtonType = $module$kotlinx_html_js.kotlinx.html.ButtonType;
   var set_onClickFunction = $module$kotlinx_html_js.kotlinx.html.js.set_onClickFunction_pszlq2$;
   var set_title = $module$kotlinx_html_js.kotlinx.html.set_title_ueiko3$;
-  var reversed = Kotlin.kotlin.collections.reversed_7wnvza$;
-  var to = Kotlin.kotlin.to_ujzrz7$;
-  var toMap = Kotlin.kotlin.collections.toMap_6hr0sd$;
-  var emptyMap = Kotlin.kotlin.collections.emptyMap_q3lmfv$;
-  var collectionSizeOrDefault = Kotlin.kotlin.collections.collectionSizeOrDefault_ba2ldo$;
-  var ArrayList_init_0 = Kotlin.kotlin.collections.ArrayList_init_ww73n8$;
   var attributesMapOf = $module$kotlinx_html_js.kotlinx.html.attributesMapOf_alerag$;
   var A_init = $module$kotlinx_html_js.kotlinx.html.A;
   var visitTag = $module$kotlinx_html_js.kotlinx.html.visitTag_xwv8ym$;
@@ -50,13 +53,10 @@ if (typeof kotlin === 'undefined') {
   var BUTTON_init = $module$kotlinx_html_js.kotlinx.html.BUTTON;
   var HTMLButtonElement_0 = HTMLButtonElement;
   var visitTagAndFinalize = $module$kotlinx_html_js.kotlinx.html.visitTagAndFinalize_g9qte5$;
-  var emptyList = Kotlin.kotlin.collections.emptyList_287e2$;
-  var isBlank = Kotlin.kotlin.text.isBlank_gw00vp$;
-  var removeAll = Kotlin.kotlin.collections.removeAll_qafx1e$;
-  var shuffled = Kotlin.kotlin.collections.shuffled_7wnvza$;
-  var joinToString = Kotlin.kotlin.collections.joinToString_fmv235$;
-  var Regex_init = Kotlin.kotlin.text.Regex_init_61zpoe$;
-  var trim = Kotlin.kotlin.text.trim_gw00vp$;
+  var reversed = Kotlin.kotlin.collections.reversed_7wnvza$;
+  var to = Kotlin.kotlin.to_ujzrz7$;
+  var toMap = Kotlin.kotlin.collections.toMap_6hr0sd$;
+  var emptyMap = Kotlin.kotlin.collections.emptyMap_q3lmfv$;
   ApplicationSettings.prototype = Object.create(AbstractApplicationSettings.prototype);
   ApplicationSettings.prototype.constructor = ApplicationSettings;
   function Comparator$ObjectLiteral(closure$comparison) {
@@ -79,8 +79,21 @@ if (typeof kotlin === 'undefined') {
     ApplicationSettings_instance = this;
     AbstractApplicationSettings.call(this);
     this.KEY_LAST_VERSION_0 = 'user.lastVersion';
-    this.KEY_GROUPS_0 = 'groups';
+    this.KEY_CURRENT_GROUP_NAME_0 = 'current.group.name';
+    this.KEY_CURRENT_PREFIX_0 = 'current.prefix';
+    this.KEY_CURRENT_SEPARATOR_0 = 'current.separator';
+    this.KEY_CURRENT_POSTFIX_0 = 'current.postfix';
+    this.KEY_LIST_PREFIXES_0 = 'list.prefixes';
+    this.KEY_LIST_SEPARATORS_0 = 'list.separators';
+    this.KEY_LIST_POSTFIXES_0 = 'list.postfixes';
     this.VAL_VERSION_0 = 1;
+    this.VAL_DEFAULT_GROUP_NAME_0 = '';
+    this.VAL_DEFAULT_PREFIX_0 = '';
+    this.VAL_DEFAULT_SEPARATOR_0 = ', ';
+    this.VAL_DEFAULT_POSTFIX_0 = '';
+    this.VAL_DEFAULT_LIST_PREFIXES_0 = '["\xA0","Today\'s order: "]';
+    this.VAL_DEFAULT_LIST_SEPARATOR_0 = '[", "," : "]';
+    this.VAL_DEFAULT_LIST_POSTFIXES_0 = '["\xA0","."]';
   }
   ApplicationSettings.prototype.isNewUser = function () {
     var tmp$, tmp$_0;
@@ -135,7 +148,7 @@ if (typeof kotlin === 'undefined') {
     var tmp$;
     return toMutableList_0(map(map(asSequence(until(0, (tmp$ = array.length) != null ? tmp$ : 0)), ApplicationSettings$readArrayToMutableList$lambda(array)), ApplicationSettings$readArrayToMutableList$lambda_0(handler)));
   };
-  ApplicationSettings.prototype.setGroup_bzgne3$ = function (group) {
+  ApplicationSettings.prototype.setGroup_f2hml6$ = function (group) {
     var $receiver = this.getMutableGroups_0();
     var destination = ArrayList_init();
     var tmp$;
@@ -190,61 +203,61 @@ if (typeof kotlin === 'undefined') {
   Object.defineProperty(ApplicationSettings.prototype, 'selectedGroupName', {
     get: function () {
       var tmp$;
-      return (tmp$ = this.get_0('current.group.name')) != null ? tmp$ : '';
+      return (tmp$ = this.get_0(this.KEY_CURRENT_GROUP_NAME_0)) != null ? tmp$ : this.VAL_DEFAULT_GROUP_NAME_0;
     },
     set: function (value) {
-      this.set_1('current.group.name', value);
+      this.set_1(this.KEY_CURRENT_GROUP_NAME_0, value);
     }
   });
   Object.defineProperty(ApplicationSettings.prototype, 'currentPrefix', {
     get: function () {
       var tmp$;
-      return (tmp$ = this.get_0('current.prefix')) != null ? tmp$ : '';
+      return (tmp$ = this.get_0(this.KEY_CURRENT_PREFIX_0)) != null ? tmp$ : this.VAL_DEFAULT_PREFIX_0;
     },
     set: function (value) {
-      this.set_1('current.prefix', value);
+      this.set_1(this.KEY_CURRENT_PREFIX_0, value);
     }
   });
   Object.defineProperty(ApplicationSettings.prototype, 'currentSeparator', {
     get: function () {
       var tmp$;
-      return (tmp$ = this.get_0('current.separator')) != null ? tmp$ : ', ';
+      return (tmp$ = this.get_0(this.KEY_CURRENT_SEPARATOR_0)) != null ? tmp$ : this.VAL_DEFAULT_SEPARATOR_0;
     },
     set: function (value) {
-      this.set_1('current.separator', value);
+      this.set_1(this.KEY_CURRENT_SEPARATOR_0, value);
     }
   });
   Object.defineProperty(ApplicationSettings.prototype, 'currentPostfix', {
     get: function () {
       var tmp$;
-      return (tmp$ = this.get_0('current.postfix')) != null ? tmp$ : '';
+      return (tmp$ = this.get_0(this.KEY_CURRENT_POSTFIX_0)) != null ? tmp$ : this.VAL_DEFAULT_POSTFIX_0;
     },
     set: function (value) {
-      this.set_1('current.postfix', value);
+      this.set_1(this.KEY_CURRENT_POSTFIX_0, value);
     }
   });
   Object.defineProperty(ApplicationSettings.prototype, 'prefixes', {
     get: function () {
-      return this.readConfigFromArray_0('list.prefixes', '["\xA0","Today\'s order: "]');
+      return this.readConfigFromArray_0(this.KEY_LIST_PREFIXES_0, this.VAL_DEFAULT_LIST_PREFIXES_0);
     },
     set: function (value) {
-      this.set_1('list.prefixes', JSON.stringify(value));
+      this.set_1(this.KEY_LIST_PREFIXES_0, JSON.stringify(value));
     }
   });
   Object.defineProperty(ApplicationSettings.prototype, 'separators', {
     get: function () {
-      return this.readConfigFromArray_0('list.separators', '[", "," : "]');
+      return this.readConfigFromArray_0(this.KEY_LIST_SEPARATORS_0, this.VAL_DEFAULT_LIST_SEPARATOR_0);
     },
     set: function (value) {
-      this.set_1('list.separators', JSON.stringify(value));
+      this.set_1(this.KEY_LIST_SEPARATORS_0, JSON.stringify(value));
     }
   });
   Object.defineProperty(ApplicationSettings.prototype, 'postfixes', {
     get: function () {
-      return this.readConfigFromArray_0('list.postfixes', '["\xA0","."]');
+      return this.readConfigFromArray_0(this.KEY_LIST_POSTFIXES_0, this.VAL_DEFAULT_LIST_POSTFIXES_0);
     },
     set: function (value) {
-      this.set_1('list.postfixes', JSON.stringify(value));
+      this.set_1(this.KEY_LIST_POSTFIXES_0, JSON.stringify(value));
     }
   });
   ApplicationSettings.$metadata$ = {
@@ -258,69 +271,26 @@ if (typeof kotlin === 'undefined') {
       new ApplicationSettings();
     }return ApplicationSettings_instance;
   }
-  function Group(name, members) {
-    if (members === void 0) {
-      members = ArrayList_init();
-    }this.name = name;
-    this.members = members;
+  function DisplayContract() {
   }
-  Group.$metadata$ = {
-    kind: Kind_CLASS,
-    simpleName: 'Group',
+  function DisplayContract$View() {
+  }
+  DisplayContract$View.$metadata$ = {
+    kind: Kind_INTERFACE,
+    simpleName: 'View',
     interfaces: []
   };
-  Group.prototype.component1 = function () {
-    return this.name;
-  };
-  Group.prototype.component2 = function () {
-    return this.members;
-  };
-  Group.prototype.copy_yjeta8$ = function (name, members) {
-    return new Group(name === void 0 ? this.name : name, members === void 0 ? this.members : members);
-  };
-  Group.prototype.toString = function () {
-    return 'Group(name=' + Kotlin.toString(this.name) + (', members=' + Kotlin.toString(this.members)) + ')';
-  };
-  Group.prototype.hashCode = function () {
-    var result = 0;
-    result = result * 31 + Kotlin.hashCode(this.name) | 0;
-    result = result * 31 + Kotlin.hashCode(this.members) | 0;
-    return result;
-  };
-  Group.prototype.equals = function (other) {
-    return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.name, other.name) && Kotlin.equals(this.members, other.members)))));
-  };
-  function Member(name, active) {
-    if (active === void 0)
-      active = true;
-    this.name = name;
-    this.active = active;
+  function DisplayContract$Controller() {
   }
-  Member.$metadata$ = {
-    kind: Kind_CLASS,
-    simpleName: 'Member',
+  DisplayContract$Controller.$metadata$ = {
+    kind: Kind_INTERFACE,
+    simpleName: 'Controller',
     interfaces: []
   };
-  Member.prototype.component1 = function () {
-    return this.name;
-  };
-  Member.prototype.component2 = function () {
-    return this.active;
-  };
-  Member.prototype.copy_ivxn3r$ = function (name, active) {
-    return new Member(name === void 0 ? this.name : name, active === void 0 ? this.active : active);
-  };
-  Member.prototype.toString = function () {
-    return 'Member(name=' + Kotlin.toString(this.name) + (', active=' + Kotlin.toString(this.active)) + ')';
-  };
-  Member.prototype.hashCode = function () {
-    var result = 0;
-    result = result * 31 + Kotlin.hashCode(this.name) | 0;
-    result = result * 31 + Kotlin.hashCode(this.active) | 0;
-    return result;
-  };
-  Member.prototype.equals = function (other) {
-    return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.name, other.name) && Kotlin.equals(this.active, other.active)))));
+  DisplayContract.$metadata$ = {
+    kind: Kind_INTERFACE,
+    simpleName: 'DisplayContract',
+    interfaces: []
   };
   function main() {
     try {
@@ -337,6 +307,283 @@ if (typeof kotlin === 'undefined') {
     new UiController();
     ApplicationSettings_getInstance().storeUserLastInfo();
   }
+  function UiController() {
+    UiController$Companion_getInstance();
+    this.view_0 = new HtmlView(this);
+    this.selectedGroup_0 = null;
+    CookieBanner_getInstance().initialize();
+    this.refreshUi_0();
+    if (!this.view_0.selectPreselectedGroup()) {
+      this.tryToSelectGroupByName_61zpoe$(ApplicationSettings_getInstance().selectedGroupName);
+    }}
+  UiController.prototype.selectGroup_u2lxnd$ = function (group) {
+    var tmp$;
+    if (group != null) {
+      ApplicationSettings_getInstance().setGroup_f2hml6$(group);
+      ApplicationSettings_getInstance().selectedGroupName = group.name;
+    }this.selectedGroup_0 = group;
+    this.view_0.selectGroup_u2lxnd$(group);
+    this.view_0.showMembers_x6m2tk$((tmp$ = group != null ? group.members : null) != null ? tmp$ : emptyList());
+    this.refreshUi_0();
+  };
+  UiController.prototype.tryToSelectGroupByName_61zpoe$ = function (name) {
+    var tmp$;
+    var $receiver = ApplicationSettings_getInstance().getGroups();
+    var firstOrNull$result;
+    firstOrNull$break: do {
+      var tmp$_0;
+      tmp$_0 = $receiver.iterator();
+      while (tmp$_0.hasNext()) {
+        var element = tmp$_0.next();
+        if (equals(element.name, name)) {
+          firstOrNull$result = element;
+          break firstOrNull$break;
+        }}
+      firstOrNull$result = null;
+    }
+     while (false);
+    if ((tmp$ = firstOrNull$result) != null) {
+      this.selectGroup_u2lxnd$(tmp$);
+    }};
+  UiController.prototype.addGroup_61zpoe$ = function (name) {
+    var tmp$;
+    if (isBlank(name)) {
+      return null;
+    }var validGroupName = this.toValidName_0(name);
+    var group = (tmp$ = ApplicationSettings_getInstance().getGroup_61zpoe$(validGroupName)) != null ? tmp$ : new Group(validGroupName);
+    this.selectGroup_u2lxnd$(group);
+    this.view_0.focusNewGroupEditor();
+    return group;
+  };
+  UiController.prototype.removeGroup_f2hml6$ = function (group) {
+    ApplicationSettings_getInstance().deleteGroup_61zpoe$(group.name);
+    if (equals(group, this.selectedGroup_0)) {
+      this.selectGroup_u2lxnd$(group);
+    }this.refreshUi_0(void 0, void 0, false, false);
+  };
+  UiController.prototype.addGroupMember_61zpoe$ = function (name) {
+    var tmp$, tmp$_0, tmp$_1, tmp$_2;
+    var validName = this.toValidName_0(name);
+    var tmp$_3;
+    if ((tmp$_0 = (tmp$ = this.selectedGroup_0) != null ? tmp$.members : null) != null) {
+      var firstOrNull$result;
+      firstOrNull$break: do {
+        var tmp$_4;
+        tmp$_4 = tmp$_0.iterator();
+        while (tmp$_4.hasNext()) {
+          var element = tmp$_4.next();
+          if (equals(element.name, validName)) {
+            firstOrNull$result = element;
+            break firstOrNull$break;
+          }}
+        firstOrNull$result = null;
+      }
+       while (false);
+      tmp$_3 = firstOrNull$result;
+    } else
+      tmp$_3 = null;
+    if (tmp$_3 == null) {
+      (tmp$_2 = (tmp$_1 = this.selectedGroup_0) != null ? tmp$_1.members : null) != null ? tmp$_2.add_11rb$(new Member(validName)) : null;
+    }this.fireCurrentGroupChanged_0();
+    this.view_0.focusNewMemberEditor();
+  };
+  function UiController$removeGroupMember$lambda(closure$member) {
+    return function (it) {
+      return equals(it.name, closure$member.name);
+    };
+  }
+  UiController.prototype.removeGroupMember_wpoo0j$ = function (member) {
+    var tmp$, tmp$_0;
+    (tmp$_0 = (tmp$ = this.selectedGroup_0) != null ? tmp$.members : null) != null ? removeAll(tmp$_0, UiController$removeGroupMember$lambda(member)) : null;
+    this.fireCurrentGroupChanged_0();
+  };
+  UiController.prototype.toggleGroupMemberActive_wpoo0j$ = function (member) {
+    member.active = !member.active;
+    this.fireCurrentGroupChanged_0();
+  };
+  UiController.prototype.fireCurrentGroupChanged_0 = function () {
+    var tmp$;
+    if ((tmp$ = this.selectedGroup_0) != null) {
+      ApplicationSettings_getInstance().setGroup_f2hml6$(tmp$);
+    }this.refreshUi_0(void 0, void 0, false);
+  };
+  UiController.prototype.selectPrefix_61zpoe$ = function (prefix) {
+    ApplicationSettings_getInstance().currentPrefix = this.toValidAddition_0(prefix);
+    this.refreshUi_0(false, false, true, true);
+    this.view_0.selectPrefix_pdl1vj$(ApplicationSettings_getInstance().currentPrefix);
+  };
+  UiController.prototype.selectSeparator_61zpoe$ = function (separator) {
+    ApplicationSettings_getInstance().currentSeparator = this.toValidAddition_0(separator);
+    this.refreshUi_0(false, false, true, true);
+    this.view_0.selectSeparator_pdl1vj$(ApplicationSettings_getInstance().currentSeparator);
+  };
+  UiController.prototype.selectPostfix_61zpoe$ = function (postfix) {
+    ApplicationSettings_getInstance().currentPostfix = this.toValidAddition_0(postfix);
+    this.refreshUi_0(false, false, true, true);
+    this.view_0.selectPostfix_pdl1vj$(ApplicationSettings_getInstance().currentPostfix);
+  };
+  function UiController$addPrefix$lambda() {
+    return ApplicationSettings_getInstance().prefixes;
+  }
+  function UiController$addPrefix$lambda_0(it) {
+    ApplicationSettings_getInstance().prefixes = it;
+    return Unit;
+  }
+  UiController.prototype.addPrefix_61zpoe$ = function (prefix) {
+    this.addListEntry_0(UiController$addPrefix$lambda, UiController$addPrefix$lambda_0, this.toValidAddition_0(prefix));
+  };
+  function UiController$addSeparator$lambda() {
+    return ApplicationSettings_getInstance().separators;
+  }
+  function UiController$addSeparator$lambda_0(it) {
+    ApplicationSettings_getInstance().separators = it;
+    return Unit;
+  }
+  UiController.prototype.addSeparator_61zpoe$ = function (separator) {
+    this.addListEntry_0(UiController$addSeparator$lambda, UiController$addSeparator$lambda_0, this.toValidAddition_0(separator));
+  };
+  function UiController$addPostfix$lambda() {
+    return ApplicationSettings_getInstance().postfixes;
+  }
+  function UiController$addPostfix$lambda_0(it) {
+    ApplicationSettings_getInstance().postfixes = it;
+    return Unit;
+  }
+  UiController.prototype.addPostfix_61zpoe$ = function (postfix) {
+    this.addListEntry_0(UiController$addPostfix$lambda, UiController$addPostfix$lambda_0, this.toValidAddition_0(postfix));
+  };
+  function UiController$removePrefix$lambda() {
+    return ApplicationSettings_getInstance().prefixes;
+  }
+  function UiController$removePrefix$lambda_0(it) {
+    ApplicationSettings_getInstance().prefixes = it;
+    return Unit;
+  }
+  UiController.prototype.removePrefix_61zpoe$ = function (prefix) {
+    this.removeListEntry_0(UiController$removePrefix$lambda, UiController$removePrefix$lambda_0, this.toValidAddition_0(prefix));
+  };
+  function UiController$removeSeparator$lambda() {
+    return ApplicationSettings_getInstance().separators;
+  }
+  function UiController$removeSeparator$lambda_0(it) {
+    ApplicationSettings_getInstance().separators = it;
+    return Unit;
+  }
+  UiController.prototype.removeSeparator_61zpoe$ = function (separator) {
+    this.removeListEntry_0(UiController$removeSeparator$lambda, UiController$removeSeparator$lambda_0, this.toValidAddition_0(separator));
+  };
+  function UiController$removePostfix$lambda() {
+    return ApplicationSettings_getInstance().postfixes;
+  }
+  function UiController$removePostfix$lambda_0(it) {
+    ApplicationSettings_getInstance().postfixes = it;
+    return Unit;
+  }
+  UiController.prototype.removePostfix_61zpoe$ = function (postfix) {
+    this.removeListEntry_0(UiController$removePostfix$lambda, UiController$removePostfix$lambda_0, this.toValidAddition_0(postfix));
+  };
+  UiController.prototype.addListEntry_0 = function (provider, consumer, itemToAdd) {
+    var list = toMutableList(provider());
+    list.add_11rb$(itemToAdd);
+    consumer(list);
+    this.refreshUi_0(false, false, true, false);
+  };
+  UiController.prototype.removeListEntry_0 = function (provider, consumer, itemToDelete) {
+    var list = toMutableList(provider());
+    list.remove_11rb$(itemToDelete);
+    consumer(list);
+    this.refreshUi_0(false, false, true, false);
+  };
+  UiController.prototype.changeList_0 = function (provider, consumer, changeList) {
+    var list = toMutableList(provider());
+    changeList(list);
+    consumer(list);
+  };
+  UiController.prototype.generateRandomOrder = function () {
+    this.view_0.showGeneratedText_61zpoe$(this.createRandomText_0());
+  };
+  UiController.prototype.refreshUi_0 = function (refreshGroups, refreshMembers, refreshTextAdditions, regenerateText) {
+    if (refreshGroups === void 0)
+      refreshGroups = true;
+    if (refreshMembers === void 0)
+      refreshMembers = true;
+    if (refreshTextAdditions === void 0)
+      refreshTextAdditions = true;
+    if (regenerateText === void 0)
+      regenerateText = true;
+    var tmp$, tmp$_0;
+    if (refreshGroups) {
+      this.view_0.showGroups_hgjbqt$(ApplicationSettings_getInstance().getGroups());
+    }if (refreshMembers) {
+      this.view_0.showMembers_x6m2tk$((tmp$_0 = (tmp$ = this.selectedGroup_0) != null ? tmp$.members : null) != null ? tmp$_0 : emptyList());
+    }this.view_0.selectGroup_u2lxnd$(this.selectedGroup_0);
+    if (refreshTextAdditions) {
+      this.view_0.showPrefixes_mhpeer$(ApplicationSettings_getInstance().prefixes);
+      this.view_0.selectPrefix_pdl1vj$(ApplicationSettings_getInstance().currentPrefix);
+      this.view_0.showSeparators_mhpeer$(ApplicationSettings_getInstance().separators);
+      this.view_0.selectSeparator_pdl1vj$(ApplicationSettings_getInstance().currentSeparator);
+      this.view_0.showPostfixes_mhpeer$(ApplicationSettings_getInstance().postfixes);
+      this.view_0.selectPostfix_pdl1vj$(ApplicationSettings_getInstance().currentPostfix);
+    }if (regenerateText) {
+      this.generateRandomOrder();
+    }};
+  UiController.prototype.createRandomText_0 = function () {
+    var tmp$, tmp$_0, tmp$_1, tmp$_2, tmp$_3;
+    var tmp$_4;
+    if ((tmp$_0 = (tmp$ = this.selectedGroup_0) != null ? tmp$.members : null) != null) {
+      var destination = ArrayList_init();
+      var tmp$_5;
+      tmp$_5 = tmp$_0.iterator();
+      while (tmp$_5.hasNext()) {
+        var element = tmp$_5.next();
+        if (element.active)
+          destination.add_11rb$(element);
+      }
+      tmp$_4 = destination;
+    } else
+      tmp$_4 = null;
+    var tmp$_6;
+    if ((tmp$_1 = tmp$_4) != null) {
+      var destination_0 = ArrayList_init_0(collectionSizeOrDefault(tmp$_1, 10));
+      var tmp$_7;
+      tmp$_7 = tmp$_1.iterator();
+      while (tmp$_7.hasNext()) {
+        var item = tmp$_7.next();
+        destination_0.add_11rb$(item.name);
+      }
+      tmp$_6 = destination_0;
+    } else
+      tmp$_6 = null;
+    return joinToString((tmp$_3 = (tmp$_2 = tmp$_6) != null ? shuffled(tmp$_2) : null) != null ? tmp$_3 : emptyList(), ApplicationSettings_getInstance().currentSeparator, ApplicationSettings_getInstance().currentPrefix, ApplicationSettings_getInstance().currentPostfix);
+  };
+  UiController.prototype.toValidName_0 = function ($receiver) {
+    var $receiver_0 = UiController$Companion_getInstance().REGEX_WHITESPACE_0.replace_x2uqeu$($receiver, ' ');
+    var tmp$;
+    return trim(Kotlin.isCharSequence(tmp$ = $receiver_0) ? tmp$ : throwCCE()).toString();
+  };
+  UiController.prototype.toValidAddition_0 = function ($receiver) {
+    return $receiver.length === 0 ? '\xA0' : $receiver;
+  };
+  function UiController$Companion() {
+    UiController$Companion_instance = this;
+    this.REGEX_WHITESPACE_0 = Regex_init('\\s+');
+  }
+  UiController$Companion.$metadata$ = {
+    kind: Kind_OBJECT,
+    simpleName: 'Companion',
+    interfaces: []
+  };
+  var UiController$Companion_instance = null;
+  function UiController$Companion_getInstance() {
+    if (UiController$Companion_instance === null) {
+      new UiController$Companion();
+    }return UiController$Companion_instance;
+  }
+  UiController.$metadata$ = {
+    kind: Kind_CLASS,
+    simpleName: 'UiController',
+    interfaces: [DisplayContract$Controller]
+  };
   function AbstractApplicationSettings() {
     AbstractApplicationSettings$Companion_getInstance();
     this.intermediate_0 = LinkedHashMap_init();
@@ -575,26 +822,69 @@ if (typeof kotlin === 'undefined') {
   function jQuery(element) {
     return $('#' + element.id);
   }
-  function DisplayContract() {
+  function Group(name, members) {
+    if (members === void 0) {
+      members = ArrayList_init();
+    }this.name = name;
+    this.members = members;
   }
-  function DisplayContract$View() {
-  }
-  DisplayContract$View.$metadata$ = {
-    kind: Kind_INTERFACE,
-    simpleName: 'View',
+  Group.$metadata$ = {
+    kind: Kind_CLASS,
+    simpleName: 'Group',
     interfaces: []
   };
-  function DisplayContract$Controller() {
+  Group.prototype.component1 = function () {
+    return this.name;
+  };
+  Group.prototype.component2 = function () {
+    return this.members;
+  };
+  Group.prototype.copy_tlkfet$ = function (name, members) {
+    return new Group(name === void 0 ? this.name : name, members === void 0 ? this.members : members);
+  };
+  Group.prototype.toString = function () {
+    return 'Group(name=' + Kotlin.toString(this.name) + (', members=' + Kotlin.toString(this.members)) + ')';
+  };
+  Group.prototype.hashCode = function () {
+    var result = 0;
+    result = result * 31 + Kotlin.hashCode(this.name) | 0;
+    result = result * 31 + Kotlin.hashCode(this.members) | 0;
+    return result;
+  };
+  Group.prototype.equals = function (other) {
+    return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.name, other.name) && Kotlin.equals(this.members, other.members)))));
+  };
+  function Member(name, active) {
+    if (active === void 0)
+      active = true;
+    this.name = name;
+    this.active = active;
   }
-  DisplayContract$Controller.$metadata$ = {
-    kind: Kind_INTERFACE,
-    simpleName: 'Controller',
+  Member.$metadata$ = {
+    kind: Kind_CLASS,
+    simpleName: 'Member',
     interfaces: []
   };
-  DisplayContract.$metadata$ = {
-    kind: Kind_INTERFACE,
-    simpleName: 'DisplayContract',
-    interfaces: []
+  Member.prototype.component1 = function () {
+    return this.name;
+  };
+  Member.prototype.component2 = function () {
+    return this.active;
+  };
+  Member.prototype.copy_ivxn3r$ = function (name, active) {
+    return new Member(name === void 0 ? this.name : name, active === void 0 ? this.active : active);
+  };
+  Member.prototype.toString = function () {
+    return 'Member(name=' + Kotlin.toString(this.name) + (', active=' + Kotlin.toString(this.active)) + ')';
+  };
+  Member.prototype.hashCode = function () {
+    var result = 0;
+    result = result * 31 + Kotlin.hashCode(this.name) | 0;
+    result = result * 31 + Kotlin.hashCode(this.active) | 0;
+    return result;
+  };
+  Member.prototype.equals = function (other) {
+    return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.name, other.name) && Kotlin.equals(this.active, other.active)))));
   };
   function visit$lambda(closure$block) {
     return function ($receiver) {
@@ -650,22 +940,6 @@ if (typeof kotlin === 'undefined') {
   function div$lambda_0($receiver) {
     return Unit;
   }
-  function Comparator$ObjectLiteral_0(closure$comparison) {
-    this.closure$comparison = closure$comparison;
-  }
-  Comparator$ObjectLiteral_0.prototype.compare = function (a, b) {
-    return this.closure$comparison(a, b);
-  };
-  Comparator$ObjectLiteral_0.$metadata$ = {kind: Kind_CLASS, interfaces: [Comparator]};
-  var compareBy$lambda_0 = wrapFunction(function () {
-    var compareValues = Kotlin.kotlin.comparisons.compareValues_s00gnj$;
-    return function (closure$selector) {
-      return function (a, b) {
-        var selector = closure$selector;
-        return compareValues(selector(a), selector(b));
-      };
-    };
-  });
   function HtmlView(controller) {
     HtmlView$Companion_getInstance();
     this.controller_0 = controller;
@@ -943,10 +1217,10 @@ if (typeof kotlin === 'undefined') {
   HtmlView.prototype.focusNewPostfix = function () {
     this.inputPostfix_0.focus();
   };
-  HtmlView.prototype.showGroups_4cqr16$ = function (groups) {
+  HtmlView.prototype.showGroups_hgjbqt$ = function (groups) {
     this.groupListMaintainer_0.showItems_4ezy5m$(groups);
   };
-  HtmlView.prototype.showMembers_hxfhdp$ = function (members) {
+  HtmlView.prototype.showMembers_x6m2tk$ = function (members) {
     this.memberListMaintainer_0.showItems_4ezy5m$(members);
   };
   HtmlView.prototype.showPrefixes_mhpeer$ = function (prefixes) {
@@ -958,7 +1232,7 @@ if (typeof kotlin === 'undefined') {
   HtmlView.prototype.showPostfixes_mhpeer$ = function (postfixes) {
     this.postfixListMaintainer_0.showItems_4ezy5m$(postfixes);
   };
-  HtmlView.prototype.selectGroup_gdrvas$ = function (group) {
+  HtmlView.prototype.selectGroup_u2lxnd$ = function (group) {
     this.groupListMaintainer_0.toggleActive_11rb$(group);
     if (group != null) {
       var state = window.history.state;
@@ -979,14 +1253,14 @@ if (typeof kotlin === 'undefined') {
   };
   function HtmlView$createGroupItem$lambda$lambda(this$HtmlView, closure$group) {
     return function (it) {
-      this$HtmlView.controller_0.selectGroup_gdrvas$(closure$group);
+      this$HtmlView.controller_0.selectGroup_u2lxnd$(closure$group);
       return Unit;
     };
   }
   function HtmlView$createGroupItem$lambda$lambda$lambda$lambda(closure$group, this$HtmlView) {
     return function (event) {
       if (window.confirm("Do you really want to delete group '" + closure$group.name + "'?")) {
-        this$HtmlView.controller_0.removeGroup_bzgne3$(closure$group);
+        this$HtmlView.controller_0.removeGroup_f2hml6$(closure$group);
       }event.stopPropagation();
       return Unit;
     };
@@ -1034,7 +1308,7 @@ if (typeof kotlin === 'undefined') {
   };
   function HtmlView$createMemberItem$lambda$lambda$lambda(this$HtmlView, closure$member) {
     return function (it) {
-      this$HtmlView.controller_0.toggleGroupMemberActive_j0ulny$(closure$member);
+      this$HtmlView.controller_0.toggleGroupMemberActive_wpoo0j$(closure$member);
       return Unit;
     };
   }
@@ -1056,7 +1330,7 @@ if (typeof kotlin === 'undefined') {
   function HtmlView$createMemberItem$lambda$lambda$lambda$lambda_0(closure$member, this$HtmlView) {
     return function (event) {
       if (window.confirm("Do you really want to remove member '" + closure$member.name + "'?")) {
-        this$HtmlView.controller_0.removeGroupMember_j0ulny$(closure$member);
+        this$HtmlView.controller_0.removeGroupMember_wpoo0j$(closure$member);
       }event.stopPropagation();
       return Unit;
     };
@@ -1167,16 +1441,6 @@ if (typeof kotlin === 'undefined') {
     this.ID_DIV_RESULT_TEXT = 'gr_result_text';
     this.ID_BUTTON_REGENERATE = 'gr_btn_regenerate';
   }
-  function HtmlView$Companion$toKeyUpOnEnter$lambda(this$toKeyUpOnEnter) {
-    return function (event) {
-      if (Kotlin.isType(event, KeyboardEvent) && event.keyCode === 13) {
-        this$toKeyUpOnEnter(event);
-      }return Unit;
-    };
-  }
-  HtmlView$Companion.prototype.toKeyUpOnEnter_0 = function ($receiver) {
-    return HtmlView$Companion$toKeyUpOnEnter$lambda($receiver);
-  };
   function HtmlView$Companion$createValueCallback$lambda(closure$consumer, this$createValueCallback) {
     return function (it) {
       closure$consumer(this$createValueCallback.value);
@@ -1258,7 +1522,6 @@ if (typeof kotlin === 'undefined') {
     return function (it) {
       var tmp$;
       if (Kotlin.isType(it, PopStateEvent)) {
-        console.log(it);
         if (it.state != null) {
           var dynamicGroup = it.state;
           var groupName = typeof (tmp$ = dynamicGroup.name) === 'string' ? tmp$ : throwCCE();
@@ -1348,6 +1611,22 @@ if (typeof kotlin === 'undefined') {
     simpleName: 'HtmlView',
     interfaces: [DisplayContract$View]
   };
+  function Comparator$ObjectLiteral_0(closure$comparison) {
+    this.closure$comparison = closure$comparison;
+  }
+  Comparator$ObjectLiteral_0.prototype.compare = function (a, b) {
+    return this.closure$comparison(a, b);
+  };
+  Comparator$ObjectLiteral_0.$metadata$ = {kind: Kind_CLASS, interfaces: [Comparator]};
+  var compareBy$lambda_0 = wrapFunction(function () {
+    var compareValues = Kotlin.kotlin.comparisons.compareValues_s00gnj$;
+    return function (closure$selector) {
+      return function (a, b) {
+        var selector = closure$selector;
+        return compareValues(selector(a), selector(b));
+      };
+    };
+  });
   function ListMaintainer(parent, elementCreator, selector) {
     if (selector === void 0)
       selector = ListMaintainer_init$lambda;
@@ -1382,14 +1661,6 @@ if (typeof kotlin === 'undefined') {
     while (tmp$_0.hasNext()) {
       var element = tmp$_0.next();
       this.parent.prepend(element.value);
-    }
-  };
-  ListMaintainer.prototype.forEach_0 = function (action) {
-    var tmp$;
-    tmp$ = this.elements_0.entries.iterator();
-    while (tmp$.hasNext()) {
-      var element = tmp$.next();
-      action(element);
     }
   };
   ListMaintainer.prototype.shouldBeRemoved_0 = function ($receiver) {
@@ -1437,282 +1708,26 @@ if (typeof kotlin === 'undefined') {
     simpleName: 'ListMaintainer',
     interfaces: []
   };
-  function UiController() {
-    this.view_0 = new HtmlView(this);
-    CookieBanner_getInstance().initialize();
-    this.refreshUi_0();
-    if (!this.view_0.selectPreselectedGroup()) {
-      this.tryToSelectGroupByName_61zpoe$(ApplicationSettings_getInstance().selectedGroupName);
-    }this.selectedGroup_0 = null;
-  }
-  UiController.prototype.selectGroup_gdrvas$ = function (group) {
-    var tmp$;
-    if (group != null) {
-      ApplicationSettings_getInstance().setGroup_bzgne3$(group);
-      ApplicationSettings_getInstance().selectedGroupName = group.name;
-    }this.selectedGroup_0 = group;
-    this.view_0.selectGroup_gdrvas$(group);
-    this.view_0.showMembers_hxfhdp$((tmp$ = group != null ? group.members : null) != null ? tmp$ : emptyList());
-    this.refreshUi_0();
-  };
-  UiController.prototype.tryToSelectGroupByName_61zpoe$ = function (name) {
-    var tmp$;
-    var $receiver = ApplicationSettings_getInstance().getGroups();
-    var firstOrNull$result;
-    firstOrNull$break: do {
-      var tmp$_0;
-      tmp$_0 = $receiver.iterator();
-      while (tmp$_0.hasNext()) {
-        var element = tmp$_0.next();
-        if (equals(element.name, name)) {
-          firstOrNull$result = element;
-          break firstOrNull$break;
-        }}
-      firstOrNull$result = null;
-    }
-     while (false);
-    if ((tmp$ = firstOrNull$result) != null) {
-      this.selectGroup_gdrvas$(tmp$);
-    }};
-  UiController.prototype.addGroup_61zpoe$ = function (name) {
-    var tmp$;
-    if (isBlank(name)) {
-      return null;
-    }var validGroupName = this.toValidName_0(name);
-    var group = (tmp$ = ApplicationSettings_getInstance().getGroup_61zpoe$(validGroupName)) != null ? tmp$ : new Group(validGroupName);
-    this.selectGroup_gdrvas$(group);
-    this.view_0.focusNewGroupEditor();
-    return group;
-  };
-  UiController.prototype.removeGroup_bzgne3$ = function (group) {
-    ApplicationSettings_getInstance().deleteGroup_61zpoe$(group.name);
-    if (equals(group, this.selectedGroup_0)) {
-      this.selectGroup_gdrvas$(group);
-    }this.refreshUi_0(void 0, void 0, false, false);
-  };
-  UiController.prototype.addGroupMember_61zpoe$ = function (name) {
-    var tmp$, tmp$_0, tmp$_1, tmp$_2;
-    var validName = this.toValidName_0(name);
-    var tmp$_3;
-    if ((tmp$_0 = (tmp$ = this.selectedGroup_0) != null ? tmp$.members : null) != null) {
-      var firstOrNull$result;
-      firstOrNull$break: do {
-        var tmp$_4;
-        tmp$_4 = tmp$_0.iterator();
-        while (tmp$_4.hasNext()) {
-          var element = tmp$_4.next();
-          if (equals(element.name, validName)) {
-            firstOrNull$result = element;
-            break firstOrNull$break;
-          }}
-        firstOrNull$result = null;
-      }
-       while (false);
-      tmp$_3 = firstOrNull$result;
-    } else
-      tmp$_3 = null;
-    if (tmp$_3 == null) {
-      (tmp$_2 = (tmp$_1 = this.selectedGroup_0) != null ? tmp$_1.members : null) != null ? tmp$_2.add_11rb$(new Member(validName)) : null;
-    }this.fireCurrentGroupChanged_0();
-    this.view_0.focusNewMemberEditor();
-  };
-  function UiController$removeGroupMember$lambda(closure$member) {
-    return function (it) {
-      return equals(it.name, closure$member.name);
-    };
-  }
-  UiController.prototype.removeGroupMember_j0ulny$ = function (member) {
-    var tmp$, tmp$_0;
-    (tmp$_0 = (tmp$ = this.selectedGroup_0) != null ? tmp$.members : null) != null ? removeAll(tmp$_0, UiController$removeGroupMember$lambda(member)) : null;
-    this.fireCurrentGroupChanged_0();
-  };
-  UiController.prototype.toggleGroupMemberActive_j0ulny$ = function (member) {
-    member.active = !member.active;
-    this.fireCurrentGroupChanged_0();
-  };
-  UiController.prototype.fireCurrentGroupChanged_0 = function () {
-    var tmp$;
-    if ((tmp$ = this.selectedGroup_0) != null) {
-      ApplicationSettings_getInstance().setGroup_bzgne3$(tmp$);
-    }this.refreshUi_0(void 0, void 0, false);
-  };
-  UiController.prototype.selectPrefix_61zpoe$ = function (prefix) {
-    ApplicationSettings_getInstance().currentPrefix = this.toValidAddition_0(prefix);
-    this.refreshUi_0(false, false, true, true);
-    this.view_0.selectPrefix_pdl1vj$(ApplicationSettings_getInstance().currentPrefix);
-  };
-  UiController.prototype.selectSeparator_61zpoe$ = function (separator) {
-    ApplicationSettings_getInstance().currentSeparator = this.toValidAddition_0(separator);
-    this.refreshUi_0(false, false, true, true);
-    this.view_0.selectSeparator_pdl1vj$(ApplicationSettings_getInstance().currentSeparator);
-  };
-  UiController.prototype.selectPostfix_61zpoe$ = function (postfix) {
-    ApplicationSettings_getInstance().currentPostfix = this.toValidAddition_0(postfix);
-    this.refreshUi_0(false, false, true, true);
-    this.view_0.selectPostfix_pdl1vj$(ApplicationSettings_getInstance().currentPostfix);
-  };
-  function UiController$addPrefix$lambda() {
-    return ApplicationSettings_getInstance().prefixes;
-  }
-  function UiController$addPrefix$lambda_0(it) {
-    ApplicationSettings_getInstance().prefixes = it;
-    return Unit;
-  }
-  UiController.prototype.addPrefix_61zpoe$ = function (prefix) {
-    this.addListEntry_0(UiController$addPrefix$lambda, UiController$addPrefix$lambda_0, this.toValidAddition_0(prefix));
-  };
-  function UiController$addSeparator$lambda() {
-    return ApplicationSettings_getInstance().separators;
-  }
-  function UiController$addSeparator$lambda_0(it) {
-    ApplicationSettings_getInstance().separators = it;
-    return Unit;
-  }
-  UiController.prototype.addSeparator_61zpoe$ = function (separator) {
-    this.addListEntry_0(UiController$addSeparator$lambda, UiController$addSeparator$lambda_0, this.toValidAddition_0(separator));
-  };
-  function UiController$addPostfix$lambda() {
-    return ApplicationSettings_getInstance().postfixes;
-  }
-  function UiController$addPostfix$lambda_0(it) {
-    ApplicationSettings_getInstance().postfixes = it;
-    return Unit;
-  }
-  UiController.prototype.addPostfix_61zpoe$ = function (postfix) {
-    this.addListEntry_0(UiController$addPostfix$lambda, UiController$addPostfix$lambda_0, this.toValidAddition_0(postfix));
-  };
-  function UiController$removePrefix$lambda() {
-    return ApplicationSettings_getInstance().prefixes;
-  }
-  function UiController$removePrefix$lambda_0(it) {
-    ApplicationSettings_getInstance().prefixes = it;
-    return Unit;
-  }
-  UiController.prototype.removePrefix_61zpoe$ = function (prefix) {
-    this.removeListEntry_0(UiController$removePrefix$lambda, UiController$removePrefix$lambda_0, this.toValidAddition_0(prefix));
-  };
-  function UiController$removeSeparator$lambda() {
-    return ApplicationSettings_getInstance().separators;
-  }
-  function UiController$removeSeparator$lambda_0(it) {
-    ApplicationSettings_getInstance().separators = it;
-    return Unit;
-  }
-  UiController.prototype.removeSeparator_61zpoe$ = function (separator) {
-    this.removeListEntry_0(UiController$removeSeparator$lambda, UiController$removeSeparator$lambda_0, this.toValidAddition_0(separator));
-  };
-  function UiController$removePostfix$lambda() {
-    return ApplicationSettings_getInstance().postfixes;
-  }
-  function UiController$removePostfix$lambda_0(it) {
-    ApplicationSettings_getInstance().postfixes = it;
-    return Unit;
-  }
-  UiController.prototype.removePostfix_61zpoe$ = function (postfix) {
-    this.removeListEntry_0(UiController$removePostfix$lambda, UiController$removePostfix$lambda_0, this.toValidAddition_0(postfix));
-  };
-  UiController.prototype.addListEntry_0 = function (provider, consumer, itemToAdd) {
-    var list = toMutableList(provider());
-    list.add_11rb$(itemToAdd);
-    consumer(list);
-    this.refreshUi_0(false, false, true, false);
-  };
-  UiController.prototype.removeListEntry_0 = function (provider, consumer, itemToDelete) {
-    var list = toMutableList(provider());
-    list.remove_11rb$(itemToDelete);
-    consumer(list);
-    this.refreshUi_0(false, false, true, false);
-  };
-  UiController.prototype.changeList_0 = function (provider, consumer, changeList) {
-    var list = toMutableList(provider());
-    changeList(list);
-    consumer(list);
-  };
-  UiController.prototype.generateRandomOrder = function () {
-    this.view_0.showGeneratedText_61zpoe$(this.createRandomText_0());
-  };
-  UiController.prototype.refreshUi_0 = function (refreshGroups, refreshMembers, refreshTextAdditions, regenerateText) {
-    if (refreshGroups === void 0)
-      refreshGroups = true;
-    if (refreshMembers === void 0)
-      refreshMembers = true;
-    if (refreshTextAdditions === void 0)
-      refreshTextAdditions = true;
-    if (regenerateText === void 0)
-      regenerateText = true;
-    var tmp$, tmp$_0;
-    if (refreshGroups) {
-      this.view_0.showGroups_4cqr16$(ApplicationSettings_getInstance().getGroups());
-    }if (refreshMembers) {
-      this.view_0.showMembers_hxfhdp$((tmp$_0 = (tmp$ = this.selectedGroup_0) != null ? tmp$.members : null) != null ? tmp$_0 : emptyList());
-    }this.view_0.selectGroup_gdrvas$(this.selectedGroup_0);
-    if (refreshTextAdditions) {
-      this.view_0.showPrefixes_mhpeer$(ApplicationSettings_getInstance().prefixes);
-      this.view_0.selectPrefix_pdl1vj$(ApplicationSettings_getInstance().currentPrefix);
-      this.view_0.showSeparators_mhpeer$(ApplicationSettings_getInstance().separators);
-      this.view_0.selectSeparator_pdl1vj$(ApplicationSettings_getInstance().currentSeparator);
-      this.view_0.showPostfixes_mhpeer$(ApplicationSettings_getInstance().postfixes);
-      this.view_0.selectPostfix_pdl1vj$(ApplicationSettings_getInstance().currentPostfix);
-    }if (regenerateText) {
-      this.generateRandomOrder();
-    }};
-  UiController.prototype.createRandomText_0 = function () {
-    var tmp$, tmp$_0, tmp$_1, tmp$_2, tmp$_3;
-    var tmp$_4;
-    if ((tmp$_0 = (tmp$ = this.selectedGroup_0) != null ? tmp$.members : null) != null) {
-      var destination = ArrayList_init();
-      var tmp$_5;
-      tmp$_5 = tmp$_0.iterator();
-      while (tmp$_5.hasNext()) {
-        var element = tmp$_5.next();
-        if (element.active)
-          destination.add_11rb$(element);
-      }
-      tmp$_4 = destination;
-    } else
-      tmp$_4 = null;
-    var tmp$_6;
-    if ((tmp$_1 = tmp$_4) != null) {
-      var destination_0 = ArrayList_init_0(collectionSizeOrDefault(tmp$_1, 10));
-      var tmp$_7;
-      tmp$_7 = tmp$_1.iterator();
-      while (tmp$_7.hasNext()) {
-        var item = tmp$_7.next();
-        destination_0.add_11rb$(item.name);
-      }
-      tmp$_6 = destination_0;
-    } else
-      tmp$_6 = null;
-    return joinToString((tmp$_3 = (tmp$_2 = tmp$_6) != null ? shuffled(tmp$_2) : null) != null ? tmp$_3 : emptyList(), ApplicationSettings_getInstance().currentSeparator, ApplicationSettings_getInstance().currentPrefix, ApplicationSettings_getInstance().currentPostfix);
-  };
-  UiController.prototype.toValidName_0 = function ($receiver) {
-    var $receiver_0 = Regex_init('\\s+').replace_x2uqeu$($receiver, ' ');
-    var tmp$;
-    return trim(Kotlin.isCharSequence(tmp$ = $receiver_0) ? tmp$ : throwCCE()).toString();
-  };
-  UiController.prototype.toValidAddition_0 = function ($receiver) {
-    return $receiver.length === 0 ? '\xA0' : $receiver;
-  };
-  UiController.$metadata$ = {
-    kind: Kind_CLASS,
-    simpleName: 'UiController',
-    interfaces: [DisplayContract$Controller]
-  };
   var package$org = _.org || (_.org = {});
   var package$olafneumann = package$org.olafneumann || (package$org.olafneumann = {});
   var package$grouprandom = package$olafneumann.grouprandom || (package$olafneumann.grouprandom = {});
   Object.defineProperty(package$grouprandom, 'ApplicationSettings', {
     get: ApplicationSettings_getInstance
   });
-  package$grouprandom.Group = Group;
-  package$grouprandom.Member = Member;
+  DisplayContract.View = DisplayContract$View;
+  DisplayContract.Controller = DisplayContract$Controller;
+  package$grouprandom.DisplayContract = DisplayContract;
   package$grouprandom.main = main;
+  $$importsForInline$$['group-randomizer'] = _;
+  Object.defineProperty(UiController, 'Companion', {
+    get: UiController$Companion_getInstance
+  });
+  package$grouprandom.UiController = UiController;
   Object.defineProperty(AbstractApplicationSettings, 'Companion', {
     get: AbstractApplicationSettings$Companion_getInstance
   });
   var package$browser = package$grouprandom.browser || (package$grouprandom.browser = {});
   package$browser.AbstractApplicationSettings = AbstractApplicationSettings;
-  $$importsForInline$$['group-randomizer'] = _;
   Object.defineProperty(package$browser, 'CookieBanner', {
     get: CookieBanner_getInstance
   });
@@ -1723,16 +1738,16 @@ if (typeof kotlin === 'undefined') {
   var package$generator = package$regex.generator || (package$regex.generator = {});
   var package$js = package$generator.js || (package$generator.js = {});
   package$js.jQuery_lt8gi4$ = jQuery;
-  DisplayContract.View = DisplayContract$View;
-  DisplayContract.Controller = DisplayContract$Controller;
-  var package$ui = package$grouprandom.ui || (package$grouprandom.ui = {});
-  package$ui.DisplayContract = DisplayContract;
+  var package$model = package$grouprandom.model || (package$grouprandom.model = {});
+  package$model.Group = Group;
+  package$model.Member = Member;
   $$importsForInline$$['kotlinx-html-js'] = $module$kotlinx_html_js;
   Object.defineProperty(HtmlView, 'Companion', {
     get: HtmlView$Companion_getInstance
   });
+  var package$ui = package$grouprandom.ui || (package$grouprandom.ui = {});
   package$ui.HtmlView = HtmlView;
-  package$ui.UiController = UiController;
+  package$ui.ListMaintainer = ListMaintainer;
   main();
   Kotlin.defineModule('group-randomizer', _);
   return _;
