@@ -7,6 +7,7 @@ import kotlinx.html.js.onClickFunction
 import org.olafneumann.grouprandom.Group
 import org.olafneumann.grouprandom.Member
 import org.olafneumann.grouprandom.browser.HtmlHelper
+import org.olafneumann.grouprandom.js.decodeURIComponent
 import org.olafneumann.grouprandom.js.encodeURIComponent
 import org.olafneumann.grouprandom.js.navigator
 import org.w3c.dom.*
@@ -77,7 +78,7 @@ class HtmlView(
     override fun selectPreselectedGroup(): Boolean {
         val url = URL(document.URL)
         if (url.hash.length > 1) {
-            val groupName = url.hash.substring(1)
+            val groupName = decodeURIComponent(url.hash.substring(1))
             controller.tryToSelectGroupByName(groupName)
             return true
         }
