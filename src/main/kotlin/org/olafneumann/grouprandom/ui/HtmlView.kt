@@ -27,7 +27,7 @@ class HtmlView(
     private val inputAddGroupName = HtmlHelper.getElementById<HTMLInputElement>(ID_INPUT_NEW_GROUP_NAME)
     private val divListGroupMembers = HtmlHelper.getElementById<HTMLDivElement>(ID_LIST_EXISTING_MEMBERS)
     private val inputAddGroupMember = HtmlHelper.getElementById<HTMLInputElement>(ID_INPUT_NEW_MEMBER_NAME)
-    private val formAddGroupMember = HtmlHelper.getElementById<HTMLFormElement>(ID_FORM_ADD_GROUP_MEMBER)
+    private val buttonAddGroupMember = HtmlHelper.getElementById<HTMLButtonElement>(ID_BUTTON_ADD_GROUP_MEMBER)
     private val divListPrefixes = HtmlHelper.getElementById<HTMLDivElement>(ID_DIV_LIST_PREFIXES)
     private val divListSeparators = HtmlHelper.getElementById<HTMLDivElement>(ID_DIV_LIST_SEPARATORS)
     private val divListPostfixes = HtmlHelper.getElementById<HTMLDivElement>(ID_DIV_LIST_POSTFIXES)
@@ -38,7 +38,6 @@ class HtmlView(
 
     init {
         val buttonAddGroup = HtmlHelper.getElementById<HTMLButtonElement>(ID_BUTTON_NEW_GROUP)
-        val buttonAddGroupMember = HtmlHelper.getElementById<HTMLButtonElement>(ID_BUTTON_ADD_GROUP_MEMBER)
         val buttonAddPrefix = HtmlHelper.getElementById<HTMLButtonElement>(ID_BUTTON_NEW_PREFIX)
         val buttonAddSeparator = HtmlHelper.getElementById<HTMLButtonElement>(ID_BUTTON_NEW_SEPARATOR)
         val buttonAddPostfix = HtmlHelper.getElementById<HTMLButtonElement>(ID_BUTTON_NEW_POSTFIX)
@@ -145,8 +144,7 @@ class HtmlView(
         }
 
         // Hide add group member form in case no group is selected
-        if (group == null) jQuery(formAddGroupMember).hide() else jQuery(formAddGroupMember).show()
-
+        jQuery(buttonAddGroupMember).attr("disabled", group == null)
     }
 
     override fun selectPrefix(prefix: String?) = prefixListMaintainer.toggleActive(prefix)
@@ -245,7 +243,6 @@ class HtmlView(
         const val ID_BUTTON_NEW_GROUP = "gr_create_new_group"
         const val ID_LIST_EXISTING_MEMBERS = "gr_existing_members"
         const val ID_INPUT_NEW_MEMBER_NAME = "gr_new_member_name"
-        const val ID_FORM_ADD_GROUP_MEMBER = "gr_add_member_form"
         const val ID_BUTTON_ADD_GROUP_MEMBER = "gr_add_group_member"
         const val ID_DIV_LIST_PREFIXES = "gr_div_list_prefixes"
         const val ID_DIV_LIST_SEPARATORS = "gr_div_list_separators"
