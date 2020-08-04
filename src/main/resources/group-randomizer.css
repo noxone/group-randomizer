@@ -19,3 +19,12 @@ a.gr-action-link:hover {
 .gr-full-width {
     width: 100%;
 }
+
+.gr-existing-members-hide {
+	display: none;
+}
+
+.gr-existing-members-hide + form {
+	border-top-left-radius: inherit;
+	border-top-right-radius: inherit;
+}
