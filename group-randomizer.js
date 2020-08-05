@@ -25,6 +25,7 @@ if (typeof kotlin === 'undefined') {
   var Unit = Kotlin.kotlin.Unit;
   var emptyList = Kotlin.kotlin.collections.emptyList_287e2$;
   var isBlank = Kotlin.kotlin.text.isBlank_gw00vp$;
+  var firstOrNull = Kotlin.kotlin.collections.firstOrNull_2p1efm$;
   var removeAll = Kotlin.kotlin.collections.removeAll_qafx1e$;
   var shuffled = Kotlin.kotlin.collections.shuffled_7wnvza$;
   var joinToString = Kotlin.kotlin.collections.joinToString_fmv235$;
@@ -358,8 +359,11 @@ if (typeof kotlin === 'undefined') {
   UiController.prototype.removeGroup_f2hml6$ = function (group) {
     ApplicationSettings_getInstance().deleteGroup_61zpoe$(group.name);
     if (equals(group, this.selectedGroup_0)) {
-      this.selectGroup_u2lxnd$(group);
-    }this.refreshUi_0(void 0, void 0, false, false);
+      this.selectGroup_u2lxnd$(firstOrNull(ApplicationSettings_getInstance().getGroups()));
+      this.view_0.focusNewGroupEditor();
+    } else {
+      this.refreshUi_0(void 0, void 0, false, false);
+    }
   };
   UiController.prototype.addGroupMember_61zpoe$ = function (name) {
     var tmp$, tmp$_0, tmp$_1, tmp$_2;
