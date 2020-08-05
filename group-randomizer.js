@@ -748,7 +748,7 @@ if (typeof kotlin === 'undefined') {
     }
   };
   CookieBanner.prototype.hideBanner_0 = function () {
-    jQuery(this.ctnCookie_0).hide();
+    jQuery(this.ctnCookie_0).remove();
   };
   CookieBanner.$metadata$ = {
     kind: Kind_OBJECT,
