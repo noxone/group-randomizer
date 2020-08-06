@@ -146,24 +146,28 @@ internal class UiController : DisplayContract.Controller {
             postfix.toValidAddition()
         )
 
-    private fun <T> addListEntry(provider: () -> List<T>, consumer: (List<T>) -> Unit, itemToAdd: T) {
-        changeList(provider, consumer, { it.add(itemToAdd) })
+    private fun <T> addListEntry(getList: () -> List<T>, setList: (List<T>) -> Unit, itemToAdd: T) {
+        changeList(getList, setList, {
+            if (!it.contains(itemToAdd)) {
+                it.add(itemToAdd)
+            }
+        })
         refreshUi(refreshGroups = false, refreshMembers = false, refreshTextAdditions = true, regenerateText = false)
     }
 
-    private fun <T> removeListEntry(provider: () -> List<T>, consumer: (List<T>) -> Unit, itemToDelete: T) {
-        changeList(provider, consumer, { it.remove(itemToDelete) })
+    private fun <T> removeListEntry(getList: () -> List<T>, setList: (List<T>) -> Unit, itemToDelete: T) {
+        changeList(getList, setList, { it.remove(itemToDelete) })
         refreshUi(refreshGroups = false, refreshMembers = false, refreshTextAdditions = true, regenerateText = false)
     }
 
     private inline fun <T> changeList(
-        provider: () -> List<T>,
-        consumer: (List<T>) -> Unit,
+        getList: () -> List<T>,
+        setList: (List<T>) -> Unit,
         changeList: (MutableList<T>) -> Unit
     ) {
-        val list = provider().toMutableList()
+        val list = getList().toMutableList()
         changeList(list)
-        consumer(list)
+        setList(list)
     }
 
     override fun generateRandomOrder() = view.showGeneratedText(createRandomText())
