@@ -489,22 +489,23 @@ if (typeof kotlin === 'undefined') {
   UiController.prototype.removePostfix_61zpoe$ = function (postfix) {
     this.removeListEntry_0(UiController$removePostfix$lambda, UiController$removePostfix$lambda_0, this.toValidAddition_0(postfix));
   };
-  UiController.prototype.addListEntry_0 = function (provider, consumer, itemToAdd) {
-    var list = toMutableList(provider());
-    list.add_11rb$(itemToAdd);
-    consumer(list);
+  UiController.prototype.addListEntry_0 = function (getList, setList, itemToAdd) {
+    var list = toMutableList(getList());
+    if (!list.contains_11rb$(itemToAdd)) {
+      list.add_11rb$(itemToAdd);
+    }setList(list);
     this.refreshUi_0(false, false, true, false);
   };
-  UiController.prototype.removeListEntry_0 = function (provider, consumer, itemToDelete) {
-    var list = toMutableList(provider());
+  UiController.prototype.removeListEntry_0 = function (getList, setList, itemToDelete) {
+    var list = toMutableList(getList());
     list.remove_11rb$(itemToDelete);
-    consumer(list);
+    setList(list);
     this.refreshUi_0(false, false, true, false);
   };
-  UiController.prototype.changeList_0 = function (provider, consumer, changeList) {
-    var list = toMutableList(provider());
+  UiController.prototype.changeList_0 = function (getList, setList, changeList) {
+    var list = toMutableList(getList());
     changeList(list);
-    consumer(list);
+    setList(list);
   };
   UiController.prototype.generateRandomOrder = function () {
     this.view_0.showGeneratedText_61zpoe$(this.createRandomText_0());
