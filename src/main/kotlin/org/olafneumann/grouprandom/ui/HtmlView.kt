@@ -129,7 +129,10 @@ class HtmlView(
     })
 
     override fun showGroups(groups: List<Group>) = groupListMaintainer.showItems(groups)
-    override fun showMembers(members: List<Member>) = memberListMaintainer.showItems(members)
+    override fun showMembers(members: List<Member>) {
+        divListGroupMembers.parentElement?.classList?.toggle(CLASS_HIDE_GROUP_MEMBERS, members.isEmpty())
+        memberListMaintainer.showItems(members)
+    }
     override fun showPrefixes(prefixes: List<String>) = prefixListMaintainer.showItems(prefixes)
     override fun showSeparators(separators: List<String>) = separatorListMaintainer.showItems(separators)
     override fun showPostfixes(postfixes: List<String>) = postfixListMaintainer.showItems(postfixes)
@@ -233,6 +236,7 @@ class HtmlView(
 
     companion object {
         const val CLASS_COPY_BUTTON = "gr-copy-button"
+        const val CLASS_HIDE_GROUP_MEMBERS = "gr-existing-members-hide"
 
         const val EVENT_CLICK = "click"
         private const val EVENT_SUBMIT = "submit"
