@@ -125,26 +125,47 @@ internal class UiController : DisplayContract.Controller {
             postfix
         )
 
-    override fun removePrefix(prefix: String) =
+    override fun removePrefix(prefix: String) {
         removeListEntry(
             { ApplicationSettings.prefixes },
             { ApplicationSettings.prefixes = it },
             prefix
         )
+        if (ApplicationSettings.prefixes.isEmpty()) {
+            ApplicationSettings.prefixes = listOf(ApplicationSettings.VAL_DEFAULT_PREFIX)
+        }
+        if (ApplicationSettings.currentPrefix == prefix) {
+            selectPrefix(ApplicationSettings.prefixes.first())
+        }
+    }
 
-    override fun removeSeparator(separator: String) =
+    override fun removeSeparator(separator: String) {
         removeListEntry(
             { ApplicationSettings.separators },
             { ApplicationSettings.separators = it },
             separator
         )
+        if (ApplicationSettings.separators.isEmpty()) {
+            ApplicationSettings.separators = listOf(ApplicationSettings.VAL_DEFAULT_SEPARATOR)
+        }
+        if (ApplicationSettings.currentSeparator == separator) {
+            selectSeparator(ApplicationSettings.separators.first())
+        }
+    }
 
-    override fun removePostfix(postfix: String) =
+    override fun removePostfix(postfix: String) {
         removeListEntry(
             { ApplicationSettings.postfixes },
             { ApplicationSettings.postfixes = it },
             postfix
         )
+        if (ApplicationSettings.postfixes.isEmpty()) {
+            ApplicationSettings.postfixes = listOf(ApplicationSettings.VAL_DEFAULT_POSTFIX)
+        }
+        if (ApplicationSettings.currentPostfix == postfix) {
+            selectPostfix(ApplicationSettings.postfixes.first())
+        }
+    }
 
     private fun <T> addListEntry(getList: () -> List<T>, setList: (List<T>) -> Unit, itemToAdd: T) {
         changeList(getList, setList, {

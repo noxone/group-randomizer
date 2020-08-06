@@ -16,9 +16,9 @@ internal object ApplicationSettings : AbstractApplicationSettings() {
 
     private const val VAL_VERSION = 1
     private const val VAL_DEFAULT_GROUP_NAME = ""
-    private const val VAL_DEFAULT_PREFIX = ""
-    private const val VAL_DEFAULT_SEPARATOR = ", "
-    private const val VAL_DEFAULT_POSTFIX = ""
+    internal const val VAL_DEFAULT_PREFIX = ""
+    internal const val VAL_DEFAULT_SEPARATOR = ", "
+    internal const val VAL_DEFAULT_POSTFIX = ""
     private const val VAL_DEFAULT_LIST_PREFIXES = "[\"\",\"Today's order: \"]"
     private const val VAL_DEFAULT_LIST_SEPARATOR = "[\", \",\" : \"]"
     private const val VAL_DEFAULT_LIST_POSTFIXES = "[\"\",\".\"]"
