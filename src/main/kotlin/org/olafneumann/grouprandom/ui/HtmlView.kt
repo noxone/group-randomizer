@@ -147,6 +147,7 @@ class HtmlView(
 
         // Hide add group member form in case no group is selected
         buttonAddGroupMember.disabled = group == null
+        inputAddGroupMember.disabled = group == null
     }
 
     override fun selectPrefix(prefix: String?) = prefixListMaintainer.toggleActive(prefix)
