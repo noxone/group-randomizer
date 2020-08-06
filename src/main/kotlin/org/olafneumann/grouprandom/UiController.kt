@@ -91,59 +91,59 @@ internal class UiController : DisplayContract.Controller {
     }
 
     override fun selectPrefix(prefix: String) {
-        ApplicationSettings.currentPrefix = prefix.toValidAddition()
+        ApplicationSettings.currentPrefix = prefix
         refreshUi(refreshGroups = false, refreshMembers = false, refreshTextAdditions = true, regenerateText = true)
         view.selectPrefix(ApplicationSettings.currentPrefix)
     }
 
     override fun selectSeparator(separator: String) {
-        ApplicationSettings.currentSeparator = separator.toValidAddition()
+        ApplicationSettings.currentSeparator = separator
         refreshUi(refreshGroups = false, refreshMembers = false, refreshTextAdditions = true, regenerateText = true)
         view.selectSeparator(ApplicationSettings.currentSeparator)
     }
 
     override fun selectPostfix(postfix: String) {
-        ApplicationSettings.currentPostfix = postfix.toValidAddition()
+        ApplicationSettings.currentPostfix = postfix
         refreshUi(refreshGroups = false, refreshMembers = false, refreshTextAdditions = true, regenerateText = true)
         view.selectPostfix(ApplicationSettings.currentPostfix)
     }
 
     override fun addPrefix(prefix: String) =
-        addListEntry({ ApplicationSettings.prefixes }, { ApplicationSettings.prefixes = it }, prefix.toValidAddition())
+        addListEntry({ ApplicationSettings.prefixes }, { ApplicationSettings.prefixes = it }, prefix)
 
     override fun addSeparator(separator: String) =
         addListEntry(
             { ApplicationSettings.separators },
             { ApplicationSettings.separators = it },
-            separator.toValidAddition()
+            separator
         )
 
     override fun addPostfix(postfix: String) =
         addListEntry(
             { ApplicationSettings.postfixes },
             { ApplicationSettings.postfixes = it },
-            postfix.toValidAddition()
+            postfix
         )
 
     override fun removePrefix(prefix: String) =
         removeListEntry(
             { ApplicationSettings.prefixes },
             { ApplicationSettings.prefixes = it },
-            prefix.toValidAddition()
+            prefix
         )
 
     override fun removeSeparator(separator: String) =
         removeListEntry(
             { ApplicationSettings.separators },
             { ApplicationSettings.separators = it },
-            separator.toValidAddition()
+            separator
         )
 
     override fun removePostfix(postfix: String) =
         removeListEntry(
             { ApplicationSettings.postfixes },
             { ApplicationSettings.postfixes = it },
-            postfix.toValidAddition()
+            postfix
         )
 
     private fun <T> addListEntry(getList: () -> List<T>, setList: (List<T>) -> Unit, itemToAdd: T) {
@@ -210,10 +210,9 @@ internal class UiController : DisplayContract.Controller {
                 postfix = ApplicationSettings.currentPostfix
             )
 
-    private fun String.toValidName() = replace(REGEX_WHITESPACE, " ").trim()
-    private fun String.toValidAddition() = if (isEmpty()) "\u00A0" /* non-breaking space */ else this
+    private fun String.toValidName() = replace(REGEX_WHITESPACES, " ").trim()
 
     companion object {
-        private val REGEX_WHITESPACE = Regex("\\s+")
+        private val REGEX_WHITESPACES = Regex("\\s+")
     }
 }

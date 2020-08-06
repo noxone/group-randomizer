@@ -35,6 +35,8 @@ class HtmlView(
     private val inputPostfix = HtmlHelper.getElementById<HTMLInputElement>(ID_INPUT_POSTFIX)
     private val divResultText = HtmlHelper.getElementById<HTMLDivElement>(ID_DIV_RESULT_TEXT)
 
+    private var currentRandomText = ""
+
     init {
         val buttonAddGroup = HtmlHelper.getElementById<HTMLButtonElement>(ID_BUTTON_NEW_GROUP)
         val buttonAddPrefix = HtmlHelper.getElementById<HTMLButtonElement>(ID_BUTTON_NEW_PREFIX)
@@ -61,7 +63,7 @@ class HtmlView(
         HtmlHelper.getElementById<HTMLButtonElement>(ID_BUTTON_REGENERATE)
             .addEventListener(EVENT_CLICK, { controller.generateRandomOrder() })
         HtmlHelper.getElementsByClassName<HTMLButtonElement>(CLASS_COPY_BUTTON)
-            .forEach { it.addEventListener(EVENT_CLICK, { navigator.clipboard.writeText(divResultText.innerText) }) }
+            .forEach { it.addEventListener(EVENT_CLICK, { navigator.clipboard.writeText(currentRandomText) }) }
 
         window.addEventListener(EVENT_POPSTATE, {
             if (it is PopStateEvent) {
@@ -155,7 +157,8 @@ class HtmlView(
     override fun selectPostfix(postfix: String?) = postfixListMaintainer.toggleActive(postfix)
 
     override fun showGeneratedText(text: String) {
-        divResultText.innerText = text
+        currentRandomText = text
+        divResultText.innerText = currentRandomText.toNonBreaking()
     }
 
     private fun createGroupItem(group: Group) = document.create.button(
@@ -220,8 +223,8 @@ class HtmlView(
         classes = "list-group-item list-group-item-action d-flex justify-content-between gr-action-link-container"
     ) {
         onClickFunction = onSelectFunction
-        div("ml-2") {
-            +text
+        div("ml-2 gr-bg-light-grey rounded px-1 text-monospace") {
+            +text.toNonBreaking()
         }
         a(classes = "gr-action-link ml-1") {
             title = "Remove '${text}'."
@@ -235,30 +238,35 @@ class HtmlView(
 
 
     companion object {
-        const val CLASS_COPY_BUTTON = "gr-copy-button"
-        const val CLASS_HIDE_GROUP_MEMBERS = "gr-existing-members-hide"
+        private const val CHAR_NON_BREAKING_SPACE = "\u00A0"
+        private const val CHAR_ZERO_WIDTH_BREAKING_SPACE = "\uFEFF"
 
-        const val EVENT_CLICK = "click"
+        private const val CLASS_COPY_BUTTON = "gr-copy-button"
+        private const val CLASS_HIDE_GROUP_MEMBERS = "gr-existing-members-hide"
+
+        private const val EVENT_CLICK = "click"
         private const val EVENT_SUBMIT = "submit"
-        const val EVENT_POPSTATE = "popstate"
+        private const val EVENT_POPSTATE = "popstate"
 
-        const val ID_LIST_EXISTING_GROUPS = "gr_existing_groups"
-        const val ID_INPUT_NEW_GROUP_NAME = "gr_new_group_name"
-        const val ID_BUTTON_NEW_GROUP = "gr_create_new_group"
-        const val ID_LIST_EXISTING_MEMBERS = "gr_existing_members"
-        const val ID_INPUT_NEW_MEMBER_NAME = "gr_new_member_name"
-        const val ID_BUTTON_ADD_GROUP_MEMBER = "gr_add_group_member"
-        const val ID_DIV_LIST_PREFIXES = "gr_div_list_prefixes"
-        const val ID_DIV_LIST_SEPARATORS = "gr_div_list_separators"
-        const val ID_DIV_LIST_POSTFIXES = "gr_div_list_postfixes"
-        const val ID_INPUT_PREFIX = "gr_input_prefix"
-        const val ID_INPUT_SEPARATOR = "gr_input_separator"
-        const val ID_INPUT_POSTFIX = "gr_input_postfix"
-        const val ID_BUTTON_NEW_PREFIX = "gr_create_new_prefix"
-        const val ID_BUTTON_NEW_SEPARATOR = "gr_create_new_separator"
-        const val ID_BUTTON_NEW_POSTFIX = "gr_create_new_postfix"
-        const val ID_DIV_RESULT_TEXT = "gr_result_text"
-        const val ID_BUTTON_REGENERATE = "gr_btn_regenerate"
+        private const val ID_LIST_EXISTING_GROUPS = "gr_existing_groups"
+        private const val ID_INPUT_NEW_GROUP_NAME = "gr_new_group_name"
+        private const val ID_BUTTON_NEW_GROUP = "gr_create_new_group"
+        private const val ID_LIST_EXISTING_MEMBERS = "gr_existing_members"
+        private const val ID_INPUT_NEW_MEMBER_NAME = "gr_new_member_name"
+        private const val ID_BUTTON_ADD_GROUP_MEMBER = "gr_add_group_member"
+        private const val ID_DIV_LIST_PREFIXES = "gr_div_list_prefixes"
+        private const val ID_DIV_LIST_SEPARATORS = "gr_div_list_separators"
+        private const val ID_DIV_LIST_POSTFIXES = "gr_div_list_postfixes"
+        private const val ID_INPUT_PREFIX = "gr_input_prefix"
+        private const val ID_INPUT_SEPARATOR = "gr_input_separator"
+        private const val ID_INPUT_POSTFIX = "gr_input_postfix"
+        private const val ID_BUTTON_NEW_PREFIX = "gr_create_new_prefix"
+        private const val ID_BUTTON_NEW_SEPARATOR = "gr_create_new_separator"
+        private const val ID_BUTTON_NEW_POSTFIX = "gr_create_new_postfix"
+        private const val ID_DIV_RESULT_TEXT = "gr_result_text"
+        private const val ID_BUTTON_REGENERATE = "gr_btn_regenerate"
+        
+        private val REGEX_WHITESPACE = Regex("\\s")
 
         private fun HTMLInputElement.createValueCallback(consumer: (String) -> Unit): (Event) -> Unit {
             return {
@@ -277,6 +285,8 @@ class HtmlView(
                 }
                 return parentElement?.parentForm
             }
+        
+        private fun String.toNonBreaking() = if (isEmpty()) CHAR_ZERO_WIDTH_BREAKING_SPACE else replace(REGEX_WHITESPACE, CHAR_NON_BREAKING_SPACE)
 
         private fun HTMLElement.addClickListener(handler: (Event) -> Unit) = this.addEventListener(EVENT_CLICK, handler)
         private fun HTMLFormElement.addSubmitListener(handler: (Event) -> Unit) =
