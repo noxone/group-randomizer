@@ -11,7 +11,6 @@ import org.olafneumann.grouprandom.browser.HtmlHelper
 import org.olafneumann.grouprandom.js.decodeURIComponent
 import org.olafneumann.grouprandom.js.encodeURIComponent
 import org.olafneumann.grouprandom.js.navigator
-import org.olafneumann.regex.generator.js.jQuery
 import org.w3c.dom.*
 import org.w3c.dom.events.Event
 import org.w3c.dom.url.URL
@@ -27,6 +26,7 @@ class HtmlView(
     private val inputAddGroupName = HtmlHelper.getElementById<HTMLInputElement>(ID_INPUT_NEW_GROUP_NAME)
     private val divListGroupMembers = HtmlHelper.getElementById<HTMLDivElement>(ID_LIST_EXISTING_MEMBERS)
     private val inputAddGroupMember = HtmlHelper.getElementById<HTMLInputElement>(ID_INPUT_NEW_MEMBER_NAME)
+    private val buttonAddGroupMember = HtmlHelper.getElementById<HTMLButtonElement>(ID_BUTTON_ADD_GROUP_MEMBER)
     private val divListPrefixes = HtmlHelper.getElementById<HTMLDivElement>(ID_DIV_LIST_PREFIXES)
     private val divListSeparators = HtmlHelper.getElementById<HTMLDivElement>(ID_DIV_LIST_SEPARATORS)
     private val divListPostfixes = HtmlHelper.getElementById<HTMLDivElement>(ID_DIV_LIST_POSTFIXES)
@@ -37,7 +37,6 @@ class HtmlView(
 
     init {
         val buttonAddGroup = HtmlHelper.getElementById<HTMLButtonElement>(ID_BUTTON_NEW_GROUP)
-        val buttonAddGroupMember = HtmlHelper.getElementById<HTMLButtonElement>(ID_BUTTON_ADD_GROUP_MEMBER)
         val buttonAddPrefix = HtmlHelper.getElementById<HTMLButtonElement>(ID_BUTTON_NEW_PREFIX)
         val buttonAddSeparator = HtmlHelper.getElementById<HTMLButtonElement>(ID_BUTTON_NEW_SEPARATOR)
         val buttonAddPostfix = HtmlHelper.getElementById<HTMLButtonElement>(ID_BUTTON_NEW_POSTFIX)
@@ -139,12 +138,16 @@ class HtmlView(
 
     override fun selectGroup(group: Group?) {
         groupListMaintainer.toggleActive(group)
-        group?.let {
-            val state: dynamic = window.history.state
-            if (state == null || state.name != it.name) {
-                window.history.pushState(group, it.name, "#${encodeURIComponent(it.name)}")
-            }
+
+        val hash = group?.name ?: ""
+        val state: dynamic = window.history.state
+        if (state == null || state.name != hash) {
+            window.history.pushState(group, hash, "#${encodeURIComponent(hash)}")
         }
+
+        // Hide add group member form in case no group is selected
+        buttonAddGroupMember.disabled = group == null
+        inputAddGroupMember.disabled = group == null
     }
 
     override fun selectPrefix(prefix: String?) = prefixListMaintainer.toggleActive(prefix)
