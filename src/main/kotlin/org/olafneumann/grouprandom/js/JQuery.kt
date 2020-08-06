@@ -8,6 +8,4 @@ external fun jQuery(id: Node): JQuery
 external class JQuery() {
     fun show(): JQuery
     fun hide(): JQuery
-    fun removeClass(className: String = definedExternally)
-    fun addClass(className: String = definedExternally)
 }

@@ -130,13 +130,8 @@ class HtmlView(
 
     override fun showGroups(groups: List<Group>) = groupListMaintainer.showItems(groups)
     override fun showMembers(members: List<Member>) {
-        val container = jQuery(divListGroupMembers.parentNode!!)
-        if (members.isEmpty()) {
-            container.addClass(CLASS_HIDE_GROUP_MEMBERS)
-        } else {
-            container.removeClass(CLASS_HIDE_GROUP_MEMBERS)
-            memberListMaintainer.showItems(members)
-        }
+        divListGroupMembers.parentElement?.classList?.toggle(CLASS_HIDE_GROUP_MEMBERS, members.isEmpty())
+        memberListMaintainer.showItems(members)
     }
     override fun showPrefixes(prefixes: List<String>) = prefixListMaintainer.showItems(prefixes)
     override fun showSeparators(separators: List<String>) = separatorListMaintainer.showItems(separators)
