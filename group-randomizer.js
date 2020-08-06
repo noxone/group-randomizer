@@ -367,7 +367,9 @@ if (typeof kotlin === 'undefined') {
   };
   UiController.prototype.addGroupMember_61zpoe$ = function (name) {
     var tmp$, tmp$_0, tmp$_1, tmp$_2;
-    var validName = this.toValidName_0(name);
+    if (isBlank(name)) {
+      return null;
+    }var validName = this.toValidName_0(name);
     var tmp$_3;
     if ((tmp$_0 = (tmp$ = this.selectedGroup_0) != null ? tmp$.members : null) != null) {
       var firstOrNull$result;
@@ -390,6 +392,7 @@ if (typeof kotlin === 'undefined') {
       (tmp$_2 = (tmp$_1 = this.selectedGroup_0) != null ? tmp$_1.members : null) != null ? tmp$_2.add_11rb$(new Member(validName)) : null;
     }this.fireCurrentGroupChanged_0();
     this.view_0.focusNewMemberEditor();
+    return validName;
   };
   function UiController$removeGroupMember$lambda(closure$member) {
     return function (it) {
