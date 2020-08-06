@@ -11,6 +11,7 @@ import org.olafneumann.grouprandom.browser.HtmlHelper
 import org.olafneumann.grouprandom.js.decodeURIComponent
 import org.olafneumann.grouprandom.js.encodeURIComponent
 import org.olafneumann.grouprandom.js.navigator
+import org.olafneumann.regex.generator.js.jQuery
 import org.w3c.dom.*
 import org.w3c.dom.events.Event
 import org.w3c.dom.url.URL
@@ -128,7 +129,10 @@ class HtmlView(
     })
 
     override fun showGroups(groups: List<Group>) = groupListMaintainer.showItems(groups)
-    override fun showMembers(members: List<Member>) = memberListMaintainer.showItems(members)
+    override fun showMembers(members: List<Member>) {
+        divListGroupMembers.parentElement?.classList?.toggle(CLASS_HIDE_GROUP_MEMBERS, members.isEmpty())
+        memberListMaintainer.showItems(members)
+    }
     override fun showPrefixes(prefixes: List<String>) = prefixListMaintainer.showItems(prefixes)
     override fun showSeparators(separators: List<String>) = separatorListMaintainer.showItems(separators)
     override fun showPostfixes(postfixes: List<String>) = postfixListMaintainer.showItems(postfixes)
@@ -229,6 +233,7 @@ class HtmlView(
 
     companion object {
         const val CLASS_COPY_BUTTON = "gr-copy-button"
+        const val CLASS_HIDE_GROUP_MEMBERS = "gr-existing-members-hide"
 
         const val EVENT_CLICK = "click"
         private const val EVENT_SUBMIT = "submit"
