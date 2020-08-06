@@ -139,7 +139,7 @@ class HtmlView(
     override fun selectGroup(group: Group?) {
         groupListMaintainer.toggleActive(group)
 
-        var hash = group?.name ?: ""
+        val hash = group?.name ?: ""
         val state: dynamic = window.history.state
         if (state == null || state.name != hash) {
             window.history.pushState(group, hash, "#${encodeURIComponent(hash)}")
