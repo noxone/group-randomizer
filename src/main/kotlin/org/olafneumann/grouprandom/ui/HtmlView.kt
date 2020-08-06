@@ -11,7 +11,6 @@ import org.olafneumann.grouprandom.browser.HtmlHelper
 import org.olafneumann.grouprandom.js.decodeURIComponent
 import org.olafneumann.grouprandom.js.encodeURIComponent
 import org.olafneumann.grouprandom.js.navigator
-import org.olafneumann.regex.generator.js.jQuery
 import org.w3c.dom.*
 import org.w3c.dom.events.Event
 import org.w3c.dom.url.URL
@@ -147,7 +146,7 @@ class HtmlView(
         }
 
         // Hide add group member form in case no group is selected
-        jQuery(buttonAddGroupMember).attr("disabled", group == null)
+        buttonAddGroupMember.disabled = group == null
     }
 
     override fun selectPrefix(prefix: String?) = prefixListMaintainer.toggleActive(prefix)
