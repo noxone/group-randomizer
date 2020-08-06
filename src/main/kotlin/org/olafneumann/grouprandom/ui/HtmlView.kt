@@ -35,6 +35,8 @@ class HtmlView(
     private val inputPostfix = HtmlHelper.getElementById<HTMLInputElement>(ID_INPUT_POSTFIX)
     private val divResultText = HtmlHelper.getElementById<HTMLDivElement>(ID_DIV_RESULT_TEXT)
 
+    private var currentRandomText = ""
+
     init {
         val buttonAddGroup = HtmlHelper.getElementById<HTMLButtonElement>(ID_BUTTON_NEW_GROUP)
         val buttonAddPrefix = HtmlHelper.getElementById<HTMLButtonElement>(ID_BUTTON_NEW_PREFIX)
@@ -61,7 +63,7 @@ class HtmlView(
         HtmlHelper.getElementById<HTMLButtonElement>(ID_BUTTON_REGENERATE)
             .addEventListener(EVENT_CLICK, { controller.generateRandomOrder() })
         HtmlHelper.getElementsByClassName<HTMLButtonElement>(CLASS_COPY_BUTTON)
-            .forEach { it.addEventListener(EVENT_CLICK, { navigator.clipboard.writeText(divResultText.innerText) }) }
+            .forEach { it.addEventListener(EVENT_CLICK, { navigator.clipboard.writeText(currentRandomText) }) }
 
         window.addEventListener(EVENT_POPSTATE, {
             if (it is PopStateEvent) {
@@ -155,7 +157,8 @@ class HtmlView(
     override fun selectPostfix(postfix: String?) = postfixListMaintainer.toggleActive(postfix)
 
     override fun showGeneratedText(text: String) {
-        divResultText.innerText = text
+        currentRandomText = text
+        divResultText.innerText = currentRandomText.toNonBreaking()
     }
 
     private fun createGroupItem(group: Group) = document.create.button(
@@ -221,7 +224,7 @@ class HtmlView(
     ) {
         onClickFunction = onSelectFunction
         div("ml-2 gr-bg-light-grey rounded px-1 text-monospace") {
-            +if (text.isEmpty()) CHAR_ZERO_WIDTH_BREAKING_SPACE else text.replace(REGEX_WHITESPACE, CHAR_NON_BREAKING_SPACE)
+            +text.toNonBreaking()
         }
         a(classes = "gr-action-link ml-1") {
             title = "Remove '${text}'."
@@ -282,6 +285,8 @@ class HtmlView(
                 }
                 return parentElement?.parentForm
             }
+        
+        private fun String.toNonBreaking() = if (isEmpty()) CHAR_ZERO_WIDTH_BREAKING_SPACE else replace(REGEX_WHITESPACE, CHAR_NON_BREAKING_SPACE)
 
         private fun HTMLElement.addClickListener(handler: (Event) -> Unit) = this.addEventListener(EVENT_CLICK, handler)
         private fun HTMLFormElement.addSubmitListener(handler: (Event) -> Unit) =
