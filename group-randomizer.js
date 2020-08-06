@@ -752,7 +752,8 @@ if (typeof kotlin === 'undefined') {
     }
   };
   CookieBanner.prototype.hideBanner_0 = function () {
-    jQuery(this.ctnCookie_0).remove();
+    var tmp$;
+    (tmp$ = this.ctnCookie_0.parentNode) != null ? tmp$.removeChild(this.ctnCookie_0) : null;
   };
   CookieBanner.$metadata$ = {
     kind: Kind_OBJECT,
@@ -822,9 +823,6 @@ if (typeof kotlin === 'undefined') {
     if (HtmlHelper_instance === null) {
       new HtmlHelper();
     }return HtmlHelper_instance;
-  }
-  function jQuery(element) {
-    return $('#' + element.id);
   }
   function Group(name, members) {
     if (members === void 0) {
@@ -1225,6 +1223,8 @@ if (typeof kotlin === 'undefined') {
     this.groupListMaintainer_0.showItems_4ezy5m$(groups);
   };
   HtmlView.prototype.showMembers_x6m2tk$ = function (members) {
+    var tmp$, tmp$_0;
+    (tmp$_0 = (tmp$ = this.divListGroupMembers_0.parentElement) != null ? tmp$.classList : null) != null ? tmp$_0.toggle(HtmlView$Companion_getInstance().CLASS_HIDE_GROUP_MEMBERS, members.isEmpty()) : null;
     this.memberListMaintainer_0.showItems_4ezy5m$(members);
   };
   HtmlView.prototype.showPrefixes_mhpeer$ = function (prefixes) {
@@ -1424,6 +1424,7 @@ if (typeof kotlin === 'undefined') {
   function HtmlView$Companion() {
     HtmlView$Companion_instance = this;
     this.CLASS_COPY_BUTTON = 'gr-copy-button';
+    this.CLASS_HIDE_GROUP_MEMBERS = 'gr-existing-members-hide';
     this.EVENT_CLICK = 'click';
     this.EVENT_SUBMIT_0 = 'submit';
     this.EVENT_POPSTATE = 'popstate';
@@ -1738,10 +1739,6 @@ if (typeof kotlin === 'undefined') {
   Object.defineProperty(package$browser, 'HtmlHelper', {
     get: HtmlHelper_getInstance
   });
-  var package$regex = package$olafneumann.regex || (package$olafneumann.regex = {});
-  var package$generator = package$regex.generator || (package$regex.generator = {});
-  var package$js = package$generator.js || (package$generator.js = {});
-  package$js.jQuery_lt8gi4$ = jQuery;
   var package$model = package$grouprandom.model || (package$grouprandom.model = {});
   package$model.Group = Group;
   package$model.Member = Member;
