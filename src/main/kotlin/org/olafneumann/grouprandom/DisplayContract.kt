@@ -28,7 +28,7 @@ interface DisplayContract {
         fun removeGroup(group: Group)
         fun selectGroup(group: Group?)
         fun tryToSelectGroupByName(name: String)
-        fun addGroupMember(name: String)
+        fun addGroupMember(name: String): String?
         fun removeGroupMember(member: Member)
         fun toggleGroupMemberActive(member: Member)
         fun addPrefix(prefix: String)

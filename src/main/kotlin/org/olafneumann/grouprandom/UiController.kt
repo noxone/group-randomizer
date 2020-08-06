@@ -60,13 +60,19 @@ internal class UiController : DisplayContract.Controller {
         }
     }
 
-    override fun addGroupMember(name: String) {
+    override fun addGroupMember(name: String): String? {
+        if (name.isBlank()) {
+            return null
+        }
+
         val validName = name.toValidName()
         if (selectedGroup?.members?.find { it.name == validName } == null) {
             selectedGroup?.members?.add(Member(validName))
         }
         fireCurrentGroupChanged()
         view.focusNewMemberEditor()
+
+        return validName
     }
 
     override fun removeGroupMember(member: Member) {
