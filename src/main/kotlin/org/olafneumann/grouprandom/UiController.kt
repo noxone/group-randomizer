@@ -53,9 +53,11 @@ internal class UiController : DisplayContract.Controller {
     override fun removeGroup(group: Group) {
         ApplicationSettings.deleteGroup(group.name)
         if (group == selectedGroup) {
-            selectGroup(group)
+            selectGroup(ApplicationSettings.getGroups().firstOrNull())
+            view.focusNewGroupEditor()
+        } else {
+            refreshUi(refreshTextAdditions = false, regenerateText = false)
         }
-        refreshUi(refreshTextAdditions = false, regenerateText = false)
     }
 
     override fun addGroupMember(name: String) {

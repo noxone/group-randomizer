@@ -28,6 +28,6 @@ internal object CookieBanner {
     }
 
     private fun hideBanner() {
-        jQuery(ctnCookie).hide()
+        jQuery(ctnCookie).remove()
     }
 }
