@@ -27,6 +27,8 @@ if (typeof kotlin === 'undefined') {
   var isBlank = Kotlin.kotlin.text.isBlank_gw00vp$;
   var firstOrNull = Kotlin.kotlin.collections.firstOrNull_2p1efm$;
   var removeAll = Kotlin.kotlin.collections.removeAll_qafx1e$;
+  var listOf = Kotlin.kotlin.collections.listOf_mh5how$;
+  var first = Kotlin.kotlin.collections.first_2p1efm$;
   var shuffled = Kotlin.kotlin.collections.shuffled_7wnvza$;
   var joinToString = Kotlin.kotlin.collections.joinToString_fmv235$;
   var Regex_init = Kotlin.kotlin.text.Regex_init_61zpoe$;
@@ -89,9 +91,9 @@ if (typeof kotlin === 'undefined') {
     this.KEY_LIST_POSTFIXES_0 = 'list.postfixes';
     this.VAL_VERSION_0 = 1;
     this.VAL_DEFAULT_GROUP_NAME_0 = '';
-    this.VAL_DEFAULT_PREFIX_0 = '';
-    this.VAL_DEFAULT_SEPARATOR_0 = ', ';
-    this.VAL_DEFAULT_POSTFIX_0 = '';
+    this.VAL_DEFAULT_PREFIX_8be2vx$ = '';
+    this.VAL_DEFAULT_SEPARATOR_8be2vx$ = ', ';
+    this.VAL_DEFAULT_POSTFIX_8be2vx$ = '';
     this.VAL_DEFAULT_LIST_PREFIXES_0 = '["","Today\'s order: "]';
     this.VAL_DEFAULT_LIST_SEPARATOR_0 = '[", "," : "]';
     this.VAL_DEFAULT_LIST_POSTFIXES_0 = '["","."]';
@@ -213,7 +215,7 @@ if (typeof kotlin === 'undefined') {
   Object.defineProperty(ApplicationSettings.prototype, 'currentPrefix', {
     get: function () {
       var tmp$;
-      return (tmp$ = this.get_0(this.KEY_CURRENT_PREFIX_0)) != null ? tmp$ : this.VAL_DEFAULT_PREFIX_0;
+      return (tmp$ = this.get_0(this.KEY_CURRENT_PREFIX_0)) != null ? tmp$ : this.VAL_DEFAULT_PREFIX_8be2vx$;
     },
     set: function (value) {
       this.set_1(this.KEY_CURRENT_PREFIX_0, value);
@@ -222,7 +224,7 @@ if (typeof kotlin === 'undefined') {
   Object.defineProperty(ApplicationSettings.prototype, 'currentSeparator', {
     get: function () {
       var tmp$;
-      return (tmp$ = this.get_0(this.KEY_CURRENT_SEPARATOR_0)) != null ? tmp$ : this.VAL_DEFAULT_SEPARATOR_0;
+      return (tmp$ = this.get_0(this.KEY_CURRENT_SEPARATOR_0)) != null ? tmp$ : this.VAL_DEFAULT_SEPARATOR_8be2vx$;
     },
     set: function (value) {
       this.set_1(this.KEY_CURRENT_SEPARATOR_0, value);
@@ -231,7 +233,7 @@ if (typeof kotlin === 'undefined') {
   Object.defineProperty(ApplicationSettings.prototype, 'currentPostfix', {
     get: function () {
       var tmp$;
-      return (tmp$ = this.get_0(this.KEY_CURRENT_POSTFIX_0)) != null ? tmp$ : this.VAL_DEFAULT_POSTFIX_0;
+      return (tmp$ = this.get_0(this.KEY_CURRENT_POSTFIX_0)) != null ? tmp$ : this.VAL_DEFAULT_POSTFIX_8be2vx$;
     },
     set: function (value) {
       this.set_1(this.KEY_CURRENT_POSTFIX_0, value);
@@ -468,7 +470,11 @@ if (typeof kotlin === 'undefined') {
   }
   UiController.prototype.removePrefix_61zpoe$ = function (prefix) {
     this.removeListEntry_0(UiController$removePrefix$lambda, UiController$removePrefix$lambda_0, prefix);
-  };
+    if (ApplicationSettings_getInstance().prefixes.isEmpty()) {
+      ApplicationSettings_getInstance().prefixes = listOf(ApplicationSettings_getInstance().VAL_DEFAULT_PREFIX_8be2vx$);
+    }if (equals(ApplicationSettings_getInstance().currentPrefix, prefix)) {
+      this.selectPrefix_61zpoe$(first(ApplicationSettings_getInstance().prefixes));
+    }};
   function UiController$removeSeparator$lambda() {
     return ApplicationSettings_getInstance().separators;
   }
@@ -478,7 +484,11 @@ if (typeof kotlin === 'undefined') {
   }
   UiController.prototype.removeSeparator_61zpoe$ = function (separator) {
     this.removeListEntry_0(UiController$removeSeparator$lambda, UiController$removeSeparator$lambda_0, separator);
-  };
+    if (ApplicationSettings_getInstance().separators.isEmpty()) {
+      ApplicationSettings_getInstance().separators = listOf(ApplicationSettings_getInstance().VAL_DEFAULT_SEPARATOR_8be2vx$);
+    }if (equals(ApplicationSettings_getInstance().currentSeparator, separator)) {
+      this.selectSeparator_61zpoe$(first(ApplicationSettings_getInstance().separators));
+    }};
   function UiController$removePostfix$lambda() {
     return ApplicationSettings_getInstance().postfixes;
   }
@@ -488,7 +498,11 @@ if (typeof kotlin === 'undefined') {
   }
   UiController.prototype.removePostfix_61zpoe$ = function (postfix) {
     this.removeListEntry_0(UiController$removePostfix$lambda, UiController$removePostfix$lambda_0, postfix);
-  };
+    if (ApplicationSettings_getInstance().postfixes.isEmpty()) {
+      ApplicationSettings_getInstance().postfixes = listOf(ApplicationSettings_getInstance().VAL_DEFAULT_POSTFIX_8be2vx$);
+    }if (equals(ApplicationSettings_getInstance().currentPostfix, postfix)) {
+      this.selectPostfix_61zpoe$(first(ApplicationSettings_getInstance().postfixes));
+    }};
   UiController.prototype.addListEntry_0 = function (getList, setList, itemToAdd) {
     var list = toMutableList(getList());
     if (!list.contains_11rb$(itemToAdd)) {
