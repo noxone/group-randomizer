@@ -31,7 +31,7 @@
 		</div>
 	</div>
 
-    <div class="container-fluid py-3">
+    <div class="container py-3">
         <div class="jumbotron bg-info">
             <h1 class="display-4"><span id="rg-title">Group Randomizer</span></h1>
         </div>
@@ -57,10 +57,10 @@
                             </div>
                             <form action="#" id="gr_add_group_form" class="list-group-item list-group-item-action bg-secondary text-light gr-always-there" method="GET" onsubmit="return false;">
                                 <div class="form-row">
-                                    <div class="col-xl-9 col-lg-8 col-md-7 col-7">
+                                    <div class="col-lg-8 col-md-7 col-7">
                                         <input id="gr_new_group_name" type="text" placeholder="Group name"
                                             class="form-control"></div>
-                                    <div class="col-xl-3 col-lg-4 col-md-5 col-5">
+                                    <div class="col-lg-4 col-md-5 col-5">
                                         <button id="gr_create_new_group" class="btn btn-info" type="button"
                                             style="width:100%">Create</button></div>
                                 </div>
@@ -68,7 +68,13 @@
                         </div>
                     </div>
                     <div class="col-xl-8 col-lg-7 col-md-6 mt-2">
-                        <h6>Group members</h6>
+                        <div class="d-flex justify-content-between">
+                            <h6 style="display:inline-block">Group members</h6>
+                            <div id="gr_member_count_container">
+                                <span id="gr_selected_member_counter">5</span>
+                                <span>selected</span>
+                            </div>
+                        </div>
                         <div class="list-group">
                             <div class="list-group-item">
                                 <div id="gr_existing_members" class="row"> </div>
@@ -100,7 +106,7 @@
                     <h5>Choose text additions.</h5>
                 </div>
                 <div class="row">
-                    <div class="col-md-4 mt-2">
+                    <div class="col-lg-4 col-md-6 mt-2">
                         <h6>Beginning</h6>
                         <div id="gr_div_list_prefixes" class="list-group">
                             <form action="#" class="list-group-item list-group-item-action bg-secondary text-light gr-always-there" method="GET" onsubmit="return false;">
@@ -115,7 +121,7 @@
                             </form>
                         </div>
                     </div>
-                    <div class="col-md-4 mt-2">
+                    <div class="col-lg-4 col-md-6 mt-2">
                         <h6>Separator</h6>
                         <div id="gr_div_list_separators" class="list-group">
                             <form action="#" class="list-group-item list-group-item-action bg-secondary text-light gr-always-there" method="GET" onsubmit="return false;">
@@ -130,7 +136,7 @@
                             </form>
                         </div>
                     </div>
-                    <div class="col-md-4 mt-2">
+                    <div class="col-lg-4 col-md-6 mt-2">
                         <h6>Ending</h6>
                         <div id="gr_div_list_postfixes" class="list-group">
                             <form action="#" class="list-group-item list-group-item-action bg-secondary text-light gr-always-there" method="GET" onsubmit="return false;">

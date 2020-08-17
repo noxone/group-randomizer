@@ -27,6 +27,7 @@ class HtmlView(
     private val divListGroupMembers = HtmlHelper.getElementById<HTMLDivElement>(ID_LIST_EXISTING_MEMBERS)
     private val inputAddGroupMember = HtmlHelper.getElementById<HTMLInputElement>(ID_INPUT_NEW_MEMBER_NAME)
     private val buttonAddGroupMember = HtmlHelper.getElementById<HTMLButtonElement>(ID_BUTTON_ADD_GROUP_MEMBER)
+    private val spanSelectedMemberCounter = HtmlHelper.getElementById<HTMLSpanElement>(ID_SELECTED_MEMBER_COUNTER)
     private val divListPrefixes = HtmlHelper.getElementById<HTMLDivElement>(ID_DIV_LIST_PREFIXES)
     private val divListSeparators = HtmlHelper.getElementById<HTMLDivElement>(ID_DIV_LIST_SEPARATORS)
     private val divListPostfixes = HtmlHelper.getElementById<HTMLDivElement>(ID_DIV_LIST_POSTFIXES)
@@ -133,6 +134,7 @@ class HtmlView(
     override fun showMembers(members: List<Member>) {
         divListGroupMembers.parentElement?.classList?.toggle(CLASS_HIDE_GROUP_MEMBERS, members.isEmpty())
         memberListMaintainer.showItems(members)
+        spanSelectedMemberCounter.innerText = members.filter { it.active }.count().toString()
     }
     override fun showPrefixes(prefixes: List<String>) = prefixListMaintainer.showItems(prefixes)
     override fun showSeparators(separators: List<String>) = separatorListMaintainer.showItems(separators)
@@ -254,6 +256,7 @@ class HtmlView(
         private const val ID_LIST_EXISTING_MEMBERS = "gr_existing_members"
         private const val ID_INPUT_NEW_MEMBER_NAME = "gr_new_member_name"
         private const val ID_BUTTON_ADD_GROUP_MEMBER = "gr_add_group_member"
+        private const val ID_SELECTED_MEMBER_COUNTER = "gr_selected_member_counter"
         private const val ID_DIV_LIST_PREFIXES = "gr_div_list_prefixes"
         private const val ID_DIV_LIST_SEPARATORS = "gr_div_list_separators"
         private const val ID_DIV_LIST_POSTFIXES = "gr_div_list_postfixes"
