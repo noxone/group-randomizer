@@ -1020,19 +1020,19 @@ if (typeof kotlin === 'undefined') {
         throw e_3;
     }
     this.buttonAddGroupMember_0 = getElementById_359kph$result_3;
-    var id_4 = HtmlView$Companion_getInstance().ID_DIV_LIST_PREFIXES_0;
+    var id_4 = HtmlView$Companion_getInstance().ID_SELECTED_MEMBER_COUNTER_0;
     var getElementById_359kph$result_4;
     var tmp$_4;
     try {
-      getElementById_359kph$result_4 = Kotlin.isType(tmp$_4 = document.getElementById(id_4), HTMLDivElement) ? tmp$_4 : throwCCE();
+      getElementById_359kph$result_4 = Kotlin.isType(tmp$_4 = document.getElementById(id_4), HTMLSpanElement) ? tmp$_4 : throwCCE();
     } catch (e_4) {
       if (Kotlin.isType(e_4, ClassCastException)) {
         throw new RuntimeException_init("Unable to find element with id '" + id_4 + "'.", e_4);
       } else
         throw e_4;
     }
-    this.divListPrefixes_0 = getElementById_359kph$result_4;
-    var id_5 = HtmlView$Companion_getInstance().ID_DIV_LIST_SEPARATORS_0;
+    this.spanSelectedMemberCounter_0 = getElementById_359kph$result_4;
+    var id_5 = HtmlView$Companion_getInstance().ID_DIV_LIST_PREFIXES_0;
     var getElementById_359kph$result_5;
     var tmp$_5;
     try {
@@ -1043,8 +1043,8 @@ if (typeof kotlin === 'undefined') {
       } else
         throw e_5;
     }
-    this.divListSeparators_0 = getElementById_359kph$result_5;
-    var id_6 = HtmlView$Companion_getInstance().ID_DIV_LIST_POSTFIXES_0;
+    this.divListPrefixes_0 = getElementById_359kph$result_5;
+    var id_6 = HtmlView$Companion_getInstance().ID_DIV_LIST_SEPARATORS_0;
     var getElementById_359kph$result_6;
     var tmp$_6;
     try {
@@ -1055,20 +1055,20 @@ if (typeof kotlin === 'undefined') {
       } else
         throw e_6;
     }
-    this.divListPostfixes_0 = getElementById_359kph$result_6;
-    var id_7 = HtmlView$Companion_getInstance().ID_INPUT_PREFIX_0;
+    this.divListSeparators_0 = getElementById_359kph$result_6;
+    var id_7 = HtmlView$Companion_getInstance().ID_DIV_LIST_POSTFIXES_0;
     var getElementById_359kph$result_7;
     var tmp$_7;
     try {
-      getElementById_359kph$result_7 = Kotlin.isType(tmp$_7 = document.getElementById(id_7), HTMLInputElement) ? tmp$_7 : throwCCE();
+      getElementById_359kph$result_7 = Kotlin.isType(tmp$_7 = document.getElementById(id_7), HTMLDivElement) ? tmp$_7 : throwCCE();
     } catch (e_7) {
       if (Kotlin.isType(e_7, ClassCastException)) {
         throw new RuntimeException_init("Unable to find element with id '" + id_7 + "'.", e_7);
       } else
         throw e_7;
     }
-    this.inputPrefix_0 = getElementById_359kph$result_7;
-    var id_8 = HtmlView$Companion_getInstance().ID_INPUT_SEPARATOR_0;
+    this.divListPostfixes_0 = getElementById_359kph$result_7;
+    var id_8 = HtmlView$Companion_getInstance().ID_INPUT_PREFIX_0;
     var getElementById_359kph$result_8;
     var tmp$_8;
     try {
@@ -1079,8 +1079,8 @@ if (typeof kotlin === 'undefined') {
       } else
         throw e_8;
     }
-    this.inputSeparator_0 = getElementById_359kph$result_8;
-    var id_9 = HtmlView$Companion_getInstance().ID_INPUT_POSTFIX_0;
+    this.inputPrefix_0 = getElementById_359kph$result_8;
+    var id_9 = HtmlView$Companion_getInstance().ID_INPUT_SEPARATOR_0;
     var getElementById_359kph$result_9;
     var tmp$_9;
     try {
@@ -1091,34 +1091,34 @@ if (typeof kotlin === 'undefined') {
       } else
         throw e_9;
     }
-    this.inputPostfix_0 = getElementById_359kph$result_9;
-    var id_10 = HtmlView$Companion_getInstance().ID_DIV_RESULT_TEXT_0;
+    this.inputSeparator_0 = getElementById_359kph$result_9;
+    var id_10 = HtmlView$Companion_getInstance().ID_INPUT_POSTFIX_0;
     var getElementById_359kph$result_10;
     var tmp$_10;
     try {
-      getElementById_359kph$result_10 = Kotlin.isType(tmp$_10 = document.getElementById(id_10), HTMLDivElement) ? tmp$_10 : throwCCE();
+      getElementById_359kph$result_10 = Kotlin.isType(tmp$_10 = document.getElementById(id_10), HTMLInputElement) ? tmp$_10 : throwCCE();
     } catch (e_10) {
       if (Kotlin.isType(e_10, ClassCastException)) {
         throw new RuntimeException_init("Unable to find element with id '" + id_10 + "'.", e_10);
       } else
         throw e_10;
     }
-    this.divResultText_0 = getElementById_359kph$result_10;
-    this.currentRandomText_0 = '';
-    var tmp$_11, tmp$_12, tmp$_13, tmp$_14, tmp$_15;
-    var id_11 = HtmlView$Companion_getInstance().ID_BUTTON_NEW_GROUP_0;
+    this.inputPostfix_0 = getElementById_359kph$result_10;
+    var id_11 = HtmlView$Companion_getInstance().ID_DIV_RESULT_TEXT_0;
     var getElementById_359kph$result_11;
-    var tmp$_16;
+    var tmp$_11;
     try {
-      getElementById_359kph$result_11 = Kotlin.isType(tmp$_16 = document.getElementById(id_11), HTMLButtonElement) ? tmp$_16 : throwCCE();
+      getElementById_359kph$result_11 = Kotlin.isType(tmp$_11 = document.getElementById(id_11), HTMLDivElement) ? tmp$_11 : throwCCE();
     } catch (e_11) {
       if (Kotlin.isType(e_11, ClassCastException)) {
         throw new RuntimeException_init("Unable to find element with id '" + id_11 + "'.", e_11);
       } else
         throw e_11;
     }
-    var buttonAddGroup = getElementById_359kph$result_11;
-    var id_12 = HtmlView$Companion_getInstance().ID_BUTTON_NEW_PREFIX_0;
+    this.divResultText_0 = getElementById_359kph$result_11;
+    this.currentRandomText_0 = '';
+    var tmp$_12, tmp$_13, tmp$_14, tmp$_15, tmp$_16;
+    var id_12 = HtmlView$Companion_getInstance().ID_BUTTON_NEW_GROUP_0;
     var getElementById_359kph$result_12;
     var tmp$_17;
     try {
@@ -1129,8 +1129,8 @@ if (typeof kotlin === 'undefined') {
       } else
         throw e_12;
     }
-    var buttonAddPrefix = getElementById_359kph$result_12;
-    var id_13 = HtmlView$Companion_getInstance().ID_BUTTON_NEW_SEPARATOR_0;
+    var buttonAddGroup = getElementById_359kph$result_12;
+    var id_13 = HtmlView$Companion_getInstance().ID_BUTTON_NEW_PREFIX_0;
     var getElementById_359kph$result_13;
     var tmp$_18;
     try {
@@ -1141,8 +1141,8 @@ if (typeof kotlin === 'undefined') {
       } else
         throw e_13;
     }
-    var buttonAddSeparator = getElementById_359kph$result_13;
-    var id_14 = HtmlView$Companion_getInstance().ID_BUTTON_NEW_POSTFIX_0;
+    var buttonAddPrefix = getElementById_359kph$result_13;
+    var id_14 = HtmlView$Companion_getInstance().ID_BUTTON_NEW_SEPARATOR_0;
     var getElementById_359kph$result_14;
     var tmp$_19;
     try {
@@ -1153,23 +1153,8 @@ if (typeof kotlin === 'undefined') {
       } else
         throw e_14;
     }
-    var buttonAddPostfix = getElementById_359kph$result_14;
-    var createGroupCallback = HtmlView$Companion_getInstance().createValueCallback_0(this.inputAddGroupName_0, HtmlView_init$lambda(this));
-    var addMemberToGroupCallback = HtmlView$Companion_getInstance().createValueCallback_0(this.inputAddGroupMember_0, HtmlView_init$lambda_0(this));
-    var createPrefixCallback = HtmlView$Companion_getInstance().createValueCallback_0(this.inputPrefix_0, HtmlView_init$lambda_1(this));
-    var createSeparatorCallback = HtmlView$Companion_getInstance().createValueCallback_0(this.inputSeparator_0, HtmlView_init$lambda_2(this));
-    var createPostfixCallback = HtmlView$Companion_getInstance().createValueCallback_0(this.inputPostfix_0, HtmlView_init$lambda_3(this));
-    HtmlView$Companion_getInstance().addClickListener_0(buttonAddGroup, createGroupCallback);
-    (tmp$_11 = HtmlView$Companion_getInstance().get_parentForm_0(buttonAddGroup)) != null ? (HtmlView$Companion_getInstance().addSubmitListener_0(tmp$_11, createGroupCallback), Unit) : null;
-    HtmlView$Companion_getInstance().addClickListener_0(this.buttonAddGroupMember_0, addMemberToGroupCallback);
-    (tmp$_12 = HtmlView$Companion_getInstance().get_parentForm_0(this.buttonAddGroupMember_0)) != null ? (HtmlView$Companion_getInstance().addSubmitListener_0(tmp$_12, addMemberToGroupCallback), Unit) : null;
-    HtmlView$Companion_getInstance().addClickListener_0(buttonAddPrefix, createPrefixCallback);
-    (tmp$_13 = HtmlView$Companion_getInstance().get_parentForm_0(buttonAddPrefix)) != null ? (HtmlView$Companion_getInstance().addSubmitListener_0(tmp$_13, createPrefixCallback), Unit) : null;
-    HtmlView$Companion_getInstance().addClickListener_0(buttonAddSeparator, createSeparatorCallback);
-    (tmp$_14 = HtmlView$Companion_getInstance().get_parentForm_0(buttonAddSeparator)) != null ? (HtmlView$Companion_getInstance().addSubmitListener_0(tmp$_14, createSeparatorCallback), Unit) : null;
-    HtmlView$Companion_getInstance().addClickListener_0(buttonAddPostfix, createPostfixCallback);
-    (tmp$_15 = HtmlView$Companion_getInstance().get_parentForm_0(buttonAddPostfix)) != null ? (HtmlView$Companion_getInstance().addSubmitListener_0(tmp$_15, createPostfixCallback), Unit) : null;
-    var id_15 = HtmlView$Companion_getInstance().ID_BUTTON_REGENERATE_0;
+    var buttonAddSeparator = getElementById_359kph$result_14;
+    var id_15 = HtmlView$Companion_getInstance().ID_BUTTON_NEW_POSTFIX_0;
     var getElementById_359kph$result_15;
     var tmp$_20;
     try {
@@ -1180,29 +1165,56 @@ if (typeof kotlin === 'undefined') {
       } else
         throw e_15;
     }
-    getElementById_359kph$result_15.addEventListener(HtmlView$Companion_getInstance().EVENT_CLICK_0, HtmlView_init$lambda_4(this));
+    var buttonAddPostfix = getElementById_359kph$result_15;
+    var createGroupCallback = HtmlView$Companion_getInstance().createValueCallback_0(this.inputAddGroupName_0, HtmlView_init$lambda(this));
+    var addMemberToGroupCallback = HtmlView$Companion_getInstance().createValueCallback_0(this.inputAddGroupMember_0, HtmlView_init$lambda_0(this));
+    var createPrefixCallback = HtmlView$Companion_getInstance().createValueCallback_0(this.inputPrefix_0, HtmlView_init$lambda_1(this));
+    var createSeparatorCallback = HtmlView$Companion_getInstance().createValueCallback_0(this.inputSeparator_0, HtmlView_init$lambda_2(this));
+    var createPostfixCallback = HtmlView$Companion_getInstance().createValueCallback_0(this.inputPostfix_0, HtmlView_init$lambda_3(this));
+    HtmlView$Companion_getInstance().addClickListener_0(buttonAddGroup, createGroupCallback);
+    (tmp$_12 = HtmlView$Companion_getInstance().get_parentForm_0(buttonAddGroup)) != null ? (HtmlView$Companion_getInstance().addSubmitListener_0(tmp$_12, createGroupCallback), Unit) : null;
+    HtmlView$Companion_getInstance().addClickListener_0(this.buttonAddGroupMember_0, addMemberToGroupCallback);
+    (tmp$_13 = HtmlView$Companion_getInstance().get_parentForm_0(this.buttonAddGroupMember_0)) != null ? (HtmlView$Companion_getInstance().addSubmitListener_0(tmp$_13, addMemberToGroupCallback), Unit) : null;
+    HtmlView$Companion_getInstance().addClickListener_0(buttonAddPrefix, createPrefixCallback);
+    (tmp$_14 = HtmlView$Companion_getInstance().get_parentForm_0(buttonAddPrefix)) != null ? (HtmlView$Companion_getInstance().addSubmitListener_0(tmp$_14, createPrefixCallback), Unit) : null;
+    HtmlView$Companion_getInstance().addClickListener_0(buttonAddSeparator, createSeparatorCallback);
+    (tmp$_15 = HtmlView$Companion_getInstance().get_parentForm_0(buttonAddSeparator)) != null ? (HtmlView$Companion_getInstance().addSubmitListener_0(tmp$_15, createSeparatorCallback), Unit) : null;
+    HtmlView$Companion_getInstance().addClickListener_0(buttonAddPostfix, createPostfixCallback);
+    (tmp$_16 = HtmlView$Companion_getInstance().get_parentForm_0(buttonAddPostfix)) != null ? (HtmlView$Companion_getInstance().addSubmitListener_0(tmp$_16, createPostfixCallback), Unit) : null;
+    var id_16 = HtmlView$Companion_getInstance().ID_BUTTON_REGENERATE_0;
+    var getElementById_359kph$result_16;
+    var tmp$_21;
+    try {
+      getElementById_359kph$result_16 = Kotlin.isType(tmp$_21 = document.getElementById(id_16), HTMLButtonElement) ? tmp$_21 : throwCCE();
+    } catch (e_16) {
+      if (Kotlin.isType(e_16, ClassCastException)) {
+        throw new RuntimeException_init("Unable to find element with id '" + id_16 + "'.", e_16);
+      } else
+        throw e_16;
+    }
+    getElementById_359kph$result_16.addEventListener(HtmlView$Companion_getInstance().EVENT_CLICK_0, HtmlView_init$lambda_4(this));
     var className = HtmlView$Companion_getInstance().CLASS_COPY_BUTTON_0;
     try {
       var collection = document.getElementsByClassName(className);
       var $receiver = until(0, collection.length);
       var destination = ArrayList_init_0(collectionSizeOrDefault($receiver, 10));
-      var tmp$_21;
-      tmp$_21 = $receiver.iterator();
-      while (tmp$_21.hasNext()) {
-        var item = tmp$_21.next();
-        var tmp$_22;
-        destination.add_11rb$(Kotlin.isType(tmp$_22 = collection[item], HTMLButtonElement) ? tmp$_22 : throwCCE());
+      var tmp$_22;
+      tmp$_22 = $receiver.iterator();
+      while (tmp$_22.hasNext()) {
+        var item = tmp$_22.next();
+        var tmp$_23;
+        destination.add_11rb$(Kotlin.isType(tmp$_23 = collection[item], HTMLButtonElement) ? tmp$_23 : throwCCE());
       }
-    } catch (e_16) {
-      if (Kotlin.isType(e_16, ClassCastException)) {
-        throw new RuntimeException_init("Unable to find elements with class name '" + className + "'.", e_16);
+    } catch (e_17) {
+      if (Kotlin.isType(e_17, ClassCastException)) {
+        throw new RuntimeException_init("Unable to find elements with class name '" + className + "'.", e_17);
       } else
-        throw e_16;
+        throw e_17;
     }
-    var tmp$_23;
-    tmp$_23 = destination.iterator();
-    while (tmp$_23.hasNext()) {
-      var element = tmp$_23.next();
+    var tmp$_24;
+    tmp$_24 = destination.iterator();
+    while (tmp$_24.hasNext()) {
+      var element = tmp$_24.next();
       element.addEventListener(HtmlView$Companion_getInstance().EVENT_CLICK_0, HtmlView_init$lambda$lambda(this));
     }
     window.addEventListener(HtmlView$Companion_getInstance().EVENT_POPSTATE_0, HtmlView_init$lambda_5(this));
@@ -1242,6 +1254,16 @@ if (typeof kotlin === 'undefined') {
     var tmp$, tmp$_0;
     (tmp$_0 = (tmp$ = this.divListGroupMembers_0.parentElement) != null ? tmp$.classList : null) != null ? tmp$_0.toggle(HtmlView$Companion_getInstance().CLASS_HIDE_GROUP_MEMBERS_0, members.isEmpty()) : null;
     this.memberListMaintainer_0.showItems_4ezy5m$(members);
+    var tmp$_1 = this.spanSelectedMemberCounter_0;
+    var destination = ArrayList_init();
+    var tmp$_2;
+    tmp$_2 = members.iterator();
+    while (tmp$_2.hasNext()) {
+      var element = tmp$_2.next();
+      if (element.active)
+        destination.add_11rb$(element);
+    }
+    tmp$_1.innerText = destination.size.toString();
   };
   HtmlView.prototype.showPrefixes_mhpeer$ = function (prefixes) {
     this.prefixListMaintainer_0.showItems_4ezy5m$(prefixes);
@@ -1457,6 +1479,7 @@ if (typeof kotlin === 'undefined') {
     this.ID_LIST_EXISTING_MEMBERS_0 = 'gr_existing_members';
     this.ID_INPUT_NEW_MEMBER_NAME_0 = 'gr_new_member_name';
     this.ID_BUTTON_ADD_GROUP_MEMBER_0 = 'gr_add_group_member';
+    this.ID_SELECTED_MEMBER_COUNTER_0 = 'gr_selected_member_counter';
     this.ID_DIV_LIST_PREFIXES_0 = 'gr_div_list_prefixes';
     this.ID_DIV_LIST_SEPARATORS_0 = 'gr_div_list_separators';
     this.ID_DIV_LIST_POSTFIXES_0 = 'gr_div_list_postfixes';
@@ -1670,9 +1693,9 @@ if (typeof kotlin === 'undefined') {
   function ListMaintainer(parent, elementCreator, selector) {
     if (selector === void 0)
       selector = ListMaintainer_init$lambda;
-    this.parent = parent;
-    this.elementCreator = elementCreator;
-    this.selector = selector;
+    this.parent_0 = parent;
+    this.elementCreator_0 = elementCreator;
+    this.selector_0 = selector;
     this.elements_0 = emptyMap();
   }
   function ListMaintainer$showItems$lambda(this$ListMaintainer) {
@@ -1682,25 +1705,25 @@ if (typeof kotlin === 'undefined') {
   }
   function ListMaintainer$showItems$lambda_0(this$ListMaintainer) {
     return function (it) {
-      return this$ListMaintainer.selector(it);
+      return this$ListMaintainer.selector_0(it);
     };
   }
   ListMaintainer.prototype.showItems_4ezy5m$ = function (items) {
-    this.removeChildren_0(this.parent, ListMaintainer$showItems$lambda(this));
+    this.removeChildren_0(this.parent_0, ListMaintainer$showItems$lambda(this));
     var $receiver = reversed(sortedWith(items, new Comparator$ObjectLiteral_0(compareBy$lambda_0(ListMaintainer$showItems$lambda_0(this)))));
     var destination = ArrayList_init_0(collectionSizeOrDefault($receiver, 10));
     var tmp$;
     tmp$ = $receiver.iterator();
     while (tmp$.hasNext()) {
       var item = tmp$.next();
-      destination.add_11rb$(to(item, this.elementCreator(item)));
+      destination.add_11rb$(to(item, this.elementCreator_0(item)));
     }
     this.elements_0 = toMap(destination);
     var tmp$_0;
     tmp$_0 = this.elements_0.entries.iterator();
     while (tmp$_0.hasNext()) {
       var element = tmp$_0.next();
-      this.parent.prepend(element.value);
+      this.parent_0.prepend(element.value);
     }
   };
   ListMaintainer.prototype.shouldBeRemoved_0 = function ($receiver) {
