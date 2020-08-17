@@ -3,9 +3,9 @@ package org.olafneumann.grouprandom.ui
 import org.w3c.dom.*
 
 internal class ListMaintainer<T>(
-    val parent: HTMLDivElement,
-    inline val elementCreator: (T) -> HTMLElement,
-    inline val selector: (T) -> String = { it.toString() }
+    private val parent: HTMLDivElement,
+    private inline val elementCreator: (T) -> HTMLElement,
+    private inline val selector: (T) -> String = { it.toString() }
 ) {
     private var elements: Map<T, HTMLElement> = emptyMap()
 
