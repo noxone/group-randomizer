@@ -14,8 +14,8 @@ import org.olafneumann.grouprandom.js.navigator
 import org.w3c.dom.*
 import org.w3c.dom.events.Event
 import org.w3c.dom.url.URL
-import kotlin.browser.document
-import kotlin.browser.window
+import kotlinx.browser.document
+import kotlinx.browser.window
 
 class HtmlView(
     private val controller: DisplayContract.Controller
@@ -268,7 +268,7 @@ class HtmlView(
         private const val ID_BUTTON_NEW_POSTFIX = "gr_create_new_postfix"
         private const val ID_DIV_RESULT_TEXT = "gr_result_text"
         private const val ID_BUTTON_REGENERATE = "gr_btn_regenerate"
-        
+
         private val REGEX_WHITESPACE = Regex("\\s")
 
         private fun HTMLInputElement.createValueCallback(consumer: (String) -> Unit): (Event) -> Unit {
@@ -288,7 +288,7 @@ class HtmlView(
                 }
                 return parentElement?.parentForm
             }
-        
+
         private fun String.toNonBreaking() = if (isEmpty()) CHAR_ZERO_WIDTH_BREAKING_SPACE else replace(REGEX_WHITESPACE, CHAR_NON_BREAKING_SPACE)
 
         private fun HTMLElement.addClickListener(handler: (Event) -> Unit) = this.addEventListener(EVENT_CLICK, handler)

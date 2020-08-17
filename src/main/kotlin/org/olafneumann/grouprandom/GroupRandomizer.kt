@@ -1,6 +1,6 @@
 package org.olafneumann.grouprandom
 
-import kotlin.browser.window
+import kotlinx.browser.window
 
 fun main() {
     try {
