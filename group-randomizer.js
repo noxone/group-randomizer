@@ -1,22 +1,26 @@
 if (typeof kotlin === 'undefined') {
   throw new Error("Error loading module 'group-randomizer'. Its dependency 'kotlin' was not found. Please, check whether 'kotlin' is loaded prior to 'group-randomizer'.");
+}if (typeof this['kotlinx-serialization-kotlinx-serialization-core-jsLegacy'] === 'undefined') {
+  throw new Error("Error loading module 'group-randomizer'. Its dependency 'kotlinx-serialization-kotlinx-serialization-core-jsLegacy' was not found. Please, check whether 'kotlinx-serialization-kotlinx-serialization-core-jsLegacy' is loaded prior to 'group-randomizer'.");
 }if (typeof this['kotlinx-html-js'] === 'undefined') {
   throw new Error("Error loading module 'group-randomizer'. Its dependency 'kotlinx-html-js' was not found. Please, check whether 'kotlinx-html-js' is loaded prior to 'group-randomizer'.");
-}this['group-randomizer'] = function (_, Kotlin, $module$kotlinx_html_js) {
+}this['group-randomizer'] = function (_, Kotlin, $module$kotlinx_serialization_kotlinx_serialization_core_jsLegacy, $module$kotlinx_html_js) {
   'use strict';
   var $$importsForInline$$ = _.$$importsForInline$$ || (_.$$importsForInline$$ = {});
   var toIntOrNull = Kotlin.kotlin.text.toIntOrNull_pdl1vz$;
-  var throwCCE = Kotlin.throwCCE;
-  var toMutableList = Kotlin.kotlin.collections.toMutableList_4c7yge$;
-  var until = Kotlin.kotlin.ranges.until_dqglrj$;
-  var asSequence = Kotlin.kotlin.collections.asSequence_7wnvza$;
-  var map = Kotlin.kotlin.sequences.map_z5avom$;
-  var toMutableList_0 = Kotlin.kotlin.sequences.toMutableList_veqyi0$;
+  var Json = $module$kotlinx_serialization_kotlinx_serialization_core_jsLegacy.kotlinx.serialization.json.Json;
+  var MutableList = Kotlin.kotlin.collections.MutableList;
+  var getKClass = Kotlin.getKClass;
+  var createKType = Kotlin.createKType;
+  var createInvariantKTypeProjection = Kotlin.createInvariantKTypeProjection;
   var equals = Kotlin.equals;
+  var toMutableList = Kotlin.kotlin.collections.toMutableList_4c7yge$;
+  var List = Kotlin.kotlin.collections.List;
+  var PrimitiveClasses$stringClass = Kotlin.kotlin.reflect.js.internal.PrimitiveClasses.stringClass;
   var Kind_OBJECT = Kotlin.Kind.OBJECT;
-  var sortedWith = Kotlin.kotlin.collections.sortedWith_eknfly$;
-  var wrapFunction = Kotlin.wrapFunction;
-  var Comparator = Kotlin.kotlin.Comparator;
+  var serializer = $module$kotlinx_serialization_kotlinx_serialization_core_jsLegacy.kotlinx.serialization.serializer_ca95z9$;
+  var KSerializer = $module$kotlinx_serialization_kotlinx_serialization_core_jsLegacy.kotlinx.serialization.KSerializer;
+  var throwCCE = Kotlin.throwCCE;
   var ArrayList_init = Kotlin.kotlin.collections.ArrayList_init_287e2$;
   var Kind_INTERFACE = Kotlin.Kind.INTERFACE;
   var toString = Kotlin.toString;
@@ -35,17 +39,23 @@ if (typeof kotlin === 'undefined') {
   var collectionSizeOrDefault = Kotlin.kotlin.collections.collectionSizeOrDefault_ba2ldo$;
   var ArrayList_init_0 = Kotlin.kotlin.collections.ArrayList_init_ww73n8$;
   var trim = Kotlin.kotlin.text.trim_gw00vp$;
-  var downTo = Kotlin.kotlin.ranges.downTo_dqglrj$;
-  var mapNotNull = Kotlin.kotlin.sequences.mapNotNull_qpz9h9$;
   var toBoolean = Kotlin.kotlin.text.toBoolean_5cw0du$;
   var LinkedHashMap_init = Kotlin.kotlin.collections.LinkedHashMap_init_q3lmfv$;
   var RuntimeException_init = Kotlin.kotlin.RuntimeException;
   var ClassCastException = Kotlin.kotlin.ClassCastException;
   var defineInlineFunction = Kotlin.defineInlineFunction;
+  var wrapFunction = Kotlin.wrapFunction;
+  var PluginGeneratedSerialDescriptor = $module$kotlinx_serialization_kotlinx_serialization_core_jsLegacy.kotlinx.serialization.internal.PluginGeneratedSerialDescriptor;
+  var ArrayListSerializer = $module$kotlinx_serialization_kotlinx_serialization_core_jsLegacy.kotlinx.serialization.internal.ArrayListSerializer;
+  var UnknownFieldException = $module$kotlinx_serialization_kotlinx_serialization_core_jsLegacy.kotlinx.serialization.UnknownFieldException;
+  var internal = $module$kotlinx_serialization_kotlinx_serialization_core_jsLegacy.kotlinx.serialization.internal;
+  var GeneratedSerializer = $module$kotlinx_serialization_kotlinx_serialization_core_jsLegacy.kotlinx.serialization.internal.GeneratedSerializer;
+  var MissingFieldException = $module$kotlinx_serialization_kotlinx_serialization_core_jsLegacy.kotlinx.serialization.MissingFieldException;
   var get_create = $module$kotlinx_html_js.kotlinx.html.dom.get_create_4wc2mh$;
   var ButtonType = $module$kotlinx_html_js.kotlinx.html.ButtonType;
   var set_onClickFunction = $module$kotlinx_html_js.kotlinx.html.js.set_onClickFunction_pszlq2$;
   var set_title = $module$kotlinx_html_js.kotlinx.html.set_title_ueiko3$;
+  var until = Kotlin.kotlin.ranges.until_dqglrj$;
   var attributesMapOf = $module$kotlinx_html_js.kotlinx.html.attributesMapOf_alerag$;
   var A_init = $module$kotlinx_html_js.kotlinx.html.A;
   var visitTag = $module$kotlinx_html_js.kotlinx.html.visitTag_xwv8ym$;
@@ -59,18 +69,12 @@ if (typeof kotlin === 'undefined') {
   var reversed = Kotlin.kotlin.collections.reversed_7wnvza$;
   var to = Kotlin.kotlin.to_ujzrz7$;
   var toMap = Kotlin.kotlin.collections.toMap_6hr0sd$;
+  var downTo = Kotlin.kotlin.ranges.downTo_dqglrj$;
   var emptyMap = Kotlin.kotlin.collections.emptyMap_q3lmfv$;
+  var sortedWith = Kotlin.kotlin.collections.sortedWith_eknfly$;
+  var Comparator = Kotlin.kotlin.Comparator;
   ApplicationSettings.prototype = Object.create(AbstractApplicationSettings.prototype);
   ApplicationSettings.prototype.constructor = ApplicationSettings;
-  var compareBy$lambda = wrapFunction(function () {
-    var compareValues = Kotlin.kotlin.comparisons.compareValues_s00gnj$;
-    return function (closure$selector) {
-      return function (a, b) {
-        var selector = closure$selector;
-        return compareValues(selector(a), selector(b));
-      };
-    };
-  });
   function ApplicationSettings() {
     ApplicationSettings_instance = this;
     AbstractApplicationSettings.call(this);
@@ -98,54 +102,30 @@ if (typeof kotlin === 'undefined') {
   ApplicationSettings.prototype.storeUserLastInfo = function () {
     this.set_0(this.KEY_LAST_VERSION_0, 1);
   };
-  ApplicationSettings.prototype.getGroups = function () {
-    return this.getMutableGroups_0();
-  };
-  function ApplicationSettings$getMutableGroups$lambda(this$ApplicationSettings) {
-    return function (it) {
+  Object.defineProperty(ApplicationSettings.prototype, 'mutableGroups_0', {
+    configurable: true,
+    get: function () {
+      var tmp$, tmp$_0;
+      var tmp$_1;
+      if ((tmp$ = this.get_0('groups')) != null) {
+        var $receiver = Json.Default;
+        var tmp$_2;
+        tmp$_1 = $receiver.decodeFromString_awif5v$(Kotlin.isType(tmp$_2 = serializer($receiver.serializersModule, createKType(getKClass(MutableList), [createInvariantKTypeProjection(createKType(getKClass(Group), [], false))], true)), KSerializer) ? tmp$_2 : throwCCE(), tmp$);
+      } else
+        tmp$_1 = null;
+      return (tmp$_0 = tmp$_1) != null ? tmp$_0 : ArrayList_init();
+    },
+    set: function (value) {
+      var $receiver = Json.Default;
       var tmp$;
-      var group = new Group(typeof (tmp$ = it.name) === 'string' ? tmp$ : throwCCE());
-      group.members.addAll_brywnq$(this$ApplicationSettings.getMembers_0(it));
-      return group;
-    };
-  }
-  function ApplicationSettings$getMutableGroups$lambda_0(it) {
-    return it.name.toLowerCase();
-  }
-  ApplicationSettings.prototype.getMutableGroups_0 = function () {
-    var tmp$;
-    return toMutableList(sortedWith(this.readArrayToMutableList_0(JSON.parse((tmp$ = this.get_0('groups')) != null ? tmp$ : '[]'), ApplicationSettings$getMutableGroups$lambda(this)), new Comparator(compareBy$lambda(ApplicationSettings$getMutableGroups$lambda_0))));
-  };
-  ApplicationSettings.prototype.setMutableGroups_0 = function (groups) {
-    this.set_1('groups', JSON.stringify(groups));
-  };
-  function ApplicationSettings$getMembers$lambda(it) {
-    var tmp$, tmp$_0;
-    return new Member(typeof (tmp$ = it.name) === 'string' ? tmp$ : throwCCE(), typeof (tmp$_0 = it.active) === 'boolean' ? tmp$_0 : throwCCE());
-  }
-  ApplicationSettings.prototype.getMembers_0 = function (groupJson) {
-    if (groupJson.members != undefined) {
-      return this.readArrayToMutableList_0(groupJson.members, ApplicationSettings$getMembers$lambda);
-    } else {
-      return ArrayList_init();
+      this.set_1('groups', $receiver.encodeToString_tf03ej$(Kotlin.isType(tmp$ = serializer($receiver.serializersModule, createKType(getKClass(MutableList), [createInvariantKTypeProjection(createKType(getKClass(Group), [], false))], false)), KSerializer) ? tmp$ : throwCCE(), value));
     }
-  };
-  function ApplicationSettings$readArrayToMutableList$lambda(closure$array) {
-    return function (it) {
-      return closure$array[it];
-    };
-  }
-  function ApplicationSettings$readArrayToMutableList$lambda_0(closure$handler) {
-    return function (it) {
-      return closure$handler(it);
-    };
-  }
-  ApplicationSettings.prototype.readArrayToMutableList_0 = function (array, handler) {
-    var tmp$;
-    return toMutableList_0(map(map(asSequence(until(0, (tmp$ = array.length) != null ? tmp$ : 0)), ApplicationSettings$readArrayToMutableList$lambda(array)), ApplicationSettings$readArrayToMutableList$lambda_0(handler)));
+  });
+  ApplicationSettings.prototype.getGroups = function () {
+    return this.mutableGroups_0;
   };
   ApplicationSettings.prototype.setGroup_f2hml6$ = function (group) {
-    var $receiver = this.getMutableGroups_0();
+    var $receiver = this.mutableGroups_0;
     var destination = ArrayList_init();
     var tmp$;
     tmp$ = $receiver.iterator();
@@ -156,7 +136,7 @@ if (typeof kotlin === 'undefined') {
     }
     var newGroups = toMutableList(destination);
     newGroups.add_11rb$(group);
-    this.setMutableGroups_0(newGroups);
+    this.mutableGroups_0 = newGroups;
   };
   ApplicationSettings.prototype.getGroup_61zpoe$ = function (name) {
     var $receiver = this.getGroups();
@@ -176,7 +156,7 @@ if (typeof kotlin === 'undefined') {
     return firstOrNull$result;
   };
   ApplicationSettings.prototype.deleteGroup_61zpoe$ = function (name) {
-    var $receiver = this.getMutableGroups_0();
+    var $receiver = this.mutableGroups_0;
     var destination = ArrayList_init();
     var tmp$;
     tmp$ = $receiver.iterator();
@@ -185,16 +165,7 @@ if (typeof kotlin === 'undefined') {
       if (!equals(name, element.name))
         destination.add_11rb$(element);
     }
-    this.setMutableGroups_0(destination);
-  };
-  function ApplicationSettings$readConfigFromArray$lambda(it) {
-    return it.toString();
-  }
-  ApplicationSettings.prototype.readConfigFromArray_0 = function (key, defaultJson) {
-    if (defaultJson === void 0)
-      defaultJson = '[]';
-    var tmp$;
-    return this.readArrayToMutableList_0(JSON.parse((tmp$ = this.get_0(key)) != null ? tmp$ : defaultJson), ApplicationSettings$readConfigFromArray$lambda);
+    this.mutableGroups_0 = toMutableList(destination);
   };
   Object.defineProperty(ApplicationSettings.prototype, 'selectedGroupName', {
     configurable: true,
@@ -239,28 +210,49 @@ if (typeof kotlin === 'undefined') {
   Object.defineProperty(ApplicationSettings.prototype, 'prefixes', {
     configurable: true,
     get: function () {
-      return this.readConfigFromArray_0(this.KEY_LIST_PREFIXES_0, this.VAL_DEFAULT_LIST_PREFIXES_0);
+      var tmp$, tmp$_0;
+      tmp$_0 = Json.Default;
+      var string = (tmp$ = this.get_0(this.KEY_LIST_PREFIXES_0)) != null ? tmp$ : this.VAL_DEFAULT_LIST_PREFIXES_0;
+      var tmp$_1;
+      return tmp$_0.decodeFromString_awif5v$(Kotlin.isType(tmp$_1 = serializer(tmp$_0.serializersModule, createKType(getKClass(List), [createInvariantKTypeProjection(createKType(PrimitiveClasses$stringClass, [], false))], false)), KSerializer) ? tmp$_1 : throwCCE(), string);
     },
     set: function (value) {
-      this.set_1(this.KEY_LIST_PREFIXES_0, JSON.stringify(value));
+      var tmp$ = this.KEY_LIST_PREFIXES_0;
+      var $receiver = Json.Default;
+      var tmp$_0;
+      this.set_1(tmp$, $receiver.encodeToString_tf03ej$(Kotlin.isType(tmp$_0 = serializer($receiver.serializersModule, createKType(getKClass(List), [createInvariantKTypeProjection(createKType(PrimitiveClasses$stringClass, [], false))], false)), KSerializer) ? tmp$_0 : throwCCE(), value));
     }
   });
   Object.defineProperty(ApplicationSettings.prototype, 'separators', {
     configurable: true,
     get: function () {
-      return this.readConfigFromArray_0(this.KEY_LIST_SEPARATORS_0, this.VAL_DEFAULT_LIST_SEPARATOR_0);
+      var tmp$, tmp$_0;
+      tmp$_0 = Json.Default;
+      var string = (tmp$ = this.get_0(this.KEY_LIST_SEPARATORS_0)) != null ? tmp$ : this.VAL_DEFAULT_LIST_SEPARATOR_0;
+      var tmp$_1;
+      return tmp$_0.decodeFromString_awif5v$(Kotlin.isType(tmp$_1 = serializer(tmp$_0.serializersModule, createKType(getKClass(List), [createInvariantKTypeProjection(createKType(PrimitiveClasses$stringClass, [], false))], false)), KSerializer) ? tmp$_1 : throwCCE(), string);
     },
     set: function (value) {
-      this.set_1(this.KEY_LIST_SEPARATORS_0, JSON.stringify(value));
+      var tmp$ = this.KEY_LIST_SEPARATORS_0;
+      var $receiver = Json.Default;
+      var tmp$_0;
+      this.set_1(tmp$, $receiver.encodeToString_tf03ej$(Kotlin.isType(tmp$_0 = serializer($receiver.serializersModule, createKType(getKClass(List), [createInvariantKTypeProjection(createKType(PrimitiveClasses$stringClass, [], false))], false)), KSerializer) ? tmp$_0 : throwCCE(), value));
     }
   });
   Object.defineProperty(ApplicationSettings.prototype, 'postfixes', {
     configurable: true,
     get: function () {
-      return this.readConfigFromArray_0(this.KEY_LIST_POSTFIXES_0, this.VAL_DEFAULT_LIST_POSTFIXES_0);
+      var tmp$, tmp$_0;
+      tmp$_0 = Json.Default;
+      var string = (tmp$ = this.get_0(this.KEY_LIST_POSTFIXES_0)) != null ? tmp$ : this.VAL_DEFAULT_LIST_POSTFIXES_0;
+      var tmp$_1;
+      return tmp$_0.decodeFromString_awif5v$(Kotlin.isType(tmp$_1 = serializer(tmp$_0.serializersModule, createKType(getKClass(List), [createInvariantKTypeProjection(createKType(PrimitiveClasses$stringClass, [], false))], false)), KSerializer) ? tmp$_1 : throwCCE(), string);
     },
     set: function (value) {
-      this.set_1(this.KEY_LIST_POSTFIXES_0, JSON.stringify(value));
+      var tmp$ = this.KEY_LIST_POSTFIXES_0;
+      var $receiver = Json.Default;
+      var tmp$_0;
+      this.set_1(tmp$, $receiver.encodeToString_tf03ej$(Kotlin.isType(tmp$_0 = serializer($receiver.serializersModule, createKType(getKClass(List), [createInvariantKTypeProjection(createKType(PrimitiveClasses$stringClass, [], false))], false)), KSerializer) ? tmp$_0 : throwCCE(), value));
     }
   });
   ApplicationSettings.$metadata$ = {
@@ -655,34 +647,11 @@ if (typeof kotlin === 'undefined') {
       this.intermediate_0.put_xwzc9p$(key, value);
     }
   };
-  function AbstractApplicationSettings$listKeys$lambda(it) {
-    return localStorage.key(it);
-  }
-  AbstractApplicationSettings.prototype.listKeys_0 = function () {
-    if (this.hasUserConsent) {
-      return mapNotNull(asSequence(downTo(localStorage.length, 0)), AbstractApplicationSettings$listKeys$lambda);
-    } else {
-      return asSequence(this.intermediate_0.keys);
-    }
-  };
   AbstractApplicationSettings.prototype.set_0 = function (key, value) {
     this.set_1(key, value.toString());
   };
   AbstractApplicationSettings.prototype.set_2 = function (key, value) {
     this.set_1(key, value.toString());
-  };
-  AbstractApplicationSettings.prototype.set_3 = function (key, value) {
-    this.set_1(key, this.toJSON_0(value));
-  };
-  AbstractApplicationSettings.prototype.getAny_0 = function (key) {
-    var tmp$;
-    return (tmp$ = this.get_0(key)) != null ? this.toAny_0(tmp$) : null;
-  };
-  AbstractApplicationSettings.prototype.toJSON_0 = function ($receiver) {
-    return JSON.stringify($receiver);
-  };
-  AbstractApplicationSettings.prototype.toAny_0 = function ($receiver) {
-    return JSON.parse($receiver);
   };
   Object.defineProperty(AbstractApplicationSettings.prototype, 'hasUserConsent', {
     configurable: true,
@@ -841,10 +810,98 @@ if (typeof kotlin === 'undefined') {
     }return HtmlHelper_instance;
   }
   function Group(name, members) {
+    Group$Companion_getInstance();
     if (members === void 0) {
       members = ArrayList_init();
     }this.name = name;
     this.members = members;
+  }
+  function Group$Companion() {
+    Group$Companion_instance = this;
+  }
+  Group$Companion.prototype.serializer = function () {
+    return Group$$serializer_getInstance();
+  };
+  Group$Companion.$metadata$ = {
+    kind: Kind_OBJECT,
+    simpleName: 'Companion',
+    interfaces: []
+  };
+  var Group$Companion_instance = null;
+  function Group$Companion_getInstance() {
+    if (Group$Companion_instance === null) {
+      new Group$Companion();
+    }return Group$Companion_instance;
+  }
+  function Group$$serializer() {
+    this.descriptor_k62ne3$_0 = new PluginGeneratedSerialDescriptor('org.olafneumann.grouprandom.model.Group', this, 2);
+    this.descriptor.addElement_ivxn3r$('name', false);
+    this.descriptor.addElement_ivxn3r$('members', true);
+    Group$$serializer_instance = this;
+  }
+  Object.defineProperty(Group$$serializer.prototype, 'descriptor', {
+    configurable: true,
+    get: function () {
+      return this.descriptor_k62ne3$_0;
+    }
+  });
+  Group$$serializer.prototype.serialize_55azsf$ = function (encoder, value) {
+    var output = encoder.beginStructure_24f42q$(this.descriptor);
+    output.encodeStringElement_iij8qq$(this.descriptor, 0, value.name);
+    if (!equals(value.members, ArrayList_init()) || output.shouldEncodeElementDefault_szpzho$(this.descriptor, 1))
+      output.encodeSerializableElement_r4qlx7$(this.descriptor, 1, new ArrayListSerializer(Member$$serializer_getInstance()), value.members);
+    output.endStructure_24f42q$(this.descriptor);
+  };
+  Group$$serializer.prototype.deserialize_bq71mq$ = function (decoder) {
+    var index;
+    var bitMask0 = 0;
+    var local0
+    , local1;
+    var input = decoder.beginStructure_24f42q$(this.descriptor);
+    loopLabel: while (true) {
+      index = input.decodeElementIndex_24f42q$(this.descriptor);
+      switch (index) {
+        case 0:
+          local0 = input.decodeStringElement_szpzho$(this.descriptor, 0);
+          bitMask0 |= 1;
+          break;
+        case 1:
+          local1 = input.decodeSerializableElement_12e8id$(this.descriptor, 1, new ArrayListSerializer(Member$$serializer_getInstance()), local1);
+          bitMask0 |= 2;
+          break;
+        case -1:
+          break loopLabel;
+        default:throw new UnknownFieldException(index);
+      }
+    }
+    input.endStructure_24f42q$(this.descriptor);
+    return Group_init(bitMask0, local0, local1, null);
+  };
+  Group$$serializer.prototype.childSerializers = function () {
+    return [internal.StringSerializer, new ArrayListSerializer(Member$$serializer_getInstance())];
+  };
+  Group$$serializer.$metadata$ = {
+    kind: Kind_OBJECT,
+    simpleName: '$serializer',
+    interfaces: [GeneratedSerializer]
+  };
+  var Group$$serializer_instance = null;
+  function Group$$serializer_getInstance() {
+    if (Group$$serializer_instance === null) {
+      new Group$$serializer();
+    }return Group$$serializer_instance;
+  }
+  function Group_init(seen1, name, members, serializationConstructorMarker) {
+    var $this = serializationConstructorMarker || Object.create(Group.prototype);
+    if ((seen1 & 1) === 0)
+      throw new MissingFieldException('name');
+    else
+      $this.name = name;
+    if ((seen1 & 2) === 0) {
+      $this.members = ArrayList_init();
+    } else
+      $this.members = members;
+    return $this;
   }
   Group.$metadata$ = {
     kind: Kind_CLASS,
@@ -873,10 +930,98 @@ if (typeof kotlin === 'undefined') {
     return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.name, other.name) && Kotlin.equals(this.members, other.members)))));
   };
   function Member(name, active) {
+    Member$Companion_getInstance();
     if (active === void 0)
       active = true;
     this.name = name;
     this.active = active;
+  }
+  function Member$Companion() {
+    Member$Companion_instance = this;
+  }
+  Member$Companion.prototype.serializer = function () {
+    return Member$$serializer_getInstance();
+  };
+  Member$Companion.$metadata$ = {
+    kind: Kind_OBJECT,
+    simpleName: 'Companion',
+    interfaces: []
+  };
+  var Member$Companion_instance = null;
+  function Member$Companion_getInstance() {
+    if (Member$Companion_instance === null) {
+      new Member$Companion();
+    }return Member$Companion_instance;
+  }
+  function Member$$serializer() {
+    this.descriptor_435a1k$_0 = new PluginGeneratedSerialDescriptor('org.olafneumann.grouprandom.model.Member', this, 2);
+    this.descriptor.addElement_ivxn3r$('name', false);
+    this.descriptor.addElement_ivxn3r$('active', true);
+    Member$$serializer_instance = this;
+  }
+  Object.defineProperty(Member$$serializer.prototype, 'descriptor', {
+    configurable: true,
+    get: function () {
+      return this.descriptor_435a1k$_0;
+    }
+  });
+  Member$$serializer.prototype.serialize_55azsf$ = function (encoder, value) {
+    var output = encoder.beginStructure_24f42q$(this.descriptor);
+    output.encodeStringElement_iij8qq$(this.descriptor, 0, value.name);
+    if (!equals(value.active, true) || output.shouldEncodeElementDefault_szpzho$(this.descriptor, 1))
+      output.encodeBooleanElement_qh7jdn$(this.descriptor, 1, value.active);
+    output.endStructure_24f42q$(this.descriptor);
+  };
+  Member$$serializer.prototype.deserialize_bq71mq$ = function (decoder) {
+    var index;
+    var bitMask0 = 0;
+    var local0
+    , local1;
+    var input = decoder.beginStructure_24f42q$(this.descriptor);
+    loopLabel: while (true) {
+      index = input.decodeElementIndex_24f42q$(this.descriptor);
+      switch (index) {
+        case 0:
+          local0 = input.decodeStringElement_szpzho$(this.descriptor, 0);
+          bitMask0 |= 1;
+          break;
+        case 1:
+          local1 = input.decodeBooleanElement_szpzho$(this.descriptor, 1);
+          bitMask0 |= 2;
+          break;
+        case -1:
+          break loopLabel;
+        default:throw new UnknownFieldException(index);
+      }
+    }
+    input.endStructure_24f42q$(this.descriptor);
+    return Member_init(bitMask0, local0, local1, null);
+  };
+  Member$$serializer.prototype.childSerializers = function () {
+    return [internal.StringSerializer, internal.BooleanSerializer];
+  };
+  Member$$serializer.$metadata$ = {
+    kind: Kind_OBJECT,
+    simpleName: '$serializer',
+    interfaces: [GeneratedSerializer]
+  };
+  var Member$$serializer_instance = null;
+  function Member$$serializer_getInstance() {
+    if (Member$$serializer_instance === null) {
+      new Member$$serializer();
+    }return Member$$serializer_instance;
+  }
+  function Member_init(seen1, name, active, serializationConstructorMarker) {
+    var $this = serializationConstructorMarker || Object.create(Member.prototype);
+    if ((seen1 & 1) === 0)
+      throw new MissingFieldException('name');
+    else
+      $this.name = name;
+    if ((seen1 & 2) === 0)
+      $this.active = true;
+    else
+      $this.active = active;
+    return $this;
   }
   Member.$metadata$ = {
     kind: Kind_CLASS,
@@ -1675,7 +1820,7 @@ if (typeof kotlin === 'undefined') {
     simpleName: 'HtmlView',
     interfaces: [DisplayContract$View]
   };
-  var compareBy$lambda_0 = wrapFunction(function () {
+  var compareBy$lambda = wrapFunction(function () {
     var compareValues = Kotlin.kotlin.comparisons.compareValues_s00gnj$;
     return function (closure$selector) {
       return function (a, b) {
@@ -1704,7 +1849,7 @@ if (typeof kotlin === 'undefined') {
   }
   ListMaintainer.prototype.showItems_4ezy5m$ = function (items) {
     this.removeChildren_0(this.parent_0, ListMaintainer$showItems$lambda(this));
-    var $receiver = reversed(sortedWith(items, new Comparator(compareBy$lambda_0(ListMaintainer$showItems$lambda_0(this)))));
+    var $receiver = reversed(sortedWith(items, new Comparator(compareBy$lambda(ListMaintainer$showItems$lambda_0(this)))));
     var destination = ArrayList_init_0(collectionSizeOrDefault($receiver, 10));
     var tmp$;
     tmp$ = $receiver.iterator();
@@ -1765,6 +1910,7 @@ if (typeof kotlin === 'undefined') {
     simpleName: 'ListMaintainer',
     interfaces: []
   };
+  $$importsForInline$$['kotlinx-serialization-kotlinx-serialization-core-jsLegacy'] = $module$kotlinx_serialization_kotlinx_serialization_core_jsLegacy;
   var package$org = _.org || (_.org = {});
   var package$olafneumann = package$org.olafneumann || (package$org.olafneumann = {});
   var package$grouprandom = package$olafneumann.grouprandom || (package$olafneumann.grouprandom = {});
@@ -1791,8 +1937,22 @@ if (typeof kotlin === 'undefined') {
   Object.defineProperty(package$browser, 'HtmlHelper', {
     get: HtmlHelper_getInstance
   });
+  Object.defineProperty(Group, 'Companion', {
+    get: Group$Companion_getInstance
+  });
+  Object.defineProperty(Group, '$serializer', {
+    get: Group$$serializer_getInstance
+  });
   var package$model = package$grouprandom.model || (package$grouprandom.model = {});
+  package$model.Group_init_1fvk56$ = Group_init;
   package$model.Group = Group;
+  Object.defineProperty(Member, 'Companion', {
+    get: Member$Companion_getInstance
+  });
+  Object.defineProperty(Member, '$serializer', {
+    get: Member$$serializer_getInstance
+  });
+  package$model.Member_init_8psgup$ = Member_init;
   package$model.Member = Member;
   $$importsForInline$$['kotlinx-html-js'] = $module$kotlinx_html_js;
   Object.defineProperty(HtmlView, 'Companion', {
@@ -1801,9 +1961,13 @@ if (typeof kotlin === 'undefined') {
   var package$ui = package$grouprandom.ui || (package$grouprandom.ui = {});
   package$ui.HtmlView = HtmlView;
   package$ui.ListMaintainer = ListMaintainer;
+  Group$$serializer.prototype.patch_h7kg3r$ = GeneratedSerializer.prototype.patch_h7kg3r$;
+  Group$$serializer.prototype.typeParametersSerializers = GeneratedSerializer.prototype.typeParametersSerializers;
+  Member$$serializer.prototype.patch_h7kg3r$ = GeneratedSerializer.prototype.patch_h7kg3r$;
+  Member$$serializer.prototype.typeParametersSerializers = GeneratedSerializer.prototype.typeParametersSerializers;
   main();
   Kotlin.defineModule('group-randomizer', _);
   return _;
-}(typeof this['group-randomizer'] === 'undefined' ? {} : this['group-randomizer'], kotlin, this['kotlinx-html-js']);
+}(typeof this['group-randomizer'] === 'undefined' ? {} : this['group-randomizer'], kotlin, this['kotlinx-serialization-kotlinx-serialization-core-jsLegacy'], this['kotlinx-html-js']);
 
 //# sourceMappingURL=group-randomizer.js.map
