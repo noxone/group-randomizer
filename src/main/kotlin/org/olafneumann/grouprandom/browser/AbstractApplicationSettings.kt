@@ -1,11 +1,7 @@
 package org.olafneumann.grouprandom.browser
 
 import kotlinx.browser.localStorage
-import kotlin.collections.forEach
-import kotlin.collections.mutableMapOf
 import kotlin.collections.set
-import kotlin.properties.Delegates
-import kotlin.properties.ReadWriteProperty
 
 internal abstract class AbstractApplicationSettings() {
     companion object {
@@ -37,21 +33,12 @@ internal abstract class AbstractApplicationSettings() {
             intermediate[key] = value
         }
     }
-    protected fun listKeys(): Sequence<String> =
-            if (hasUserConsent) {
-                localStorage.length.downTo(0).asSequence().mapNotNull { localStorage.key(it) }
-            } else {
-                intermediate.keys.asSequence()
-            }
 
     protected fun set(key: String, value: Int) = set(key, value.toString())
     protected fun set(key: String, value: Boolean) = set(key, value.toString())
-    protected fun set(key: String, value: Any) = set(key, value.toJSON())
-    protected fun <T> getAny(key: String) = get(key)?.toAny<T>()
-
-
-    private fun Any.toJSON() = JSON.stringify(this)
-    private fun <T> String.toAny() = JSON.parse<T>(this)
+    //protected inline fun <reified T> set(key: String, value: T) = set(key, Json.encodeToString(value))
+    //protected inline fun <reified T> getAny(key: String) = get(key)?.let { Json.decodeFromString<T>(it) }
+    //protected inline fun <reified T> getAny(key: String, defaultJson: String) = Json.decodeFromString<T>(get(key) ?: defaultJson)
 
     // store the info whether the user allows storing cookies or not
     var hasUserConsent: Boolean

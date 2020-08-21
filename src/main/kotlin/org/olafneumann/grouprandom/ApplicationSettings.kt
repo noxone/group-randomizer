@@ -1,8 +1,10 @@
 package org.olafneumann.grouprandom
 
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import org.olafneumann.grouprandom.browser.AbstractApplicationSettings
 import org.olafneumann.grouprandom.model.Group
-import org.olafneumann.grouprandom.model.Member
 
 internal object ApplicationSettings : AbstractApplicationSettings() {
     private const val KEY_LAST_VERSION = "user.lastVersion"
@@ -32,48 +34,25 @@ internal object ApplicationSettings : AbstractApplicationSettings() {
         VAL_VERSION
     )
 
-    fun getGroups(): List<Group> = getMutableGroups()
-    private fun getMutableGroups(): MutableList<Group> =
-        readArrayToMutableList(JSON.parse(get("groups") ?: "[]")) {
-            val group = Group(
-                it.name as String
-            )
-            group.members.addAll(getMembers(it))
-            group
+    private var mutableGroups: MutableList<Group>
+        get() = get("groups")?.let { Json.decodeFromString(it) } ?: mutableListOf()
+        set(value) {
+            set("groups", Json.encodeToString(value))
         }
-            .sortedBy { it.name.toLowerCase() }
-            .toMutableList()
 
-    private fun setMutableGroups(groups: List<Group>) {
-        set("groups", JSON.stringify(groups))
-    }
-
-    private fun getMembers(groupJson: dynamic) = if (groupJson.members != undefined) {
-        readArrayToMutableList(groupJson.members) { Member(it.name as String, it.active as Boolean) }
-    } else {
-        mutableListOf<Member>()
-    }
-
-    private fun <T> readArrayToMutableList(array: dynamic, handler: (dynamic) -> T): MutableList<T> =
-        (0 until (array.length ?: 0)).asSequence()
-            .map { array[it] }
-            .map { handler(it) }
-            .toMutableList()
+    fun getGroups(): List<Group> = mutableGroups
 
     fun setGroup(group: Group) {
-        val newGroups = getMutableGroups().filter { it.name != group.name }.toMutableList()
+        val newGroups = mutableGroups.filter { it.name != group.name }.toMutableList()
         newGroups.add(group)
-        setMutableGroups(newGroups)
+        mutableGroups = newGroups
     }
 
     fun getGroup(name: String): Group? = getGroups().find { it.name == name }
 
     fun deleteGroup(name: String) {
-        setMutableGroups(getMutableGroups().filter { name != it.name })
+        mutableGroups = mutableGroups.filter { name != it.name }.toMutableList()
     }
-
-    private fun readConfigFromArray(key: String, defaultJson: String = "[]"): MutableList<String> =
-        readArrayToMutableList(JSON.parse(get(key) ?: defaultJson)) { it.toString() }
 
     var selectedGroupName: String
         get() = get(KEY_CURRENT_GROUP_NAME) ?: VAL_DEFAULT_GROUP_NAME
@@ -100,20 +79,20 @@ internal object ApplicationSettings : AbstractApplicationSettings() {
         }
 
     var prefixes: List<String>
-        get() = readConfigFromArray(KEY_LIST_PREFIXES, VAL_DEFAULT_LIST_PREFIXES)
+        get() = Json.decodeFromString(get(KEY_LIST_PREFIXES) ?: VAL_DEFAULT_LIST_PREFIXES)
         set(value) {
-            set(KEY_LIST_PREFIXES, JSON.stringify(value))
+            set(KEY_LIST_PREFIXES, Json.encodeToString(value))
         }
 
     var separators: List<String>
-        get() = readConfigFromArray(KEY_LIST_SEPARATORS, VAL_DEFAULT_LIST_SEPARATOR)
+        get() = Json.decodeFromString(get(KEY_LIST_SEPARATORS) ?: VAL_DEFAULT_LIST_SEPARATOR)
         set(value) {
-            set(KEY_LIST_SEPARATORS, JSON.stringify(value))
+            set(KEY_LIST_SEPARATORS, Json.encodeToString(value))
         }
 
     var postfixes: List<String>
-        get() = readConfigFromArray(KEY_LIST_POSTFIXES, VAL_DEFAULT_LIST_POSTFIXES)
+        get() = Json.decodeFromString(get(KEY_LIST_POSTFIXES) ?: VAL_DEFAULT_LIST_POSTFIXES)
         set(value) {
-            set(KEY_LIST_POSTFIXES, JSON.stringify(value))
+            set(KEY_LIST_POSTFIXES, Json.encodeToString(value))
         }
 }
