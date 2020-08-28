@@ -64,7 +64,6 @@ if (typeof kotlin === 'undefined') {
   var DIV_init = $module$kotlinx_html_js.kotlinx.html.DIV;
   var enumEncode = $module$kotlinx_html_js.kotlinx.html.attributes.enumEncode_m4whry$;
   var BUTTON_init = $module$kotlinx_html_js.kotlinx.html.BUTTON;
-  var HTMLButtonElement_0 = HTMLButtonElement;
   var visitTagAndFinalize = $module$kotlinx_html_js.kotlinx.html.visitTagAndFinalize_g9qte5$;
   var reversed = Kotlin.kotlin.collections.reversed_7wnvza$;
   var to = Kotlin.kotlin.to_ujzrz7$;
@@ -401,6 +400,17 @@ if (typeof kotlin === 'undefined') {
   UiController.prototype.toggleGroupMemberActive_wpoo0j$ = function (member) {
     member.active = !member.active;
     this.fireCurrentGroupChanged_0();
+  };
+  UiController.prototype.setAllGroupMembers_6taknv$ = function (active) {
+    var tmp$, tmp$_0;
+    if ((tmp$_0 = (tmp$ = this.selectedGroup_0) != null ? tmp$.members : null) != null) {
+      var tmp$_1;
+      tmp$_1 = tmp$_0.iterator();
+      while (tmp$_1.hasNext()) {
+        var element = tmp$_1.next();
+        element.active = active;
+      }
+    }this.fireCurrentGroupChanged_0();
   };
   UiController.prototype.fireCurrentGroupChanged_0 = function () {
     var tmp$;
@@ -1364,6 +1374,30 @@ if (typeof kotlin === 'undefined') {
       element.addEventListener(HtmlView$Companion_getInstance().EVENT_CLICK_0, HtmlView_init$lambda$lambda(this));
     }
     window.addEventListener(HtmlView$Companion_getInstance().EVENT_POPSTATE_0, HtmlView_init$lambda_5(this));
+    var id_17 = HtmlView$Companion_getInstance().ID_SELECTED_ALL_MEMBERS_0;
+    var getElementById_359kph$result_17;
+    var tmp$_25;
+    try {
+      getElementById_359kph$result_17 = Kotlin.isType(tmp$_25 = document.getElementById(id_17), HTMLAnchorElement) ? tmp$_25 : throwCCE();
+    } catch (e_18) {
+      if (Kotlin.isType(e_18, ClassCastException)) {
+        throw new RuntimeException_init("Unable to find element with id '" + id_17 + "'.", e_18);
+      } else
+        throw e_18;
+    }
+    getElementById_359kph$result_17.addEventListener(HtmlView$Companion_getInstance().EVENT_CLICK_0, HtmlView_init$lambda_6(this));
+    var id_18 = HtmlView$Companion_getInstance().ID_DESELECTED_ALL_MEMBERS_0;
+    var getElementById_359kph$result_18;
+    var tmp$_26;
+    try {
+      getElementById_359kph$result_18 = Kotlin.isType(tmp$_26 = document.getElementById(id_18), HTMLAnchorElement) ? tmp$_26 : throwCCE();
+    } catch (e_19) {
+      if (Kotlin.isType(e_19, ClassCastException)) {
+        throw new RuntimeException_init("Unable to find element with id '" + id_18 + "'.", e_19);
+      } else
+        throw e_19;
+    }
+    getElementById_359kph$result_18.addEventListener(HtmlView$Companion_getInstance().EVENT_CLICK_0, HtmlView_init$lambda_7(this));
     this.groupListMaintainer_0 = new ListMaintainer(this.divListGroups_0, HtmlView$groupListMaintainer$lambda(this), HtmlView$groupListMaintainer$lambda_0);
     this.memberListMaintainer_0 = new ListMaintainer(this.divListGroupMembers_0, HtmlView$memberListMaintainer$lambda(this), HtmlView$memberListMaintainer$lambda_0);
     this.prefixListMaintainer_0 = new ListMaintainer(this.divListPrefixes_0, HtmlView$prefixListMaintainer$lambda(this));
@@ -1494,9 +1528,7 @@ if (typeof kotlin === 'undefined') {
   HtmlView.prototype.createGroupItem_0 = function (group) {
     var $receiver = get_create(document);
     var type = ButtonType.button;
-    var classes = 'list-group-item list-group-item-action d-flex justify-content-between gr-action-link-container';
-    var tmp$;
-    return Kotlin.isType(tmp$ = visitTagAndFinalize(new BUTTON_init(attributesMapOf(['formenctype', null != null ? enumEncode(null) : null, 'formmethod', null != null ? enumEncode(null) : null, 'name', null, 'type', type != null ? enumEncode(type) : null, 'class', classes]), $receiver), $receiver, visitAndFinalize$lambda(HtmlView$createGroupItem$lambda(group, this))), HTMLButtonElement_0) ? tmp$ : throwCCE();
+    return visitTagAndFinalize(new BUTTON_init(attributesMapOf(['formenctype', null != null ? enumEncode(null) : null, 'formmethod', null != null ? enumEncode(null) : null, 'name', null, 'type', type != null ? enumEncode(type) : null, 'class', 'list-group-item list-group-item-action d-flex justify-content-between gr-action-link-container']), $receiver), $receiver, visitAndFinalize$lambda(HtmlView$createGroupItem$lambda(group, this)));
   };
   function HtmlView$createMemberItem$lambda$lambda$lambda(this$HtmlView, closure$member) {
     return function (it) {
@@ -1600,9 +1632,7 @@ if (typeof kotlin === 'undefined') {
       onDeleteFunction = HtmlView$createTextItem$lambda_0;
     var $receiver = get_create(document);
     var type = ButtonType.button;
-    var classes = 'list-group-item list-group-item-action d-flex justify-content-between gr-action-link-container';
-    var tmp$;
-    return Kotlin.isType(tmp$ = visitTagAndFinalize(new BUTTON_init(attributesMapOf(['formenctype', null != null ? enumEncode(null) : null, 'formmethod', null != null ? enumEncode(null) : null, 'name', null, 'type', type != null ? enumEncode(type) : null, 'class', classes]), $receiver), $receiver, visitAndFinalize$lambda(HtmlView$createTextItem$lambda_1(onSelectFunction, text, onDeleteFunction))), HTMLButtonElement_0) ? tmp$ : throwCCE();
+    return visitTagAndFinalize(new BUTTON_init(attributesMapOf(['formenctype', null != null ? enumEncode(null) : null, 'formmethod', null != null ? enumEncode(null) : null, 'name', null, 'type', type != null ? enumEncode(type) : null, 'class', 'list-group-item list-group-item-action d-flex justify-content-between gr-action-link-container']), $receiver), $receiver, visitAndFinalize$lambda(HtmlView$createTextItem$lambda_1(onSelectFunction, text, onDeleteFunction)));
   };
   HtmlView.prototype.getBadgeClass_0 = function ($receiver) {
     return $receiver.active ? 'badge-success' : 'badge-danger';
@@ -1626,6 +1656,8 @@ if (typeof kotlin === 'undefined') {
     this.ID_INPUT_NEW_MEMBER_NAME_0 = 'gr_new_member_name';
     this.ID_BUTTON_ADD_GROUP_MEMBER_0 = 'gr_add_group_member';
     this.ID_SELECTED_MEMBER_COUNTER_0 = 'gr_selected_member_counter';
+    this.ID_SELECTED_ALL_MEMBERS_0 = 'gr_select_all_members';
+    this.ID_DESELECTED_ALL_MEMBERS_0 = 'gr_deselect_all_members';
     this.ID_DIV_LIST_PREFIXES_0 = 'gr_div_list_prefixes';
     this.ID_DIV_LIST_SEPARATORS_0 = 'gr_div_list_separators';
     this.ID_DIV_LIST_POSTFIXES_0 = 'gr_div_list_postfixes';
@@ -1737,6 +1769,20 @@ if (typeof kotlin === 'undefined') {
           if (groupName != null) {
             this$HtmlView.controller_0.tryToSelectGroupByName_61zpoe$(groupName);
           }}}return Unit;
+    };
+  }
+  function HtmlView_init$lambda_6(this$HtmlView) {
+    return function (it) {
+      it.stopPropagation();
+      this$HtmlView.controller_0.setAllGroupMembers_6taknv$(true);
+      return Unit;
+    };
+  }
+  function HtmlView_init$lambda_7(this$HtmlView) {
+    return function (it) {
+      it.stopPropagation();
+      this$HtmlView.controller_0.setAllGroupMembers_6taknv$(false);
+      return Unit;
     };
   }
   function HtmlView$groupListMaintainer$lambda(this$HtmlView) {
