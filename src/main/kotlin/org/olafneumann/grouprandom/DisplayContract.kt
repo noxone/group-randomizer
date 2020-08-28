@@ -31,6 +31,7 @@ interface DisplayContract {
         fun addGroupMember(name: String): String?
         fun removeGroupMember(member: Member)
         fun toggleGroupMemberActive(member: Member)
+        fun setAllGroupMembers(active: Boolean)
         fun addPrefix(prefix: String)
         fun addSeparator(separator: String)
         fun addPostfix(postfix: String)

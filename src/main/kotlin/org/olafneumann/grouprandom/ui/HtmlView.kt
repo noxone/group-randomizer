@@ -1,8 +1,9 @@
 package org.olafneumann.grouprandom.ui
 
+import kotlinx.browser.document
+import kotlinx.browser.window
 import kotlinx.html.*
 import kotlinx.html.dom.create
-import kotlinx.html.js.button
 import kotlinx.html.js.onClickFunction
 import org.olafneumann.grouprandom.DisplayContract
 import org.olafneumann.grouprandom.model.Group
@@ -14,8 +15,6 @@ import org.olafneumann.grouprandom.js.navigator
 import org.w3c.dom.*
 import org.w3c.dom.events.Event
 import org.w3c.dom.url.URL
-import kotlinx.browser.document
-import kotlinx.browser.window
 
 class HtmlView(
     private val controller: DisplayContract.Controller
@@ -74,6 +73,15 @@ class HtmlView(
                     groupName?.let { controller.tryToSelectGroupByName(groupName) }
                 }
             }
+        })
+
+        HtmlHelper.getElementById<HTMLAnchorElement>(ID_SELECTED_ALL_MEMBERS).addEventListener(EVENT_CLICK, {
+            it.stopPropagation()
+            controller.setAllGroupMembers(true)
+        })
+        HtmlHelper.getElementById<HTMLAnchorElement>(ID_DESELECTED_ALL_MEMBERS).addEventListener(EVENT_CLICK, {
+            it.stopPropagation()
+            controller.setAllGroupMembers(false)
         })
     }
 
@@ -257,6 +265,8 @@ class HtmlView(
         private const val ID_INPUT_NEW_MEMBER_NAME = "gr_new_member_name"
         private const val ID_BUTTON_ADD_GROUP_MEMBER = "gr_add_group_member"
         private const val ID_SELECTED_MEMBER_COUNTER = "gr_selected_member_counter"
+        private const val ID_SELECTED_ALL_MEMBERS = "gr_select_all_members"
+        private const val ID_DESELECTED_ALL_MEMBERS = "gr_deselect_all_members"
         private const val ID_DIV_LIST_PREFIXES = "gr_div_list_prefixes"
         private const val ID_DIV_LIST_SEPARATORS = "gr_div_list_separators"
         private const val ID_DIV_LIST_POSTFIXES = "gr_div_list_postfixes"

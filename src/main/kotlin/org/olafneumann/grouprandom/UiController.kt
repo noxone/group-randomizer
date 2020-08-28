@@ -85,6 +85,11 @@ internal class UiController : DisplayContract.Controller {
         fireCurrentGroupChanged()
     }
 
+    override fun setAllGroupMembers(active: Boolean) {
+        selectedGroup?.members?.forEach { it.active = active }
+        fireCurrentGroupChanged()
+    }
+
     private fun fireCurrentGroupChanged() {
         selectedGroup?.let { ApplicationSettings.setGroup(it) }
         refreshUi(refreshTextAdditions = false)
