@@ -1,14 +1,16 @@
 if (typeof kotlin === 'undefined') {
   throw new Error("Error loading module 'group-randomizer'. Its dependency 'kotlin' was not found. Please, check whether 'kotlin' is loaded prior to 'group-randomizer'.");
+}if (typeof this['kotlinx-serialization-kotlinx-serialization-json-jsLegacy'] === 'undefined') {
+  throw new Error("Error loading module 'group-randomizer'. Its dependency 'kotlinx-serialization-kotlinx-serialization-json-jsLegacy' was not found. Please, check whether 'kotlinx-serialization-kotlinx-serialization-json-jsLegacy' is loaded prior to 'group-randomizer'.");
 }if (typeof this['kotlinx-serialization-kotlinx-serialization-core-jsLegacy'] === 'undefined') {
   throw new Error("Error loading module 'group-randomizer'. Its dependency 'kotlinx-serialization-kotlinx-serialization-core-jsLegacy' was not found. Please, check whether 'kotlinx-serialization-kotlinx-serialization-core-jsLegacy' is loaded prior to 'group-randomizer'.");
 }if (typeof this['kotlinx-html-js'] === 'undefined') {
   throw new Error("Error loading module 'group-randomizer'. Its dependency 'kotlinx-html-js' was not found. Please, check whether 'kotlinx-html-js' is loaded prior to 'group-randomizer'.");
-}this['group-randomizer'] = function (_, Kotlin, $module$kotlinx_serialization_kotlinx_serialization_core_jsLegacy, $module$kotlinx_html_js) {
+}this['group-randomizer'] = function (_, Kotlin, $module$kotlinx_serialization_kotlinx_serialization_json_jsLegacy, $module$kotlinx_serialization_kotlinx_serialization_core_jsLegacy, $module$kotlinx_html_js) {
   'use strict';
   var $$importsForInline$$ = _.$$importsForInline$$ || (_.$$importsForInline$$ = {});
   var toIntOrNull = Kotlin.kotlin.text.toIntOrNull_pdl1vz$;
-  var Json = $module$kotlinx_serialization_kotlinx_serialization_core_jsLegacy.kotlinx.serialization.json.Json;
+  var Json = $module$kotlinx_serialization_kotlinx_serialization_json_jsLegacy.kotlinx.serialization.json.Json;
   var MutableList = Kotlin.kotlin.collections.MutableList;
   var getKClass = Kotlin.getKClass;
   var createKType = Kotlin.createKType;
@@ -2014,6 +2016,6 @@ if (typeof kotlin === 'undefined') {
   main();
   Kotlin.defineModule('group-randomizer', _);
   return _;
-}(typeof this['group-randomizer'] === 'undefined' ? {} : this['group-randomizer'], kotlin, this['kotlinx-serialization-kotlinx-serialization-core-jsLegacy'], this['kotlinx-html-js']);
+}(typeof this['group-randomizer'] === 'undefined' ? {} : this['group-randomizer'], kotlin, this['kotlinx-serialization-kotlinx-serialization-json-jsLegacy'], this['kotlinx-serialization-kotlinx-serialization-core-jsLegacy'], this['kotlinx-html-js']);
 
 //# sourceMappingURL=group-randomizer.js.map
