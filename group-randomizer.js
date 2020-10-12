@@ -2009,9 +2009,7 @@ if (typeof kotlin === 'undefined') {
   var package$ui = package$grouprandom.ui || (package$grouprandom.ui = {});
   package$ui.HtmlView = HtmlView;
   package$ui.ListMaintainer = ListMaintainer;
-  Group$$serializer.prototype.patch_h7kg3r$ = GeneratedSerializer.prototype.patch_h7kg3r$;
   Group$$serializer.prototype.typeParametersSerializers = GeneratedSerializer.prototype.typeParametersSerializers;
-  Member$$serializer.prototype.patch_h7kg3r$ = GeneratedSerializer.prototype.patch_h7kg3r$;
   Member$$serializer.prototype.typeParametersSerializers = GeneratedSerializer.prototype.typeParametersSerializers;
   main();
   Kotlin.defineModule('group-randomizer', _);
