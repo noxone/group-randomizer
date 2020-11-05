@@ -280,7 +280,6 @@
                 <executions>
                     <execution>
                         <id>copy-docs</id>
-                        <!-- here the phase you need -->
                         <phase>package</phase>
                         <goals>
                             <goal>copy-resources</goal>
@@ -295,6 +294,10 @@
                                         <include>${project.artifactId}.js</include>
                                         <include>lib/**/*</include>
                                         <include>**/*.css</include>
+                                        <!-- files for PWA -->
+                                        <include>manifest.json</include>
+                                        <include>serviceworker.js</include>
+                                        <include>icon/*.png</include>
                                     </includes>
                                 </resource>
                             </resources>
