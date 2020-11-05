@@ -2,12 +2,12 @@
     "name": "Group Randomizer",
     "short_name": "Group Randomizer",
     "start_url": "index.html",
-    "display": "standalone",
+    "display": "minimal-ui",
     "background_color": "#212529",
     "theme_color": "black",
     "scope": ".",
     "description": "Randomize group members.",
-    "lang": "en-US",
+    "lang": "en",
     "icons": [
         {
             "src": "icon/random_16.png",
