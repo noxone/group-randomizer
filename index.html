@@ -5,6 +5,16 @@
     <meta charset='utf-8'>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"> 
+
+    <!-- Meta Tags requred for Progressive Web App -->
+    <meta name="apple-mobile-web-app-status-bar" content="#aa7700"> 
+    <meta name="theme-color" content="black"> 
+    <link rel="manifest" href="manifest.json"> 
+
+    <title>Group Randomizer</title>
+
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -16,11 +26,29 @@
     <script type="text/javascript" src="lib/kotlinx-serialization-kotlinx-serialization-json-jsLegacy.js"></script>
 
     <link rel="stylesheet" href="group-randomizer.css">
-
-    <title>Group Randomizer</title>
 </head>
 
 <body class="bg-dark">
+    <script> 
+        window.addEventListener('load', () => { 
+        registerSW(); 
+        }); 
+    
+        // Register the Service Worker 
+        async function registerSW() { 
+        if ('serviceWorker' in navigator) { 
+            try { 
+            await navigator 
+                    .serviceWorker 
+                    .register('serviceworker.js'); 
+            } 
+            catch (e) { 
+            console.log('SW registration failed'); 
+            } 
+        } 
+        } 
+    </script>
+    
 	<div id="ck_container_cookie" class="fixed-top fixed-bottom">
 		<div class="alert alert-danger fixed-top m-2" role="alert">
 			<div class="d-flex justify-content-between">
