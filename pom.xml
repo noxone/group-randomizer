@@ -294,6 +294,8 @@
                                         <include>${project.artifactId}.js</include>
                                         <include>lib/**/*</include>
                                         <include>**/*.css</include>
+                                        <!-- favicon -->
+                                        <include>favicon.ico</include>
                                         <!-- files for PWA -->
                                         <include>manifest.json</include>
                                         <include>serviceworker.js</include>

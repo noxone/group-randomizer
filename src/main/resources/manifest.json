@@ -7,7 +7,7 @@
     "theme_color": "black",
     "scope": ".",
     "description": "Randomize group members.",
-    "lang": "en-US",
+    "lang": "en",
     "icons": [
         {
             "src": "icon/random_16.png",
