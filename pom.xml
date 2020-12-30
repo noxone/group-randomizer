@@ -16,7 +16,7 @@
         <github.pages.directory>gh-pages</github.pages.directory>
         <github.pages.cname>random-group.olafneumann.org</github.pages.cname>
 
-        <kotlin.version>1.4.21</kotlin.version>
+        <kotlin.version>1.4.21-2</kotlin.version>
         <kotlin.code.style>official</kotlin.code.style>
         <junit.version>4.12</junit.version>
     </properties>
