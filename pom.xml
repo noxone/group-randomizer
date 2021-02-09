@@ -16,7 +16,7 @@
         <github.pages.directory>gh-pages</github.pages.directory>
         <github.pages.cname>random-group.olafneumann.org</github.pages.cname>
 
-        <kotlin.version>1.4.21</kotlin.version>
+        <kotlin.version>1.4.30</kotlin.version>
         <kotlin.code.style>official</kotlin.code.style>
         <junit.version>4.12</junit.version>
     </properties>
@@ -207,7 +207,7 @@
                     <dependency>
                         <groupId>org.jetbrains.kotlin</groupId>
                         <artifactId>kotlin-maven-serialization</artifactId>
-                        <version>1.4.21</version>
+                        <version>1.4.30</version>
                     </dependency>
                 </dependencies>
             </plugin>
