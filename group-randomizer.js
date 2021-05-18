@@ -1,16 +1,16 @@
 if (typeof kotlin === 'undefined') {
   throw new Error("Error loading module 'group-randomizer'. Its dependency 'kotlin' was not found. Please, check whether 'kotlin' is loaded prior to 'group-randomizer'.");
-}if (typeof this['kotlinx-serialization-kotlinx-serialization-json-jsLegacy'] === 'undefined') {
-  throw new Error("Error loading module 'group-randomizer'. Its dependency 'kotlinx-serialization-kotlinx-serialization-json-jsLegacy' was not found. Please, check whether 'kotlinx-serialization-kotlinx-serialization-json-jsLegacy' is loaded prior to 'group-randomizer'.");
-}if (typeof this['kotlinx-serialization-kotlinx-serialization-core-jsLegacy'] === 'undefined') {
-  throw new Error("Error loading module 'group-randomizer'. Its dependency 'kotlinx-serialization-kotlinx-serialization-core-jsLegacy' was not found. Please, check whether 'kotlinx-serialization-kotlinx-serialization-core-jsLegacy' is loaded prior to 'group-randomizer'.");
+}if (typeof this['kotlinx-serialization-kotlinx-serialization-json-js-legacy'] === 'undefined') {
+  throw new Error("Error loading module 'group-randomizer'. Its dependency 'kotlinx-serialization-kotlinx-serialization-json-js-legacy' was not found. Please, check whether 'kotlinx-serialization-kotlinx-serialization-json-js-legacy' is loaded prior to 'group-randomizer'.");
+}if (typeof this['kotlinx-serialization-kotlinx-serialization-core-js-legacy'] === 'undefined') {
+  throw new Error("Error loading module 'group-randomizer'. Its dependency 'kotlinx-serialization-kotlinx-serialization-core-js-legacy' was not found. Please, check whether 'kotlinx-serialization-kotlinx-serialization-core-js-legacy' is loaded prior to 'group-randomizer'.");
 }if (typeof this['kotlinx-html-js'] === 'undefined') {
   throw new Error("Error loading module 'group-randomizer'. Its dependency 'kotlinx-html-js' was not found. Please, check whether 'kotlinx-html-js' is loaded prior to 'group-randomizer'.");
-}this['group-randomizer'] = function (_, Kotlin, $module$kotlinx_serialization_kotlinx_serialization_json_jsLegacy, $module$kotlinx_serialization_kotlinx_serialization_core_jsLegacy, $module$kotlinx_html_js) {
+}this['group-randomizer'] = function (_, Kotlin, $module$kotlinx_serialization_kotlinx_serialization_json_js_legacy, $module$kotlinx_serialization_kotlinx_serialization_core_js_legacy, $module$kotlinx_html_js) {
   'use strict';
   var $$importsForInline$$ = _.$$importsForInline$$ || (_.$$importsForInline$$ = {});
   var toIntOrNull = Kotlin.kotlin.text.toIntOrNull_pdl1vz$;
-  var Json = $module$kotlinx_serialization_kotlinx_serialization_json_jsLegacy.kotlinx.serialization.json.Json;
+  var Json = $module$kotlinx_serialization_kotlinx_serialization_json_js_legacy.kotlinx.serialization.json.Json;
   var MutableList = Kotlin.kotlin.collections.MutableList;
   var getKClass = Kotlin.getKClass;
   var createKType = Kotlin.createKType;
@@ -20,8 +20,8 @@ if (typeof kotlin === 'undefined') {
   var List = Kotlin.kotlin.collections.List;
   var PrimitiveClasses$stringClass = Kotlin.kotlin.reflect.js.internal.PrimitiveClasses.stringClass;
   var Kind_OBJECT = Kotlin.Kind.OBJECT;
-  var serializer = $module$kotlinx_serialization_kotlinx_serialization_core_jsLegacy.kotlinx.serialization.serializer_ca95z9$;
-  var KSerializer = $module$kotlinx_serialization_kotlinx_serialization_core_jsLegacy.kotlinx.serialization.KSerializer;
+  var serializer = $module$kotlinx_serialization_kotlinx_serialization_core_js_legacy.kotlinx.serialization.serializer_ca95z9$;
+  var KSerializer = $module$kotlinx_serialization_kotlinx_serialization_core_js_legacy.kotlinx.serialization.KSerializer;
   var throwCCE = Kotlin.throwCCE;
   var ArrayList_init = Kotlin.kotlin.collections.ArrayList_init_287e2$;
   var Kind_INTERFACE = Kotlin.Kind.INTERFACE;
@@ -47,12 +47,12 @@ if (typeof kotlin === 'undefined') {
   var ClassCastException = Kotlin.kotlin.ClassCastException;
   var defineInlineFunction = Kotlin.defineInlineFunction;
   var wrapFunction = Kotlin.wrapFunction;
-  var PluginGeneratedSerialDescriptor = $module$kotlinx_serialization_kotlinx_serialization_core_jsLegacy.kotlinx.serialization.internal.PluginGeneratedSerialDescriptor;
-  var ArrayListSerializer = $module$kotlinx_serialization_kotlinx_serialization_core_jsLegacy.kotlinx.serialization.internal.ArrayListSerializer;
-  var UnknownFieldException = $module$kotlinx_serialization_kotlinx_serialization_core_jsLegacy.kotlinx.serialization.UnknownFieldException;
-  var internal = $module$kotlinx_serialization_kotlinx_serialization_core_jsLegacy.kotlinx.serialization.internal;
-  var GeneratedSerializer = $module$kotlinx_serialization_kotlinx_serialization_core_jsLegacy.kotlinx.serialization.internal.GeneratedSerializer;
-  var MissingFieldException = $module$kotlinx_serialization_kotlinx_serialization_core_jsLegacy.kotlinx.serialization.MissingFieldException;
+  var PluginGeneratedSerialDescriptor = $module$kotlinx_serialization_kotlinx_serialization_core_js_legacy.kotlinx.serialization.internal.PluginGeneratedSerialDescriptor;
+  var ArrayListSerializer = $module$kotlinx_serialization_kotlinx_serialization_core_js_legacy.kotlinx.serialization.internal.ArrayListSerializer;
+  var UnknownFieldException = $module$kotlinx_serialization_kotlinx_serialization_core_js_legacy.kotlinx.serialization.UnknownFieldException;
+  var internal = $module$kotlinx_serialization_kotlinx_serialization_core_js_legacy.kotlinx.serialization.internal;
+  var GeneratedSerializer = $module$kotlinx_serialization_kotlinx_serialization_core_js_legacy.kotlinx.serialization.internal.GeneratedSerializer;
+  var MissingFieldException_init = $module$kotlinx_serialization_kotlinx_serialization_core_js_legacy.kotlinx.serialization.MissingFieldException_init_61zpoe$;
   var get_create = $module$kotlinx_html_js.kotlinx.html.dom.get_create_4wc2mh$;
   var ButtonType = $module$kotlinx_html_js.kotlinx.html.ButtonType;
   var set_onClickFunction = $module$kotlinx_html_js.kotlinx.html.js.set_onClickFunction_pszlq2$;
@@ -906,7 +906,7 @@ if (typeof kotlin === 'undefined') {
   function Group_init(seen1, name, members, serializationConstructorMarker) {
     var $this = serializationConstructorMarker || Object.create(Group.prototype);
     if ((seen1 & 1) === 0)
-      throw new MissingFieldException('name');
+      throw MissingFieldException_init('name');
     else
       $this.name = name;
     if ((seen1 & 2) === 0) {
@@ -1026,7 +1026,7 @@ if (typeof kotlin === 'undefined') {
   function Member_init(seen1, name, active, serializationConstructorMarker) {
     var $this = serializationConstructorMarker || Object.create(Member.prototype);
     if ((seen1 & 1) === 0)
-      throw new MissingFieldException('name');
+      throw MissingFieldException_init('name');
     else
       $this.name = name;
     if ((seen1 & 2) === 0)
@@ -1958,7 +1958,7 @@ if (typeof kotlin === 'undefined') {
     simpleName: 'ListMaintainer',
     interfaces: []
   };
-  $$importsForInline$$['kotlinx-serialization-kotlinx-serialization-core-jsLegacy'] = $module$kotlinx_serialization_kotlinx_serialization_core_jsLegacy;
+  $$importsForInline$$['kotlinx-serialization-kotlinx-serialization-core-js-legacy'] = $module$kotlinx_serialization_kotlinx_serialization_core_js_legacy;
   var package$org = _.org || (_.org = {});
   var package$olafneumann = package$org.olafneumann || (package$org.olafneumann = {});
   var package$grouprandom = package$olafneumann.grouprandom || (package$olafneumann.grouprandom = {});
@@ -2014,6 +2014,6 @@ if (typeof kotlin === 'undefined') {
   main();
   Kotlin.defineModule('group-randomizer', _);
   return _;
-}(typeof this['group-randomizer'] === 'undefined' ? {} : this['group-randomizer'], kotlin, this['kotlinx-serialization-kotlinx-serialization-json-jsLegacy'], this['kotlinx-serialization-kotlinx-serialization-core-jsLegacy'], this['kotlinx-html-js']);
+}(typeof this['group-randomizer'] === 'undefined' ? {} : this['group-randomizer'], kotlin, this['kotlinx-serialization-kotlinx-serialization-json-js-legacy'], this['kotlinx-serialization-kotlinx-serialization-core-js-legacy'], this['kotlinx-html-js']);
 
 //# sourceMappingURL=group-randomizer.js.map
