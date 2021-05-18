@@ -1,4 +1,4 @@
-# Group Randomizer
+# Group Randomizer  [![Build Status](https://github.com/noxone/group-randomizer/actions/workflows/test.yml/badge.svg)](https://github.com/noxone/group-randomizer/actions)
 
 A tiny tool to randomize group members.
 
