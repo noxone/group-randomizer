@@ -13,8 +13,7 @@ internal class ListMaintainer<T>(
         parent.removeChildren { it.shouldBeRemoved() }
         elements = items.sortedBy { selector(it) }
             .reversed()
-            .map { it to elementCreator(it) }
-            .toMap()
+            .associateWith { elementCreator(it) }
         elements.forEach { parent.prepend(it.value) }
     }
 

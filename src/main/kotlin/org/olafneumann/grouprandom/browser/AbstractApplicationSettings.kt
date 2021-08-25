@@ -3,7 +3,7 @@ package org.olafneumann.grouprandom.browser
 import kotlinx.browser.localStorage
 import kotlin.collections.set
 
-internal abstract class AbstractApplicationSettings() {
+internal abstract class AbstractApplicationSettings {
     companion object {
         private const val KEY_CONSENT = "consent"
     }

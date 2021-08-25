@@ -173,16 +173,16 @@ internal class UiController : DisplayContract.Controller {
     }
 
     private fun <T> addListEntry(getList: () -> List<T>, setList: (List<T>) -> Unit, itemToAdd: T) {
-        changeList(getList, setList, {
+        changeList(getList, setList) {
             if (!it.contains(itemToAdd)) {
                 it.add(itemToAdd)
             }
-        })
+        }
         refreshUi(refreshGroups = false, refreshMembers = false, refreshTextAdditions = true, regenerateText = false)
     }
 
     private fun <T> removeListEntry(getList: () -> List<T>, setList: (List<T>) -> Unit, itemToDelete: T) {
-        changeList(getList, setList, { it.remove(itemToDelete) })
+        changeList(getList, setList) { it.remove(itemToDelete) }
         refreshUi(refreshGroups = false, refreshMembers = false, refreshTextAdditions = true, regenerateText = false)
     }
 
