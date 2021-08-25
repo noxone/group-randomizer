@@ -69,7 +69,7 @@ class HtmlView(
             if (it is PopStateEvent) {
                 if (it.state != null) {
                     val dynamicGroup: dynamic = it.state
-                    val groupName: String? = dynamicGroup.name as String
+                    val groupName: String? = dynamicGroup.name as String?
                     groupName?.let { controller.tryToSelectGroupByName(groupName) }
                 }
             }
@@ -142,7 +142,7 @@ class HtmlView(
     override fun showMembers(members: List<Member>) {
         divListGroupMembers.parentElement?.classList?.toggle(CLASS_HIDE_GROUP_MEMBERS, members.isEmpty())
         memberListMaintainer.showItems(members)
-        spanSelectedMemberCounter.innerText = members.filter { it.active }.count().toString()
+        spanSelectedMemberCounter.innerText = members.count { it.active }.toString()
     }
     override fun showPrefixes(prefixes: List<String>) = prefixListMaintainer.showItems(prefixes)
     override fun showSeparators(separators: List<String>) = separatorListMaintainer.showItems(separators)
