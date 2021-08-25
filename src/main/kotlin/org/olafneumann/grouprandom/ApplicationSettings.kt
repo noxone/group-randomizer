@@ -28,16 +28,21 @@ internal object ApplicationSettings : AbstractApplicationSettings() {
     // ----------------------------------
     // actual function to access settings
 
-    fun isNewUser() = get(KEY_LAST_VERSION)?.toIntOrNull() ?: 0 < VAL_VERSION
+    private inline fun <reified T> decodeJson(string: String): T =
+        Json.decodeFromString<T>(string)
+
+    private inline fun <reified T> encodeJson(`object`: T): String =
+        Json.encodeToString(`object`)
+
     fun storeUserLastInfo() = set(
         KEY_LAST_VERSION,
         VAL_VERSION
     )
 
     private var mutableGroups: MutableList<Group>
-        get() = get("groups")?.let { Json.decodeFromString(it) } ?: mutableListOf()
+        get() = get("groups")?.let { decodeJson(it) } ?: mutableListOf()
         set(value) {
-            set("groups", Json.encodeToString(value))
+            set("groups", encodeJson(value))
         }
 
     fun getGroups(): List<Group> = mutableGroups
@@ -79,20 +84,20 @@ internal object ApplicationSettings : AbstractApplicationSettings() {
         }
 
     var prefixes: List<String>
-        get() = Json.decodeFromString(get(KEY_LIST_PREFIXES) ?: VAL_DEFAULT_LIST_PREFIXES)
+        get() = decodeJson(get(KEY_LIST_PREFIXES) ?: VAL_DEFAULT_LIST_PREFIXES)
         set(value) {
-            set(KEY_LIST_PREFIXES, Json.encodeToString(value))
+            set(KEY_LIST_PREFIXES, encodeJson(value))
         }
 
     var separators: List<String>
-        get() = Json.decodeFromString(get(KEY_LIST_SEPARATORS) ?: VAL_DEFAULT_LIST_SEPARATOR)
+        get() = decodeJson(get(KEY_LIST_SEPARATORS) ?: VAL_DEFAULT_LIST_SEPARATOR)
         set(value) {
-            set(KEY_LIST_SEPARATORS, Json.encodeToString(value))
+            set(KEY_LIST_SEPARATORS, encodeJson(value))
         }
 
     var postfixes: List<String>
-        get() = Json.decodeFromString(get(KEY_LIST_POSTFIXES) ?: VAL_DEFAULT_LIST_POSTFIXES)
+        get() = decodeJson(get(KEY_LIST_POSTFIXES) ?: VAL_DEFAULT_LIST_POSTFIXES)
         set(value) {
-            set(KEY_LIST_POSTFIXES, Json.encodeToString(value))
+            set(KEY_LIST_POSTFIXES, encodeJson(value))
         }
 }
