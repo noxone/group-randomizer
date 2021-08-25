@@ -9,8 +9,9 @@ if (typeof kotlin === 'undefined') {
 }this['group-randomizer'] = function (_, Kotlin, $module$kotlinx_serialization_kotlinx_serialization_json_js_legacy, $module$kotlinx_serialization_kotlinx_serialization_core_js_legacy, $module$kotlinx_html_js) {
   'use strict';
   var $$importsForInline$$ = _.$$importsForInline$$ || (_.$$importsForInline$$ = {});
-  var toIntOrNull = Kotlin.kotlin.text.toIntOrNull_pdl1vz$;
   var Json = $module$kotlinx_serialization_kotlinx_serialization_json_js_legacy.kotlinx.serialization.json.Json;
+  var getReifiedTypeParameterKType = Kotlin.getReifiedTypeParameterKType;
+  var wrapFunction = Kotlin.wrapFunction;
   var MutableList = Kotlin.kotlin.collections.MutableList;
   var getKClass = Kotlin.getKClass;
   var createKType = Kotlin.createKType;
@@ -46,7 +47,6 @@ if (typeof kotlin === 'undefined') {
   var RuntimeException_init = Kotlin.kotlin.RuntimeException;
   var ClassCastException = Kotlin.kotlin.ClassCastException;
   var defineInlineFunction = Kotlin.defineInlineFunction;
-  var wrapFunction = Kotlin.wrapFunction;
   var PluginGeneratedSerialDescriptor = $module$kotlinx_serialization_kotlinx_serialization_core_js_legacy.kotlinx.serialization.internal.PluginGeneratedSerialDescriptor;
   var ArrayListSerializer = $module$kotlinx_serialization_kotlinx_serialization_core_js_legacy.kotlinx.serialization.internal.ArrayListSerializer;
   var UnknownFieldException = $module$kotlinx_serialization_kotlinx_serialization_core_js_legacy.kotlinx.serialization.UnknownFieldException;
@@ -58,6 +58,8 @@ if (typeof kotlin === 'undefined') {
   var set_onClickFunction = $module$kotlinx_html_js.kotlinx.html.js.set_onClickFunction_pszlq2$;
   var set_title = $module$kotlinx_html_js.kotlinx.html.set_title_ueiko3$;
   var until = Kotlin.kotlin.ranges.until_dqglrj$;
+  var Collection = Kotlin.kotlin.collections.Collection;
+  var checkCountOverflow = Kotlin.kotlin.collections.checkCountOverflow_za3lpa$;
   var attributesMapOf = $module$kotlinx_html_js.kotlinx.html.attributesMapOf_alerag$;
   var A_init = $module$kotlinx_html_js.kotlinx.html.A;
   var visitTag = $module$kotlinx_html_js.kotlinx.html.visitTag_xwv8ym$;
@@ -68,12 +70,13 @@ if (typeof kotlin === 'undefined') {
   var BUTTON_init = $module$kotlinx_html_js.kotlinx.html.BUTTON;
   var visitTagAndFinalize = $module$kotlinx_html_js.kotlinx.html.visitTagAndFinalize_g9qte5$;
   var reversed = Kotlin.kotlin.collections.reversed_7wnvza$;
-  var to = Kotlin.kotlin.to_ujzrz7$;
-  var toMap = Kotlin.kotlin.collections.toMap_6hr0sd$;
   var downTo = Kotlin.kotlin.ranges.downTo_dqglrj$;
   var emptyMap = Kotlin.kotlin.collections.emptyMap_q3lmfv$;
   var sortedWith = Kotlin.kotlin.collections.sortedWith_eknfly$;
   var Comparator = Kotlin.kotlin.Comparator;
+  var mapCapacity = Kotlin.kotlin.collections.mapCapacity_za3lpa$;
+  var coerceAtLeast = Kotlin.kotlin.ranges.coerceAtLeast_dqglrj$;
+  var LinkedHashMap_init_0 = Kotlin.kotlin.collections.LinkedHashMap_init_bwtc7$;
   ApplicationSettings.prototype = Object.create(AbstractApplicationSettings.prototype);
   ApplicationSettings.prototype.constructor = ApplicationSettings;
   function ApplicationSettings() {
@@ -96,10 +99,26 @@ if (typeof kotlin === 'undefined') {
     this.VAL_DEFAULT_LIST_SEPARATOR_0 = '[", "," : "]';
     this.VAL_DEFAULT_LIST_POSTFIXES_0 = '["","."]';
   }
-  ApplicationSettings.prototype.isNewUser = function () {
-    var tmp$, tmp$_0;
-    return ((tmp$_0 = (tmp$ = this.get_0(this.KEY_LAST_VERSION_0)) != null ? toIntOrNull(tmp$) : null) != null ? tmp$_0 : 0) < 1;
-  };
+  ApplicationSettings.prototype.decodeJson_0 = wrapFunction(function () {
+    var serializer = _.$$importsForInline$$['kotlinx-serialization-kotlinx-serialization-core-js-legacy'].kotlinx.serialization.serializer_ca95z9$;
+    var KSerializer = _.$$importsForInline$$['kotlinx-serialization-kotlinx-serialization-core-js-legacy'].kotlinx.serialization.KSerializer;
+    var throwCCE = Kotlin.throwCCE;
+    return function (T_0, isT, string) {
+      var $receiver = Json.Default;
+      var tmp$;
+      return $receiver.decodeFromString_awif5v$(Kotlin.isType(tmp$ = serializer($receiver.serializersModule, getReifiedTypeParameterKType(T_0)), KSerializer) ? tmp$ : throwCCE(), string);
+    };
+  });
+  ApplicationSettings.prototype.encodeJson_0 = wrapFunction(function () {
+    var serializer = _.$$importsForInline$$['kotlinx-serialization-kotlinx-serialization-core-js-legacy'].kotlinx.serialization.serializer_ca95z9$;
+    var KSerializer = _.$$importsForInline$$['kotlinx-serialization-kotlinx-serialization-core-js-legacy'].kotlinx.serialization.KSerializer;
+    var throwCCE = Kotlin.throwCCE;
+    return function (T_0, isT, object) {
+      var $receiver = Json.Default;
+      var tmp$;
+      return $receiver.encodeToString_tf03ej$(Kotlin.isType(tmp$ = serializer($receiver.serializersModule, getReifiedTypeParameterKType(T_0)), KSerializer) ? tmp$ : throwCCE(), object);
+    };
+  });
   ApplicationSettings.prototype.storeUserLastInfo = function () {
     this.set_0(this.KEY_LAST_VERSION_0, 1);
   };
@@ -211,11 +230,11 @@ if (typeof kotlin === 'undefined') {
   Object.defineProperty(ApplicationSettings.prototype, 'prefixes', {
     configurable: true,
     get: function () {
-      var tmp$, tmp$_0;
-      tmp$_0 = Json.Default;
+      var tmp$;
       var string = (tmp$ = this.get_0(this.KEY_LIST_PREFIXES_0)) != null ? tmp$ : this.VAL_DEFAULT_LIST_PREFIXES_0;
-      var tmp$_1;
-      return tmp$_0.decodeFromString_awif5v$(Kotlin.isType(tmp$_1 = serializer(tmp$_0.serializersModule, createKType(getKClass(List), [createInvariantKTypeProjection(createKType(PrimitiveClasses$stringClass, [], false))], false)), KSerializer) ? tmp$_1 : throwCCE(), string);
+      var $receiver = Json.Default;
+      var tmp$_0;
+      return $receiver.decodeFromString_awif5v$(Kotlin.isType(tmp$_0 = serializer($receiver.serializersModule, createKType(getKClass(List), [createInvariantKTypeProjection(createKType(PrimitiveClasses$stringClass, [], false))], false)), KSerializer) ? tmp$_0 : throwCCE(), string);
     },
     set: function (value) {
       var tmp$ = this.KEY_LIST_PREFIXES_0;
@@ -227,11 +246,11 @@ if (typeof kotlin === 'undefined') {
   Object.defineProperty(ApplicationSettings.prototype, 'separators', {
     configurable: true,
     get: function () {
-      var tmp$, tmp$_0;
-      tmp$_0 = Json.Default;
+      var tmp$;
       var string = (tmp$ = this.get_0(this.KEY_LIST_SEPARATORS_0)) != null ? tmp$ : this.VAL_DEFAULT_LIST_SEPARATOR_0;
-      var tmp$_1;
-      return tmp$_0.decodeFromString_awif5v$(Kotlin.isType(tmp$_1 = serializer(tmp$_0.serializersModule, createKType(getKClass(List), [createInvariantKTypeProjection(createKType(PrimitiveClasses$stringClass, [], false))], false)), KSerializer) ? tmp$_1 : throwCCE(), string);
+      var $receiver = Json.Default;
+      var tmp$_0;
+      return $receiver.decodeFromString_awif5v$(Kotlin.isType(tmp$_0 = serializer($receiver.serializersModule, createKType(getKClass(List), [createInvariantKTypeProjection(createKType(PrimitiveClasses$stringClass, [], false))], false)), KSerializer) ? tmp$_0 : throwCCE(), string);
     },
     set: function (value) {
       var tmp$ = this.KEY_LIST_SEPARATORS_0;
@@ -243,11 +262,11 @@ if (typeof kotlin === 'undefined') {
   Object.defineProperty(ApplicationSettings.prototype, 'postfixes', {
     configurable: true,
     get: function () {
-      var tmp$, tmp$_0;
-      tmp$_0 = Json.Default;
+      var tmp$;
       var string = (tmp$ = this.get_0(this.KEY_LIST_POSTFIXES_0)) != null ? tmp$ : this.VAL_DEFAULT_LIST_POSTFIXES_0;
-      var tmp$_1;
-      return tmp$_0.decodeFromString_awif5v$(Kotlin.isType(tmp$_1 = serializer(tmp$_0.serializersModule, createKType(getKClass(List), [createInvariantKTypeProjection(createKType(PrimitiveClasses$stringClass, [], false))], false)), KSerializer) ? tmp$_1 : throwCCE(), string);
+      var $receiver = Json.Default;
+      var tmp$_0;
+      return $receiver.decodeFromString_awif5v$(Kotlin.isType(tmp$_0 = serializer($receiver.serializersModule, createKType(getKClass(List), [createInvariantKTypeProjection(createKType(PrimitiveClasses$stringClass, [], false))], false)), KSerializer) ? tmp$_0 : throwCCE(), string);
     },
     set: function (value) {
       var tmp$ = this.KEY_LIST_POSTFIXES_0;
@@ -1437,15 +1456,23 @@ if (typeof kotlin === 'undefined') {
     (tmp$_0 = (tmp$ = this.divListGroupMembers_0.parentElement) != null ? tmp$.classList : null) != null ? tmp$_0.toggle(HtmlView$Companion_getInstance().CLASS_HIDE_GROUP_MEMBERS_0, members.isEmpty()) : null;
     this.memberListMaintainer_0.showItems_4ezy5m$(members);
     var tmp$_1 = this.spanSelectedMemberCounter_0;
-    var destination = ArrayList_init();
-    var tmp$_2;
-    tmp$_2 = members.iterator();
-    while (tmp$_2.hasNext()) {
-      var element = tmp$_2.next();
-      if (element.active)
-        destination.add_11rb$(element);
+    var count$result;
+    count$break: do {
+      var tmp$_2;
+      if (Kotlin.isType(members, Collection) && members.isEmpty()) {
+        count$result = 0;
+        break count$break;
+      }var count = 0;
+      tmp$_2 = members.iterator();
+      while (tmp$_2.hasNext()) {
+        var element = tmp$_2.next();
+        if (element.active)
+          checkCountOverflow((count = count + 1 | 0, count));
+      }
+      count$result = count;
     }
-    tmp$_1.innerText = destination.size.toString();
+     while (false);
+    tmp$_1.innerText = count$result.toString();
   };
   HtmlView.prototype.showPrefixes_mhpeer$ = function (prefixes) {
     this.prefixListMaintainer_0.showItems_4ezy5m$(prefixes);
@@ -1767,7 +1794,7 @@ if (typeof kotlin === 'undefined') {
       if (Kotlin.isType(it, PopStateEvent)) {
         if (it.state != null) {
           var dynamicGroup = it.state;
-          var groupName = typeof (tmp$ = dynamicGroup.name) === 'string' ? tmp$ : throwCCE();
+          var groupName = (tmp$ = dynamicGroup.name) == null || typeof tmp$ === 'string' ? tmp$ : throwCCE();
           if (groupName != null) {
             this$HtmlView.controller_0.tryToSelectGroupByName_61zpoe$(groupName);
           }}}return Unit;
@@ -1898,19 +1925,19 @@ if (typeof kotlin === 'undefined') {
   ListMaintainer.prototype.showItems_4ezy5m$ = function (items) {
     this.removeChildren_0(this.parent_0, ListMaintainer$showItems$lambda(this));
     var $receiver = reversed(sortedWith(items, new Comparator(compareBy$lambda(ListMaintainer$showItems$lambda_0(this)))));
-    var destination = ArrayList_init_0(collectionSizeOrDefault($receiver, 10));
+    var result = LinkedHashMap_init_0(coerceAtLeast(mapCapacity(collectionSizeOrDefault($receiver, 10)), 16));
     var tmp$;
     tmp$ = $receiver.iterator();
     while (tmp$.hasNext()) {
-      var item = tmp$.next();
-      destination.add_11rb$(to(item, this.elementCreator_0(item)));
+      var element = tmp$.next();
+      result.put_xwzc9p$(element, this.elementCreator_0(element));
     }
-    this.elements_0 = toMap(destination);
+    this.elements_0 = result;
     var tmp$_0;
     tmp$_0 = this.elements_0.entries.iterator();
     while (tmp$_0.hasNext()) {
-      var element = tmp$_0.next();
-      this.parent_0.prepend(element.value);
+      var element_0 = tmp$_0.next();
+      this.parent_0.prepend(element_0.value);
     }
   };
   ListMaintainer.prototype.shouldBeRemoved_0 = function ($receiver) {
@@ -1959,6 +1986,7 @@ if (typeof kotlin === 'undefined') {
     interfaces: []
   };
   $$importsForInline$$['kotlinx-serialization-kotlinx-serialization-core-js-legacy'] = $module$kotlinx_serialization_kotlinx_serialization_core_js_legacy;
+  $$importsForInline$$['group-randomizer'] = _;
   var package$org = _.org || (_.org = {});
   var package$olafneumann = package$org.olafneumann || (package$org.olafneumann = {});
   var package$grouprandom = package$olafneumann.grouprandom || (package$olafneumann.grouprandom = {});
@@ -1969,7 +1997,6 @@ if (typeof kotlin === 'undefined') {
   DisplayContract.Controller = DisplayContract$Controller;
   package$grouprandom.DisplayContract = DisplayContract;
   package$grouprandom.main = main;
-  $$importsForInline$$['group-randomizer'] = _;
   Object.defineProperty(UiController, 'Companion', {
     get: UiController$Companion_getInstance
   });
