@@ -1,12 +1,16 @@
 if (typeof kotlin === 'undefined') {
   throw new Error("Error loading module 'group-randomizer'. Its dependency 'kotlin' was not found. Please, check whether 'kotlin' is loaded prior to 'group-randomizer'.");
-}if (typeof this['kotlinx-serialization-kotlinx-serialization-json-js-legacy'] === 'undefined') {
+}
+if (typeof this['kotlinx-serialization-kotlinx-serialization-json-js-legacy'] === 'undefined') {
   throw new Error("Error loading module 'group-randomizer'. Its dependency 'kotlinx-serialization-kotlinx-serialization-json-js-legacy' was not found. Please, check whether 'kotlinx-serialization-kotlinx-serialization-json-js-legacy' is loaded prior to 'group-randomizer'.");
-}if (typeof this['kotlinx-serialization-kotlinx-serialization-core-js-legacy'] === 'undefined') {
+}
+if (typeof this['kotlinx-serialization-kotlinx-serialization-core-js-legacy'] === 'undefined') {
   throw new Error("Error loading module 'group-randomizer'. Its dependency 'kotlinx-serialization-kotlinx-serialization-core-js-legacy' was not found. Please, check whether 'kotlinx-serialization-kotlinx-serialization-core-js-legacy' is loaded prior to 'group-randomizer'.");
-}if (typeof this['kotlinx-html-js'] === 'undefined') {
+}
+if (typeof this['kotlinx-html-js'] === 'undefined') {
   throw new Error("Error loading module 'group-randomizer'. Its dependency 'kotlinx-html-js' was not found. Please, check whether 'kotlinx-html-js' is loaded prior to 'group-randomizer'.");
-}this['group-randomizer'] = function (_, Kotlin, $module$kotlinx_serialization_kotlinx_serialization_json_js_legacy, $module$kotlinx_serialization_kotlinx_serialization_core_js_legacy, $module$kotlinx_html_js) {
+}
+this['group-randomizer'] = function (_, Kotlin, $module$kotlinx_serialization_kotlinx_serialization_json_js_legacy, $module$kotlinx_serialization_kotlinx_serialization_core_js_legacy, $module$kotlinx_html_js) {
   'use strict';
   var $$importsForInline$$ = _.$$importsForInline$$ || (_.$$importsForInline$$ = {});
   var Json = $module$kotlinx_serialization_kotlinx_serialization_json_js_legacy.kotlinx.serialization.json.Json;
@@ -169,7 +173,8 @@ if (typeof kotlin === 'undefined') {
         if (equals(element.name, name)) {
           firstOrNull$result = element;
           break firstOrNull$break;
-        }}
+        }
+      }
       firstOrNull$result = null;
     }
      while (false);
@@ -284,7 +289,8 @@ if (typeof kotlin === 'undefined') {
   function ApplicationSettings_getInstance() {
     if (ApplicationSettings_instance === null) {
       new ApplicationSettings();
-    }return ApplicationSettings_instance;
+    }
+    return ApplicationSettings_instance;
   }
   function DisplayContract() {
   }
@@ -330,13 +336,15 @@ if (typeof kotlin === 'undefined') {
     this.refreshUi_0();
     if (!this.view_0.selectPreselectedGroup()) {
       this.tryToSelectGroupByName_61zpoe$(ApplicationSettings_getInstance().selectedGroupName);
-    }}
+    }
+  }
   UiController.prototype.selectGroup_u2lxnd$ = function (group) {
     var tmp$;
     if (group != null) {
       ApplicationSettings_getInstance().setGroup_f2hml6$(group);
       ApplicationSettings_getInstance().selectedGroupName = group.name;
-    }this.selectedGroup_0 = group;
+    }
+    this.selectedGroup_0 = group;
     this.view_0.selectGroup_u2lxnd$(group);
     this.view_0.showMembers_x6m2tk$((tmp$ = group != null ? group.members : null) != null ? tmp$ : emptyList());
     this.refreshUi_0();
@@ -353,18 +361,21 @@ if (typeof kotlin === 'undefined') {
         if (equals(element.name, name)) {
           firstOrNull$result = element;
           break firstOrNull$break;
-        }}
+        }
+      }
       firstOrNull$result = null;
     }
      while (false);
     if ((tmp$ = firstOrNull$result) != null) {
       this.selectGroup_u2lxnd$(tmp$);
-    }};
+    }
+  };
   UiController.prototype.addGroup_61zpoe$ = function (name) {
     var tmp$;
     if (isBlank(name)) {
       return null;
-    }var validGroupName = this.toValidName_0(name);
+    }
+    var validGroupName = this.toValidName_0(name);
     var group = (tmp$ = ApplicationSettings_getInstance().getGroup_61zpoe$(validGroupName)) != null ? tmp$ : new Group(validGroupName);
     this.selectGroup_u2lxnd$(group);
     this.view_0.focusNewGroupEditor();
@@ -383,7 +394,8 @@ if (typeof kotlin === 'undefined') {
     var tmp$, tmp$_0, tmp$_1, tmp$_2;
     if (isBlank(name)) {
       return null;
-    }var validName = this.toValidName_0(name);
+    }
+    var validName = this.toValidName_0(name);
     var tmp$_3;
     if ((tmp$_0 = (tmp$ = this.selectedGroup_0) != null ? tmp$.members : null) != null) {
       var firstOrNull$result;
@@ -395,7 +407,8 @@ if (typeof kotlin === 'undefined') {
           if (equals(element.name, validName)) {
             firstOrNull$result = element;
             break firstOrNull$break;
-          }}
+          }
+        }
         firstOrNull$result = null;
       }
        while (false);
@@ -404,7 +417,8 @@ if (typeof kotlin === 'undefined') {
       tmp$_3 = null;
     if (tmp$_3 == null) {
       (tmp$_2 = (tmp$_1 = this.selectedGroup_0) != null ? tmp$_1.members : null) != null ? tmp$_2.add_11rb$(new Member(validName)) : null;
-    }this.fireCurrentGroupChanged_0();
+    }
+    this.fireCurrentGroupChanged_0();
     this.view_0.focusNewMemberEditor();
     return validName;
   };
@@ -431,13 +445,15 @@ if (typeof kotlin === 'undefined') {
         var element = tmp$_1.next();
         element.active = active;
       }
-    }this.fireCurrentGroupChanged_0();
+    }
+    this.fireCurrentGroupChanged_0();
   };
   UiController.prototype.fireCurrentGroupChanged_0 = function () {
     var tmp$;
     if ((tmp$ = this.selectedGroup_0) != null) {
       ApplicationSettings_getInstance().setGroup_f2hml6$(tmp$);
-    }this.refreshUi_0(void 0, void 0, false);
+    }
+    this.refreshUi_0(void 0, void 0, false);
   };
   UiController.prototype.selectPrefix_61zpoe$ = function (prefix) {
     ApplicationSettings_getInstance().currentPrefix = prefix;
@@ -495,9 +511,11 @@ if (typeof kotlin === 'undefined') {
     this.removeListEntry_0(UiController$removePrefix$lambda, UiController$removePrefix$lambda_0, prefix);
     if (ApplicationSettings_getInstance().prefixes.isEmpty()) {
       ApplicationSettings_getInstance().prefixes = listOf(ApplicationSettings_getInstance().VAL_DEFAULT_PREFIX_8be2vx$);
-    }if (equals(ApplicationSettings_getInstance().currentPrefix, prefix)) {
+    }
+    if (equals(ApplicationSettings_getInstance().currentPrefix, prefix)) {
       this.selectPrefix_61zpoe$(first(ApplicationSettings_getInstance().prefixes));
-    }};
+    }
+  };
   function UiController$removeSeparator$lambda() {
     return ApplicationSettings_getInstance().separators;
   }
@@ -509,9 +527,11 @@ if (typeof kotlin === 'undefined') {
     this.removeListEntry_0(UiController$removeSeparator$lambda, UiController$removeSeparator$lambda_0, separator);
     if (ApplicationSettings_getInstance().separators.isEmpty()) {
       ApplicationSettings_getInstance().separators = listOf(ApplicationSettings_getInstance().VAL_DEFAULT_SEPARATOR_8be2vx$);
-    }if (equals(ApplicationSettings_getInstance().currentSeparator, separator)) {
+    }
+    if (equals(ApplicationSettings_getInstance().currentSeparator, separator)) {
       this.selectSeparator_61zpoe$(first(ApplicationSettings_getInstance().separators));
-    }};
+    }
+  };
   function UiController$removePostfix$lambda() {
     return ApplicationSettings_getInstance().postfixes;
   }
@@ -523,14 +543,17 @@ if (typeof kotlin === 'undefined') {
     this.removeListEntry_0(UiController$removePostfix$lambda, UiController$removePostfix$lambda_0, postfix);
     if (ApplicationSettings_getInstance().postfixes.isEmpty()) {
       ApplicationSettings_getInstance().postfixes = listOf(ApplicationSettings_getInstance().VAL_DEFAULT_POSTFIX_8be2vx$);
-    }if (equals(ApplicationSettings_getInstance().currentPostfix, postfix)) {
+    }
+    if (equals(ApplicationSettings_getInstance().currentPostfix, postfix)) {
       this.selectPostfix_61zpoe$(first(ApplicationSettings_getInstance().postfixes));
-    }};
+    }
+  };
   UiController.prototype.addListEntry_0 = function (getList, setList, itemToAdd) {
     var list = toMutableList(getList());
     if (!list.contains_11rb$(itemToAdd)) {
       list.add_11rb$(itemToAdd);
-    }setList(list);
+    }
+    setList(list);
     this.refreshUi_0(false, false, true, false);
   };
   UiController.prototype.removeListEntry_0 = function (getList, setList, itemToDelete) {
@@ -559,9 +582,11 @@ if (typeof kotlin === 'undefined') {
     var tmp$, tmp$_0;
     if (refreshGroups) {
       this.view_0.showGroups_hgjbqt$(ApplicationSettings_getInstance().getGroups());
-    }if (refreshMembers) {
+    }
+    if (refreshMembers) {
       this.view_0.showMembers_x6m2tk$((tmp$_0 = (tmp$ = this.selectedGroup_0) != null ? tmp$.members : null) != null ? tmp$_0 : emptyList());
-    }this.view_0.selectGroup_u2lxnd$(this.selectedGroup_0);
+    }
+    this.view_0.selectGroup_u2lxnd$(this.selectedGroup_0);
     if (refreshTextAdditions) {
       this.view_0.showPrefixes_mhpeer$(ApplicationSettings_getInstance().prefixes);
       this.view_0.selectPrefix_pdl1vj$(ApplicationSettings_getInstance().currentPrefix);
@@ -569,9 +594,11 @@ if (typeof kotlin === 'undefined') {
       this.view_0.selectSeparator_pdl1vj$(ApplicationSettings_getInstance().currentSeparator);
       this.view_0.showPostfixes_mhpeer$(ApplicationSettings_getInstance().postfixes);
       this.view_0.selectPostfix_pdl1vj$(ApplicationSettings_getInstance().currentPostfix);
-    }if (regenerateText) {
+    }
+    if (regenerateText) {
       this.generateRandomOrder();
-    }};
+    }
+  };
   UiController.prototype.createRandomText_0 = function () {
     var tmp$, tmp$_0, tmp$_1, tmp$_2, tmp$_3;
     var tmp$_4;
@@ -619,7 +646,8 @@ if (typeof kotlin === 'undefined') {
   function UiController$Companion_getInstance() {
     if (UiController$Companion_instance === null) {
       new UiController$Companion();
-    }return UiController$Companion_instance;
+    }
+    return UiController$Companion_instance;
   }
   UiController.$metadata$ = {
     kind: Kind_CLASS,
@@ -632,7 +660,8 @@ if (typeof kotlin === 'undefined') {
     if (!this.hasUserConsent) {
       this.loadIntermediateFromLocalStorage_0();
       localStorage.clear();
-    }}
+    }
+  }
   function AbstractApplicationSettings$Companion() {
     AbstractApplicationSettings$Companion_instance = this;
     this.KEY_CONSENT_0 = 'consent';
@@ -646,7 +675,8 @@ if (typeof kotlin === 'undefined') {
   function AbstractApplicationSettings$Companion_getInstance() {
     if (AbstractApplicationSettings$Companion_instance === null) {
       new AbstractApplicationSettings$Companion();
-    }return AbstractApplicationSettings$Companion_instance;
+    }
+    return AbstractApplicationSettings$Companion_instance;
   }
   AbstractApplicationSettings.prototype.persistIntermediate_0 = function () {
     var tmp$;
@@ -665,7 +695,9 @@ if (typeof kotlin === 'undefined') {
         var tmp$_1;
         if ((tmp$_1 = localStorage.getItem(tmp$_0)) != null) {
           this.intermediate_0.put_xwzc9p$(tmp$_0, tmp$_1);
-        }}}
+        }
+      }
+    }
   };
   AbstractApplicationSettings.prototype.get_0 = function (key) {
     var tmp$;
@@ -780,7 +812,8 @@ if (typeof kotlin === 'undefined') {
   function CookieBanner_getInstance() {
     if (CookieBanner_instance === null) {
       new CookieBanner();
-    }return CookieBanner_instance;
+    }
+    return CookieBanner_instance;
   }
   function HtmlHelper() {
     HtmlHelper_instance = this;
@@ -838,13 +871,15 @@ if (typeof kotlin === 'undefined') {
   function HtmlHelper_getInstance() {
     if (HtmlHelper_instance === null) {
       new HtmlHelper();
-    }return HtmlHelper_instance;
+    }
+    return HtmlHelper_instance;
   }
   function Group(name, members) {
     Group$Companion_getInstance();
     if (members === void 0) {
       members = ArrayList_init();
-    }this.name = name;
+    }
+    this.name = name;
     this.members = members;
   }
   function Group$Companion() {
@@ -862,7 +897,8 @@ if (typeof kotlin === 'undefined') {
   function Group$Companion_getInstance() {
     if (Group$Companion_instance === null) {
       new Group$Companion();
-    }return Group$Companion_instance;
+    }
+    return Group$Companion_instance;
   }
   function Group$$serializer() {
     this.descriptor_k62ne3$_0 = new PluginGeneratedSerialDescriptor('org.olafneumann.grouprandom.model.Group', this, 2);
@@ -902,7 +938,8 @@ if (typeof kotlin === 'undefined') {
           break;
         case -1:
           break loopLabel;
-        default:throw new UnknownFieldException(index);
+        default:
+          throw new UnknownFieldException(index);
       }
     }
     input.endStructure_24f42q$(this.descriptor);
@@ -920,7 +957,8 @@ if (typeof kotlin === 'undefined') {
   function Group$$serializer_getInstance() {
     if (Group$$serializer_instance === null) {
       new Group$$serializer();
-    }return Group$$serializer_instance;
+    }
+    return Group$$serializer_instance;
   }
   function Group_init(seen1, name, members, serializationConstructorMarker) {
     var $this = serializationConstructorMarker || Object.create(Group.prototype);
@@ -982,7 +1020,8 @@ if (typeof kotlin === 'undefined') {
   function Member$Companion_getInstance() {
     if (Member$Companion_instance === null) {
       new Member$Companion();
-    }return Member$Companion_instance;
+    }
+    return Member$Companion_instance;
   }
   function Member$$serializer() {
     this.descriptor_435a1k$_0 = new PluginGeneratedSerialDescriptor('org.olafneumann.grouprandom.model.Member', this, 2);
@@ -1022,7 +1061,8 @@ if (typeof kotlin === 'undefined') {
           break;
         case -1:
           break loopLabel;
-        default:throw new UnknownFieldException(index);
+        default:
+          throw new UnknownFieldException(index);
       }
     }
     input.endStructure_24f42q$(this.descriptor);
@@ -1040,7 +1080,8 @@ if (typeof kotlin === 'undefined') {
   function Member$$serializer_getInstance() {
     if (Member$$serializer_instance === null) {
       new Member$$serializer();
-    }return Member$$serializer_instance;
+    }
+    return Member$$serializer_instance;
   }
   function Member_init(seen1, name, active, serializationConstructorMarker) {
     var $this = serializationConstructorMarker || Object.create(Member.prototype);
@@ -1431,7 +1472,8 @@ if (typeof kotlin === 'undefined') {
       var groupName = decodeURIComponent(url.hash.substring(1));
       this.controller_0.tryToSelectGroupByName_61zpoe$(groupName);
       return true;
-    }return false;
+    }
+    return false;
   };
   HtmlView.prototype.focusNewGroupEditor = function () {
     this.inputAddGroupName_0.focus();
@@ -1462,7 +1504,8 @@ if (typeof kotlin === 'undefined') {
       if (Kotlin.isType(members, Collection) && members.isEmpty()) {
         count$result = 0;
         break count$break;
-      }var count = 0;
+      }
+      var count = 0;
       tmp$_2 = members.iterator();
       while (tmp$_2.hasNext()) {
         var element = tmp$_2.next();
@@ -1490,7 +1533,8 @@ if (typeof kotlin === 'undefined') {
     var state = window.history.state;
     if (state == null || state.name != hash) {
       window.history.pushState(group, hash, '#' + encodeURIComponent(hash));
-    }this.buttonAddGroupMember_0.disabled = group == null;
+    }
+    this.buttonAddGroupMember_0.disabled = group == null;
     this.inputAddGroupMember_0.disabled = group == null;
   };
   HtmlView.prototype.selectPrefix_pdl1vj$ = function (prefix) {
@@ -1516,7 +1560,8 @@ if (typeof kotlin === 'undefined') {
     return function (event) {
       if (window.confirm("Do you really want to delete group '" + closure$group.name + "'?")) {
         this$HtmlView.controller_0.removeGroup_f2hml6$(closure$group);
-      }event.stopPropagation();
+      }
+      event.stopPropagation();
       return Unit;
     };
   }
@@ -1584,7 +1629,8 @@ if (typeof kotlin === 'undefined') {
     return function (event) {
       if (window.confirm("Do you really want to remove member '" + closure$member.name + "'?")) {
         this$HtmlView.controller_0.removeGroupMember_wpoo0j$(closure$member);
-      }event.stopPropagation();
+      }
+      event.stopPropagation();
       return Unit;
     };
   }
@@ -1714,9 +1760,11 @@ if (typeof kotlin === 'undefined') {
     var tmp$, tmp$_0;
     if ($receiver.parentElement == null || equals($receiver.parentElement, document)) {
       return null;
-    }if (Kotlin.isType($receiver.parentElement, HTMLFormElement)) {
+    }
+    if (Kotlin.isType($receiver.parentElement, HTMLFormElement)) {
       return Kotlin.isType(tmp$ = $receiver.parentElement, HTMLFormElement) ? tmp$ : throwCCE();
-    }return (tmp$_0 = $receiver.parentElement) != null ? this.get_parentForm_0(tmp$_0) : null;
+    }
+    return (tmp$_0 = $receiver.parentElement) != null ? this.get_parentForm_0(tmp$_0) : null;
   };
   HtmlView$Companion.prototype.toNonBreaking_0 = function ($receiver) {
     var tmp$;
@@ -1744,7 +1792,8 @@ if (typeof kotlin === 'undefined') {
   function HtmlView$Companion_getInstance() {
     if (HtmlView$Companion_instance === null) {
       new HtmlView$Companion();
-    }return HtmlView$Companion_instance;
+    }
+    return HtmlView$Companion_instance;
   }
   function HtmlView_init$lambda(this$HtmlView) {
     return function (it) {
@@ -1797,7 +1846,10 @@ if (typeof kotlin === 'undefined') {
           var groupName = (tmp$ = dynamicGroup.name) == null || typeof tmp$ === 'string' ? tmp$ : throwCCE();
           if (groupName != null) {
             this$HtmlView.controller_0.tryToSelectGroupByName_61zpoe$(groupName);
-          }}}return Unit;
+          }
+        }
+      }
+      return Unit;
     };
   }
   function HtmlView_init$lambda_6(this$HtmlView) {
@@ -1841,7 +1893,8 @@ if (typeof kotlin === 'undefined') {
     return function (event) {
       if (window.confirm("Remove prefix '" + closure$it + "'?")) {
         this$HtmlView.controller_0.removePrefix_61zpoe$(closure$it);
-      }event.stopPropagation();
+      }
+      event.stopPropagation();
       return Unit;
     };
   }
@@ -1861,7 +1914,8 @@ if (typeof kotlin === 'undefined') {
     return function (event) {
       if (window.confirm("Remove separator '" + closure$it + "'?")) {
         this$HtmlView.controller_0.removeSeparator_61zpoe$(closure$it);
-      }event.stopPropagation();
+      }
+      event.stopPropagation();
       return Unit;
     };
   }
@@ -1881,7 +1935,8 @@ if (typeof kotlin === 'undefined') {
     return function (event) {
       if (window.confirm("Remove postfix '" + closure$it + "'?")) {
         this$HtmlView.controller_0.removePostfix_61zpoe$(closure$it);
-      }event.stopPropagation();
+      }
+      event.stopPropagation();
       return Unit;
     };
   }
@@ -1953,7 +2008,8 @@ if (typeof kotlin === 'undefined') {
       var tmp$_0;
       if ((tmp$_0 = $receiver.children[element]) != null) {
         destination.add_11rb$(tmp$_0);
-      }}
+      }
+    }
     var destination_0 = ArrayList_init();
     var tmp$_1;
     tmp$_1 = destination.iterator();
