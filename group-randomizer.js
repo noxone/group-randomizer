@@ -66,13 +66,13 @@ this['group-randomizer'] = function (_, Kotlin, $module$kotlinx_serialization_ko
   var checkCountOverflow = Kotlin.kotlin.collections.checkCountOverflow_za3lpa$;
   var attributesMapOf = $module$kotlinx_html_js.kotlinx.html.attributesMapOf_alerag$;
   var A_init = $module$kotlinx_html_js.kotlinx.html.A;
-  var visitTag = $module$kotlinx_html_js.kotlinx.html.visitTag_xwv8ym$;
+  var Throwable = Error;
   var attributesMapOf_0 = $module$kotlinx_html_js.kotlinx.html.attributesMapOf_jyasbz$;
   var SPAN_init = $module$kotlinx_html_js.kotlinx.html.SPAN;
   var DIV_init = $module$kotlinx_html_js.kotlinx.html.DIV;
   var enumEncode = $module$kotlinx_html_js.kotlinx.html.attributes.enumEncode_m4whry$;
   var BUTTON_init = $module$kotlinx_html_js.kotlinx.html.BUTTON;
-  var visitTagAndFinalize = $module$kotlinx_html_js.kotlinx.html.visitTagAndFinalize_g9qte5$;
+  var IllegalArgumentException_init = Kotlin.kotlin.IllegalArgumentException_init_pdl1vj$;
   var reversed = Kotlin.kotlin.collections.reversed_7wnvza$;
   var downTo = Kotlin.kotlin.ranges.downTo_dqglrj$;
   var emptyMap = Kotlin.kotlin.collections.emptyMap_q3lmfv$;
@@ -1121,56 +1121,20 @@ this['group-randomizer'] = function (_, Kotlin, $module$kotlinx_serialization_ko
   Member.prototype.equals = function (other) {
     return this === other || (other !== null && (typeof other === 'object' && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.name, other.name) && Kotlin.equals(this.active, other.active)))));
   };
-  function visit$lambda(closure$block) {
-    return function ($receiver) {
-      closure$block($receiver);
-      return Unit;
-    };
-  }
   function a$lambda($receiver) {
     return Unit;
-  }
-  function visit$lambda_0(closure$block) {
-    return function ($receiver) {
-      closure$block($receiver);
-      return Unit;
-    };
   }
   function span$lambda($receiver) {
     return Unit;
   }
-  function visit$lambda_1(closure$block) {
-    return function ($receiver) {
-      closure$block($receiver);
-      return Unit;
-    };
-  }
   function div$lambda($receiver) {
     return Unit;
-  }
-  function visitAndFinalize$lambda(closure$block) {
-    return function ($receiver) {
-      closure$block($receiver);
-      return Unit;
-    };
   }
   function button$lambda($receiver) {
     return Unit;
   }
-  function visit$lambda_2(closure$block) {
-    return function ($receiver) {
-      closure$block($receiver);
-      return Unit;
-    };
-  }
   function button$lambda_0($receiver) {
     return Unit;
-  }
-  function visitAndFinalize$lambda_0(closure$block) {
-    return function ($receiver) {
-      closure$block($receiver);
-      return Unit;
-    };
   }
   function div$lambda_0($receiver) {
     return Unit;
@@ -1565,44 +1529,67 @@ this['group-randomizer'] = function (_, Kotlin, $module$kotlinx_serialization_ko
       return Unit;
     };
   }
-  function HtmlView$createGroupItem$lambda$lambda$lambda(closure$group, this$HtmlView) {
-    return function ($receiver) {
-      set_title($receiver, "Delete group '" + closure$group.name + "'.");
-      $receiver.unaryPlus_pdl1vz$('\uD83D\uDDD1');
-      set_onClickFunction($receiver, HtmlView$createGroupItem$lambda$lambda$lambda$lambda(closure$group, this$HtmlView));
-      return Unit;
-    };
-  }
-  function HtmlView$createGroupItem$lambda$lambda$lambda_0(closure$group) {
-    return function ($receiver) {
-      $receiver.unaryPlus_pdl1vz$(closure$group.members.size.toString());
-      return Unit;
-    };
-  }
-  function HtmlView$createGroupItem$lambda$lambda_0(closure$group, this$HtmlView) {
-    return function ($receiver) {
-      var classes = 'gr-action-link ml-1';
-      var block = HtmlView$createGroupItem$lambda$lambda$lambda(closure$group, this$HtmlView);
-      visitTag(new A_init(attributesMapOf(['href', null, 'target', null, 'class', classes]), $receiver.consumer), visit$lambda(block));
-      var classes_0 = 'badge badge-primary badge-pill ml-1';
-      var block_0 = HtmlView$createGroupItem$lambda$lambda$lambda_0(closure$group);
-      visitTag(new SPAN_init(attributesMapOf_0('class', classes_0), $receiver.consumer), visit$lambda_0(block_0));
-      return Unit;
-    };
-  }
-  function HtmlView$createGroupItem$lambda(closure$group, this$HtmlView) {
-    return function ($receiver) {
-      $receiver.unaryPlus_pdl1vz$(closure$group.name);
-      set_onClickFunction($receiver, HtmlView$createGroupItem$lambda$lambda(this$HtmlView, closure$group));
-      var block = HtmlView$createGroupItem$lambda$lambda_0(closure$group, this$HtmlView);
-      visitTag(new DIV_init(attributesMapOf_0('class', 'ml-1'), $receiver.consumer), visit$lambda_1(block));
-      return Unit;
-    };
-  }
   HtmlView.prototype.createGroupItem_0 = function (group) {
     var $receiver = get_create(document);
     var type = ButtonType.button;
-    return visitTagAndFinalize(new BUTTON_init(attributesMapOf(['formenctype', null != null ? enumEncode(null) : null, 'formmethod', null != null ? enumEncode(null) : null, 'name', null, 'type', type != null ? enumEncode(type) : null, 'class', 'list-group-item list-group-item-action d-flex justify-content-between gr-action-link-container']), $receiver), $receiver, visitAndFinalize$lambda(HtmlView$createGroupItem$lambda(group, this)));
+    var $receiver_0 = new BUTTON_init(attributesMapOf(['formenctype', null != null ? enumEncode(null) : null, 'formmethod', null != null ? enumEncode(null) : null, 'name', null, 'type', type != null ? enumEncode(type) : null, 'class', 'list-group-item list-group-item-action d-flex justify-content-between gr-action-link-container']), $receiver);
+    if ($receiver_0.consumer !== $receiver) {
+      throw IllegalArgumentException_init('Wrong exception');
+    }
+    $receiver_0.consumer.onTagStart_tkgjla$($receiver_0);
+    try {
+      $receiver_0.unaryPlus_pdl1vz$(group.name);
+      set_onClickFunction($receiver_0, HtmlView$createGroupItem$lambda$lambda(this, group));
+      var $receiver_0_0 = new DIV_init(attributesMapOf_0('class', 'ml-1'), $receiver_0.consumer);
+      $receiver_0_0.consumer.onTagStart_tkgjla$($receiver_0_0);
+      try {
+        var $receiver_0_1 = new A_init(attributesMapOf(['href', null, 'target', null, 'class', 'gr-action-link ml-1']), $receiver_0_0.consumer);
+        $receiver_0_1.consumer.onTagStart_tkgjla$($receiver_0_1);
+        try {
+          set_title($receiver_0_1, "Delete group '" + group.name + "'.");
+          $receiver_0_1.unaryPlus_pdl1vz$('\uD83D\uDDD1');
+          set_onClickFunction($receiver_0_1, HtmlView$createGroupItem$lambda$lambda$lambda$lambda(group, this));
+        } catch (err) {
+          if (Kotlin.isType(err, Throwable)) {
+            $receiver_0_1.consumer.onTagError_cjwpn3$($receiver_0_1, err);
+          } else
+            throw err;
+        }
+        finally {
+          $receiver_0_1.consumer.onTagEnd_tkgjla$($receiver_0_1);
+        }
+        var $receiver_0_2 = new SPAN_init(attributesMapOf_0('class', 'badge badge-primary badge-pill ml-1'), $receiver_0_0.consumer);
+        $receiver_0_2.consumer.onTagStart_tkgjla$($receiver_0_2);
+        try {
+          $receiver_0_2.unaryPlus_pdl1vz$(group.members.size.toString());
+        } catch (err_0) {
+          if (Kotlin.isType(err_0, Throwable)) {
+            $receiver_0_2.consumer.onTagError_cjwpn3$($receiver_0_2, err_0);
+          } else
+            throw err_0;
+        }
+        finally {
+          $receiver_0_2.consumer.onTagEnd_tkgjla$($receiver_0_2);
+        }
+      } catch (err_1) {
+        if (Kotlin.isType(err_1, Throwable)) {
+          $receiver_0_0.consumer.onTagError_cjwpn3$($receiver_0_0, err_1);
+        } else
+          throw err_1;
+      }
+      finally {
+        $receiver_0_0.consumer.onTagEnd_tkgjla$($receiver_0_0);
+      }
+    } catch (err_2) {
+      if (Kotlin.isType(err_2, Throwable)) {
+        $receiver_0.consumer.onTagError_cjwpn3$($receiver_0, err_2);
+      } else
+        throw err_2;
+    }
+    finally {
+      $receiver_0.consumer.onTagEnd_tkgjla$($receiver_0);
+    }
+    return $receiver.finalize();
   };
   function HtmlView$createMemberItem$lambda$lambda$lambda(this$HtmlView, closure$member) {
     return function (it) {
@@ -1611,21 +1598,6 @@ this['group-randomizer'] = function (_, Kotlin, $module$kotlinx_serialization_ko
     };
   }
   function HtmlView$createMemberItem$lambda$lambda$lambda$lambda(closure$member, this$HtmlView) {
-    return function ($receiver) {
-      $receiver.unaryPlus_pdl1vz$(this$HtmlView.getIconText_0(closure$member));
-      return Unit;
-    };
-  }
-  function HtmlView$createMemberItem$lambda$lambda$lambda_0(closure$member, this$HtmlView) {
-    return function ($receiver) {
-      var classes = 'badge badge-pill mr-1 ' + this$HtmlView.getBadgeClass_0(closure$member);
-      var block = HtmlView$createMemberItem$lambda$lambda$lambda$lambda(closure$member, this$HtmlView);
-      visitTag(new SPAN_init(attributesMapOf_0('class', classes), $receiver.consumer), visit$lambda_0(block));
-      $receiver.unaryPlus_pdl1vz$(closure$member.name);
-      return Unit;
-    };
-  }
-  function HtmlView$createMemberItem$lambda$lambda$lambda$lambda_0(closure$member, this$HtmlView) {
     return function (event) {
       if (window.confirm("Do you really want to remove member '" + closure$member.name + "'?")) {
         this$HtmlView.controller_0.removeGroupMember_wpoo0j$(closure$member);
@@ -1634,37 +1606,79 @@ this['group-randomizer'] = function (_, Kotlin, $module$kotlinx_serialization_ko
       return Unit;
     };
   }
-  function HtmlView$createMemberItem$lambda$lambda$lambda_1(closure$member, this$HtmlView) {
-    return function ($receiver) {
-      set_title($receiver, "Remove member '" + closure$member.name + "'.");
-      $receiver.unaryPlus_pdl1vz$('\uD83D\uDDD1');
-      set_onClickFunction($receiver, HtmlView$createMemberItem$lambda$lambda$lambda$lambda_0(closure$member, this$HtmlView));
-      return Unit;
-    };
-  }
-  function HtmlView$createMemberItem$lambda$lambda(this$HtmlView, closure$member) {
-    return function ($receiver) {
-      set_onClickFunction($receiver, HtmlView$createMemberItem$lambda$lambda$lambda(this$HtmlView, closure$member));
-      var block = HtmlView$createMemberItem$lambda$lambda$lambda_0(closure$member, this$HtmlView);
-      visitTag(new DIV_init(attributesMapOf_0('class', null), $receiver.consumer), visit$lambda_1(block));
-      var classes = 'gr-action-link ml-1';
-      var block_0 = HtmlView$createMemberItem$lambda$lambda$lambda_1(closure$member, this$HtmlView);
-      visitTag(new A_init(attributesMapOf(['href', null, 'target', null, 'class', classes]), $receiver.consumer), visit$lambda(block_0));
-      return Unit;
-    };
-  }
-  function HtmlView$createMemberItem$lambda(this$HtmlView, closure$member) {
-    return function ($receiver) {
-      var type = ButtonType.button;
-      var classes = 'btn btn-light d-flex justify-content-between gr-action-link-container gr-full-width';
-      var block = HtmlView$createMemberItem$lambda$lambda(this$HtmlView, closure$member);
-      visitTag(new BUTTON_init(attributesMapOf(['formenctype', null != null ? enumEncode(null) : null, 'formmethod', null != null ? enumEncode(null) : null, 'name', null, 'type', type != null ? enumEncode(type) : null, 'class', classes]), $receiver.consumer), visit$lambda_2(block));
-      return Unit;
-    };
-  }
   HtmlView.prototype.createMemberItem_0 = function (member) {
     var $receiver = get_create(document);
-    return visitTagAndFinalize(new DIV_init(attributesMapOf_0('class', 'col-sm-6 col-md-6 col-lg-4 col-xl-3 p-1'), $receiver), $receiver, visitAndFinalize$lambda_0(HtmlView$createMemberItem$lambda(this, member)));
+    var $receiver_0 = new DIV_init(attributesMapOf_0('class', 'col-sm-6 col-md-6 col-lg-4 col-xl-3 p-1'), $receiver);
+    if ($receiver_0.consumer !== $receiver) {
+      throw IllegalArgumentException_init('Wrong exception');
+    }
+    $receiver_0.consumer.onTagStart_tkgjla$($receiver_0);
+    try {
+      var type = ButtonType.button;
+      var $receiver_0_0 = new BUTTON_init(attributesMapOf(['formenctype', null != null ? enumEncode(null) : null, 'formmethod', null != null ? enumEncode(null) : null, 'name', null, 'type', type != null ? enumEncode(type) : null, 'class', 'btn btn-light d-flex justify-content-between gr-action-link-container gr-full-width']), $receiver_0.consumer);
+      $receiver_0_0.consumer.onTagStart_tkgjla$($receiver_0_0);
+      try {
+        set_onClickFunction($receiver_0_0, HtmlView$createMemberItem$lambda$lambda$lambda(this, member));
+        var $receiver_0_1 = new DIV_init(attributesMapOf_0('class', null), $receiver_0_0.consumer);
+        $receiver_0_1.consumer.onTagStart_tkgjla$($receiver_0_1);
+        try {
+          var $receiver_0_2 = new SPAN_init(attributesMapOf_0('class', 'badge badge-pill mr-1 ' + this.getBadgeClass_0(member)), $receiver_0_1.consumer);
+          $receiver_0_2.consumer.onTagStart_tkgjla$($receiver_0_2);
+          try {
+            $receiver_0_2.unaryPlus_pdl1vz$(this.getIconText_0(member));
+          } catch (err) {
+            if (Kotlin.isType(err, Throwable)) {
+              $receiver_0_2.consumer.onTagError_cjwpn3$($receiver_0_2, err);
+            } else
+              throw err;
+          }
+          finally {
+            $receiver_0_2.consumer.onTagEnd_tkgjla$($receiver_0_2);
+          }
+          $receiver_0_1.unaryPlus_pdl1vz$(member.name);
+        } catch (err_0) {
+          if (Kotlin.isType(err_0, Throwable)) {
+            $receiver_0_1.consumer.onTagError_cjwpn3$($receiver_0_1, err_0);
+          } else
+            throw err_0;
+        }
+        finally {
+          $receiver_0_1.consumer.onTagEnd_tkgjla$($receiver_0_1);
+        }
+        var $receiver_0_3 = new A_init(attributesMapOf(['href', null, 'target', null, 'class', 'gr-action-link ml-1']), $receiver_0_0.consumer);
+        $receiver_0_3.consumer.onTagStart_tkgjla$($receiver_0_3);
+        try {
+          set_title($receiver_0_3, "Remove member '" + member.name + "'.");
+          $receiver_0_3.unaryPlus_pdl1vz$('\uD83D\uDDD1');
+          set_onClickFunction($receiver_0_3, HtmlView$createMemberItem$lambda$lambda$lambda$lambda(member, this));
+        } catch (err_1) {
+          if (Kotlin.isType(err_1, Throwable)) {
+            $receiver_0_3.consumer.onTagError_cjwpn3$($receiver_0_3, err_1);
+          } else
+            throw err_1;
+        }
+        finally {
+          $receiver_0_3.consumer.onTagEnd_tkgjla$($receiver_0_3);
+        }
+      } catch (err_2) {
+        if (Kotlin.isType(err_2, Throwable)) {
+          $receiver_0_0.consumer.onTagError_cjwpn3$($receiver_0_0, err_2);
+        } else
+          throw err_2;
+      }
+      finally {
+        $receiver_0_0.consumer.onTagEnd_tkgjla$($receiver_0_0);
+      }
+    } catch (err_3) {
+      if (Kotlin.isType(err_3, Throwable)) {
+        $receiver_0.consumer.onTagError_cjwpn3$($receiver_0, err_3);
+      } else
+        throw err_3;
+    }
+    finally {
+      $receiver_0.consumer.onTagEnd_tkgjla$($receiver_0);
+    }
+    return $receiver.finalize();
   };
   function HtmlView$createTextItem$lambda(it) {
     it.stopPropagation();
@@ -1674,32 +1688,6 @@ this['group-randomizer'] = function (_, Kotlin, $module$kotlinx_serialization_ko
     it.stopPropagation();
     return Unit;
   }
-  function HtmlView$createTextItem$lambda$lambda(closure$text) {
-    return function ($receiver) {
-      $receiver.unaryPlus_pdl1vz$(HtmlView$Companion_getInstance().toNonBreaking_0(closure$text));
-      return Unit;
-    };
-  }
-  function HtmlView$createTextItem$lambda$lambda_0(closure$text, closure$onDeleteFunction) {
-    return function ($receiver) {
-      set_title($receiver, "Remove '" + closure$text + "'.");
-      $receiver.unaryPlus_pdl1vz$('\uD83D\uDDD1');
-      set_onClickFunction($receiver, closure$onDeleteFunction);
-      return Unit;
-    };
-  }
-  function HtmlView$createTextItem$lambda_1(closure$onSelectFunction, closure$text, closure$onDeleteFunction) {
-    return function ($receiver) {
-      set_onClickFunction($receiver, closure$onSelectFunction);
-      var classes = 'ml-2 gr-bg-light-grey rounded px-1 text-monospace';
-      var block = HtmlView$createTextItem$lambda$lambda(closure$text);
-      visitTag(new DIV_init(attributesMapOf_0('class', classes), $receiver.consumer), visit$lambda_1(block));
-      var classes_0 = 'gr-action-link ml-1';
-      var block_0 = HtmlView$createTextItem$lambda$lambda_0(closure$text, closure$onDeleteFunction);
-      visitTag(new A_init(attributesMapOf(['href', null, 'target', null, 'class', classes_0]), $receiver.consumer), visit$lambda(block_0));
-      return Unit;
-    };
-  }
   HtmlView.prototype.createTextItem_0 = function (text, onSelectFunction, onDeleteFunction) {
     if (onSelectFunction === void 0)
       onSelectFunction = HtmlView$createTextItem$lambda;
@@ -1707,7 +1695,51 @@ this['group-randomizer'] = function (_, Kotlin, $module$kotlinx_serialization_ko
       onDeleteFunction = HtmlView$createTextItem$lambda_0;
     var $receiver = get_create(document);
     var type = ButtonType.button;
-    return visitTagAndFinalize(new BUTTON_init(attributesMapOf(['formenctype', null != null ? enumEncode(null) : null, 'formmethod', null != null ? enumEncode(null) : null, 'name', null, 'type', type != null ? enumEncode(type) : null, 'class', 'list-group-item list-group-item-action d-flex justify-content-between gr-action-link-container']), $receiver), $receiver, visitAndFinalize$lambda(HtmlView$createTextItem$lambda_1(onSelectFunction, text, onDeleteFunction)));
+    var $receiver_0 = new BUTTON_init(attributesMapOf(['formenctype', null != null ? enumEncode(null) : null, 'formmethod', null != null ? enumEncode(null) : null, 'name', null, 'type', type != null ? enumEncode(type) : null, 'class', 'list-group-item list-group-item-action d-flex justify-content-between gr-action-link-container']), $receiver);
+    if ($receiver_0.consumer !== $receiver) {
+      throw IllegalArgumentException_init('Wrong exception');
+    }
+    $receiver_0.consumer.onTagStart_tkgjla$($receiver_0);
+    try {
+      set_onClickFunction($receiver_0, onSelectFunction);
+      var $receiver_0_0 = new DIV_init(attributesMapOf_0('class', 'ml-2 gr-bg-light-grey rounded px-1 text-monospace'), $receiver_0.consumer);
+      $receiver_0_0.consumer.onTagStart_tkgjla$($receiver_0_0);
+      try {
+        $receiver_0_0.unaryPlus_pdl1vz$(HtmlView$Companion_getInstance().toNonBreaking_0(text));
+      } catch (err) {
+        if (Kotlin.isType(err, Throwable)) {
+          $receiver_0_0.consumer.onTagError_cjwpn3$($receiver_0_0, err);
+        } else
+          throw err;
+      }
+      finally {
+        $receiver_0_0.consumer.onTagEnd_tkgjla$($receiver_0_0);
+      }
+      var $receiver_0_1 = new A_init(attributesMapOf(['href', null, 'target', null, 'class', 'gr-action-link ml-1']), $receiver_0.consumer);
+      $receiver_0_1.consumer.onTagStart_tkgjla$($receiver_0_1);
+      try {
+        set_title($receiver_0_1, "Remove '" + text + "'.");
+        $receiver_0_1.unaryPlus_pdl1vz$('\uD83D\uDDD1');
+        set_onClickFunction($receiver_0_1, onDeleteFunction);
+      } catch (err_0) {
+        if (Kotlin.isType(err_0, Throwable)) {
+          $receiver_0_1.consumer.onTagError_cjwpn3$($receiver_0_1, err_0);
+        } else
+          throw err_0;
+      }
+      finally {
+        $receiver_0_1.consumer.onTagEnd_tkgjla$($receiver_0_1);
+      }
+    } catch (err_1) {
+      if (Kotlin.isType(err_1, Throwable)) {
+        $receiver_0.consumer.onTagError_cjwpn3$($receiver_0, err_1);
+      } else
+        throw err_1;
+    }
+    finally {
+      $receiver_0.consumer.onTagEnd_tkgjla$($receiver_0);
+    }
+    return $receiver.finalize();
   };
   HtmlView.prototype.getBadgeClass_0 = function ($receiver) {
     return $receiver.active ? 'badge-success' : 'badge-danger';
