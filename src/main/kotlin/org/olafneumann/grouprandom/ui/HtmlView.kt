@@ -226,8 +226,8 @@ class HtmlView(
 
     private fun createTextItem(
         text: String,
-        onSelectFunction: (Event) -> Unit = { it.stopPropagation() },
-        onDeleteFunction: (Event) -> Unit = { it.stopPropagation() }
+        onSelectFunction: (kotlinx.html.org.w3c.dom.events.Event) -> Unit = { it.stopPropagation() },
+        onDeleteFunction: (kotlinx.html.org.w3c.dom.events.Event) -> Unit = { it.stopPropagation() }
     ) = document.create.button(
         type = ButtonType.button,
         classes = "list-group-item list-group-item-action d-flex justify-content-between gr-action-link-container"
