@@ -19,7 +19,7 @@
         <kotlin.version>1.7.20</kotlin.version>
         <kotlin.code.style>official</kotlin.code.style>
         <junit.version>4.12</junit.version>
-        <kotlinx-serialization.version>1.4.0</kotlinx-serialization.version>
+        <kotlinx-serialization.version>1.4.1</kotlinx-serialization.version>
     </properties>
 
     <dependencies>
