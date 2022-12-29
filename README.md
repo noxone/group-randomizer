@@ -1,4 +1,4 @@
-:warning: I have decided to close this project and will therefore not maintain it. There will be no further updates, fixes or changes. The code as well as the website will remain available. :warning:
+:warning: I have decided to close this project and will therefore no longer maintain it. There will be no further updates, fixes or changes. The code as well as the website will remain available. :warning:
 
 # Group Randomizer  [![Build Status](https://github.com/noxone/group-randomizer/actions/workflows/test.yml/badge.svg)](https://github.com/noxone/group-randomizer/actions)
 
